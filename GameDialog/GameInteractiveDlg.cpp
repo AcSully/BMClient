@@ -3,6 +3,7 @@
 #include "../Common/SKnl3Helper.h"
 #include <assert.h>
 #include "../BackMir/BackMir.h"
+#include <tolua++.h>
 //////////////////////////////////////////////////////////////////////////
 static const int nDrawBeginX = 24;
 static const int nDrawBeginY = 80;
@@ -24,7 +25,7 @@ GameInteractiveDlg::GameInteractiveDlg()
 	//m_nButtonNum = 0;
 	m_bVisible = false;
 
-	SetWindowTitle("¶Ô»°");
+	SetWindowTitle("ï¿½Ô»ï¿½");
 }
 
 GameInteractiveDlg::~GameInteractiveDlg()
@@ -38,14 +39,14 @@ void GameInteractiveDlg::Init(hgeResourceManager* _res, GameMainOptUI* _parent)
 {
 	m_pRes = _res;
 	m_pParent = _parent;
-	m_pFont = new GfxFont("ËÎÌå", 12, 0, 0, 0);
+	m_pFont = new GfxFont("ï¿½ï¿½ï¿½ï¿½", 12, 0, 0, 0);
 //	m_pFont->SetLineFeedNumber(20);
 	m_pFont->SetKerningHeight(2.0f);
 }
 
 void GameInteractiveDlg::Render()
 {
-	//	»­±³¾°
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	/*if(!m_pRes)
 	{
 		return;
@@ -62,14 +63,14 @@ void GameInteractiveDlg::Render()
 	}
 
 	static const int nEachLineOffset = 15;
-	//	±êÌâ
+	//	ï¿½ï¿½ï¿½ï¿½
 	int nLine = 0;
 	m_pFont->SetColor(ARGB_GREEN);
 	m_pFont->Print(RELATIVE_X(nDrawBeginX), RELATIVE_Y(60 + nLine * nEachLineOffset), m_context.GetTitle());
 	++nLine;
 	++nLine;
 
-	//	ÄÚÈÝ
+	//	ï¿½ï¿½ï¿½ï¿½
 	const char* szText = m_context.GetText();
 	//const char* szText = "hello";
 	int nTextNum = strlen(szText);
@@ -83,7 +84,7 @@ void GameInteractiveDlg::Render()
 	++nLine;
 	++nLine;
 
-	//	°´Å¥
+	//	ï¿½ï¿½Å¥
 	int nOffsetX = 0;
 	const char* szButton = NULL;
 	m_pFont->SetColor(ARGB_YELLOW);
@@ -220,7 +221,7 @@ bool GameInteractiveDlg::IsCaptionBar(int _x, int _y)
 		_y >= RELATIVE_Y(0) &&
 		_y < RELATIVE_Y(40))
 	{
-		//	¹Ø±Õ°´Å¥
+		//	ï¿½Ø±Õ°ï¿½Å¥
 		/*if(_x >= RELATIVE_X(265) &&
 			_x <= RELATIVE_X(279) &&
 			_y >= RELATIVE_Y(18) &&
@@ -257,7 +258,7 @@ bool GameInteractiveDlg::ScriptCreateDlg(GameObject* _creator)
 	}
 	catch(...)
 	{
-		AfxGetHge()->System_Log("½Å±¾¶Ô»°¿òÉú³ÉÊ§°Ü:ID[%d]", m_nCreatorID);
+		AfxGetHge()->System_Log("ï¿½Å±ï¿½ï¿½Ô»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½:ID[%d]", m_nCreatorID);
 	}
 #endif
 	
@@ -395,17 +396,17 @@ bool GameInteractiveDlg::Create(GameNPC* _pNpc, int _id, int _step)
 #ifdef _USE_SCRIPT_
 void GameInteractiveDlg::Script_RegisterMemberFunction()
 {
-	//	Ìí¼ÓÒ³Êý
+	//	ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½
 	m_pParent->GetScript()->GetGlobals().RegisterDirect("AddPage", m_context, &InteractiveContext::AddPage);
-	//	Ìí¼Ó±êÌâ
+	//	ï¿½ï¿½ï¿½Ó±ï¿½ï¿½ï¿½
 	m_pParent->GetScript()->GetGlobals().RegisterDirect("AddHead", m_context, &InteractiveContext::AddHead);
-	//	Ìí¼ÓÄÚÈÝ
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_pParent->GetScript()->GetGlobals().RegisterDirect("AddText", m_context, &InteractiveContext::AddText);
-	//	Ìí¼Ó°´Å¥
+	//	ï¿½ï¿½ï¿½Ó°ï¿½Å¥
 	m_pParent->GetScript()->GetGlobals().RegisterDirect("AddButton", m_context, &InteractiveContext::AddButton);
-	//	ÖØÖÃÊý¾Ý
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_pParent->GetScript()->GetGlobals().RegisterDirect("Reset", m_context, &InteractiveContext::Reset);
-	//	³õÊ¼»¯
+	//	ï¿½ï¿½Ê¼ï¿½ï¿½
 	m_pParent->GetScript()->GetGlobals().RegisterDirect("Init", m_context, &InteractiveContext::Init);
 }
 #endif
@@ -421,17 +422,17 @@ void GameInteractiveDlg::OnButtonCmd(int _idx, int _cmd)
 		}break;
 	case INTERACTIVE_BUTTON_NEXTPAGE:
 		{
-			//	ÏÂÒ»Ò³
+			//	ï¿½ï¿½Ò»Ò³
 			m_context.NextPage();
 		}break;
 	case INTERACTIVE_BUTTON_PREPAGE:
 		{
-			//	ÉÏÒ»Ò³
+			//	ï¿½ï¿½Ò»Ò³
 			m_context.PrevPage();
 		}break;
 	default:
 		{
-			AfxGetHge()->System_Log("¶Ô»°¿ò°´Å¥ID[%d]£¬½»¸ø½Å±¾´¦Àí", _cmd);
+			AfxGetHge()->System_Log("ï¿½Ô»ï¿½ï¿½ï¿½Å¥ID[%d]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½", _cmd);
 			LuaFunction<void> funcDoButton = m_pParent->GetScript()->GetGlobal("DoButtonCmd");
 			funcDoButton(m_nCreatorID, _cmd, m_pParent->GetQuestInfo().GetStage());
 		}break;

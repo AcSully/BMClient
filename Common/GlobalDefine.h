@@ -1,25 +1,14 @@
 #ifndef _GLOBALDEFINE_H_
 #define _GLOBALDEFINE_H_
 
-// #define SINGLETON_DECLARE(class_name)				\
-// 	public:											\
-// 	static class_name* GetInstance()				\
-// 	{												\
-// 	static class_name* pIns = NULL;				\
-// 	if(!pIns)									\
-// 		{											\
-// 		pIns = new class_name();				\
-// 		}											\
-// 		return pIns;								\
-// 	};	
-//#define SAFE_DELETE(p)	{if(p){delete p;p = NULL;}}
-//#define SAFE_DELETE_ARRAY(p)	{if(p){delete[] p;p = NULL;}}
-//#define SAFE_NEW(p, type)	{if(NULL == p){p = new type;}}
+#define SAFE_DELETE(p)	{if(p){delete p;p = NULL;}}
+#define SAFE_DELETE_ARRAY(p)	{if(p){delete[] p;p = NULL;}}
+#define SAFE_NEW(p, type)	{if(NULL == p){p = new type;}}
 
 #define RECT_WIDTH(rc)	(rc.right - rc.left)
 #define RECT_HEIGHT(rc) (rc.bottom - rc.top)
 
-//	µ¥»ú OR ÁªÍøÄ£Ê½
+//  Network or standalone mode
 //#define NETWORK_MODE
 #define MAGIC_PLAY_OFTX		8
 #define MAGIC_PLAY_OFTY		8
@@ -42,35 +31,30 @@
 #define FONT_WIDTH_NUMBER		6
 #define FONT_HEIGHT_NUMBER		6
 
-// #define VIEW_OPERATE			120
-// 
-// #define CENTRAL_X				(48 * 8 - 8)
-// #define CENTRAL_Y				(32 * 7)
-// 
-// #define WINDOW_WIDTH			800
-// #define WINDOW_HEIGHT			600
-
 #define VIEW_OFFSET				25
 #define INVALID_ITEM_ID			-1
 
+#define MAX_ATTACK_INTERVAL		140.0f
+#define MAX_MOVE_INTERVAL		160.0f
+
 #define _PI_					3.141592
 
-//	¹ÖÎï±¬ÎïÆ·Ê±ºò ±éÀúµÄ¸ñ×ÓÊý
+//  Floor item drop offset
 #define FLOOR_ITEM_OFFSET		4
 
-//	¼ÓÑª ¼ÓÀ¶µÄ·½Ê½	NORMAL : Ö±½Ó¼Ó			SPECL : ¸ù¾Ý²½³¤1Ãë1Ãë¼Ó
+//  HP display mode: NORMAL = direct, SPECL = based on difference 1:1
 #define ADD_NORMAL				0
 #define ADD_SPECL				1
 
-//	×°±¸ËµÃ÷»»ÐÐ×ÖÊý
+//  Equipment description line count
 #define BREAK_NUMBER			28
 
-//	Ð±×ÅÅÜµÄ¾àÀë
+//  Running skill distance
 #define RUN_HYPO_DISTANCE		120
-//	ºá×ÅÅÜµÄ¾àÀë
+//  Walking skill distance
 #define WALK_HYPO_DISTANCE		0
 
-//	·½ÏòÅÐ¶Ï
+//  Direction flags
 #define DRT_UP					0x01
 #define DRT_RIGHTUP				(DRT_RIGHT | DRT_UP)
 #define DRT_RIGHT				0x02
@@ -80,13 +64,13 @@
 #define DRT_LEFT				0x08
 #define DRT_LEFTUP				(DRT_LEFT | DRT_UP)
 
-//	×î´óÄ§·¨ÊýÁ¿
+//  Max magic count
 #define MAX_MGC_NUM				20
 
-//	×î³¤Ëµ»°³¤¶È
+//  Max say text length
 #define MAX_SAY_LENGTH			80
 
-//	Íæ¼Ò³¯Ïò
+//  Player direction
 enum PLAYER_DIRECTION
 {
 	PDT_UP = 0,
@@ -99,7 +83,7 @@ enum PLAYER_DIRECTION
 	PDT_LEFTUP,
 };
 
-//	Íæ¼Ò×´Ì¬
+//  Player status
 enum PLAYER_STATUS
 {
 	PST_NONE,
@@ -125,7 +109,7 @@ enum PLAYER_STATUS
 	PST_EXT4
 };
 
-//	Íæ¼ÒÐÔ±ð
+//  Player sex
 enum PLAYER_SEX
 {
 	PSX_NONE,
@@ -133,7 +117,7 @@ enum PLAYER_SEX
 	PSX_WOMAN,
 };
 
-//	NPCÀàÐÍ
+//  Object type
 enum OBJECT_TYPE
 {
 	OBJ_NPC,
@@ -141,31 +125,28 @@ enum OBJECT_TYPE
 	OBJ_PLAYER,
 	OBJ_OTHERPLAYER,
 	OBJ_SELF,
-// 	OBJ_ZHANSHI,
-//  	OBJ_FASHI,
-//  	OBJ_DAOSHI,
 	OBJ_UNKNOW,
 };
 
-//	Ö°Òµ
+//  Job class
 #define JOB_DC	0
 #define JOB_MC	1
 #define JOB_SC	2
 
-//	´°¿ÚÖÃ¶¥ÏûÏ¢
+//  Custom messages
 #define WM_DLG_BRINGTOTOP	(0x0400 + 1)
-//	SocketÏûÏ¢
+//  Socket message
 #define WM_SOCKMSG			(0x0400 + 2)
-//	³¡¾°ÇÐ»»½ø¶ÈÏûÏ¢
+//  Scene switch progress
 #define WM_SCENE_PROG		(0x0400 + 3)
-//	½øÈëÓÎÏ·³¡¾°
+//  Enter game scene
 #define WM_ENTER_GAMESCENE	(0x0400 + 4)
-//	Ð¡ÍË »Øµ½ÈËÎï½çÃæ
+//  Return to character select
 #define WM_BACK_SELCHR		(0x0400 + 5)
-// ¹Ø±Õ¸¨Öú´°¿Ú
+//  Hide assist window
 #define WM_HIDE_ASSITWND	(0x0400 + 6)
 
-//	¶¨Ê±Æ÷
+//  Timer IDs
 #define TIMER_CONNECTSVR	(101)
 #define TIMER_CONNTIMEOUT	(102)
 #define TIMER_CLOSEGAME		(103)
@@ -178,9 +159,23 @@ enum OBJECT_TYPE
 
 #define TIMER_PRECONN_UPDATE (100)
 
-//	³¡¾°ÐÅÏ¢
+//  Scene IDs
 #define SCENE_LOGIN		0
 #define SCENE_SELCHR	1
 #define SCENE_GAME		2
+
+//  Extra-attribute display descriptors (indexed by extraAttrib.nAttribID).
+//  Stub strings â€” real names are loaded from lua config in production builds.
+extern const char* g_szExtraAttribDescriptor[];
+
+//  Walking cost interval in ms (frame budget for walk action)
+#ifndef NORMAL_WALK_COST_TIME
+#define NORMAL_WALK_COST_TIME    300
+#endif
+
+//  Save-mask bit signaling that an EXP delta must NOT be persisted.
+#ifndef EXPR_MASK_NOSAVE
+#define EXPR_MASK_NOSAVE         0x80000000u
+#endif
 
 #endif

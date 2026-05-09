@@ -1,19 +1,32 @@
-#ifndef _INC_MAGICEFFECT_
+ï»¿#ifndef _INC_MAGICEFFECT_
 #define _INC_MAGICEFFECT_
 //////////////////////////////////////////////////////////////////////////
 #include "../GameScene/GameInfoManager.h"
 #include "../../CommonModule/MagicEffectID.h"
 #include <hgesprite.h>
+#include <list>
+
+
+
 //////////////////////////////////////////////////////////////////////////
 extern const char* g_szMgcDescriptor[MEFF_USERTOTAL];
+extern const char* g_szMagicName[MEFF_USERTOTAL];
+
+// Get magic name by ID
+inline const char* GetMagicNameByID(int _nID)
+{
+    if (_nID >= 0 && _nID < MEFF_USERTOTAL)
+        return g_szMagicName[_nID];
+    return "";
+}
 //////////////////////////////////////////////////////////////////////////
-//	²»»­
+//	ï¿½ï¿½ï¿½ï¿½
 #define MAGIC_STAGE_NONE		0
-//	ÔÚ×ÔÉíµÄÖ¡
+//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡
 #define MAGIC_STAGE_SELF		1
-//	ÔÚ¹ý³ÌÖÐµÄÖ¡
+//	ï¿½Ú¹ï¿½ï¿½ï¿½ï¿½Ðµï¿½Ö¡
 #define MAGIC_STAGE_WAY			2
-//	ÔÚÄ¿±êµÄÖ¡
+//	ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½Ö¡
 #define MAGIC_STAGE_DEST		3
 //////////////////////////////////////////////////////////////////////////
 struct MagicRenderInfo

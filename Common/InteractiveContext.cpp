@@ -1,4 +1,4 @@
-#include "InteractiveContext.h"
+ï»¿#include "InteractiveContext.h"
 #include "../Common/GlobalFunction.h"
 #include <Windows.h>
 #include <stdio.h>
@@ -29,7 +29,7 @@ void InteractiveContext::Init()
 	m_nCurReadpage = m_nCurWritePage = m_nCurReadPageOffsetBegin = m_nCurReadPageOffsetEnd = m_nPageSum = 0;
 	m_nPageSum = GetPageCount();
 	InternalUpdateDataLength();
-	//	Í¬Ê±ÐèÒª¸üÐÂµÚÒ»Ò³µÄEnd Offset
+	//	Í¬Ê±ï¿½ï¿½Òªï¿½ï¿½ï¿½Âµï¿½Ò»Ò³ï¿½ï¿½End Offset
 	for(int i = 1; (i < strlen(m_szData)) && (i < sizeof(m_szData) - 1); ++i)
 	{
 		if(m_szData[i] == '/' &&
@@ -106,7 +106,7 @@ bool InteractiveContext::LoadFromFile(const char* lpszFileName)
 	return false;
 }
 
-//	Íâ²¿
+//	ï¿½â²¿
 void InteractiveContext::AddPage()
 {
 	int nInsertIdx = strlen(m_szData);
@@ -144,7 +144,7 @@ void InteractiveContext::AddButton(int _id, const char* _text)
 	}
 }
 
-//	ÄÚ²¿
+//	ï¿½Ú²ï¿½
 int InteractiveContext::GetPageCount()
 {
 	int nCounter = 0;
@@ -175,7 +175,7 @@ const char* InteractiveContext::GetTitle()
 		if(m_szData[i] == '/' &&
 			m_szData[i + 1] == 'h')
 		{
-			//	µ½ÁË¼ì²âÕâ¶ùÁË
+			//	ï¿½ï¿½ï¿½Ë¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			for(int j = i + 2; j <= m_nCurReadPageOffsetEnd; ++j)
 			{
 				if(m_szData[j] != '/')
@@ -237,7 +237,7 @@ const char* InteractiveContext::GetButtonText(int _idx)
 		if(m_szData[i] == '/' &&
 			m_szData[i + 1] == 'b')
 		{
-			//	°´Å¥
+			//	ï¿½ï¿½Å¥
 			if(nCounter == _idx)
 			{
 				for(int j = i + 3; j <= m_nCurReadPageOffsetEnd; ++j)
@@ -245,7 +245,7 @@ const char* InteractiveContext::GetButtonText(int _idx)
 					if(m_szData[j] >= 48 &&
 						m_szData[j] <= 57)
 					{
-						//	ÊÇÊý×Ö ²»¼ÆËã½øÈ¥
+						//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¥
 						continue;
 					}
 					else if(m_szData[j] != '/')
@@ -278,7 +278,7 @@ int InteractiveContext::GetButtonSum()
 		if(m_szData[i] == '/' &&
 			m_szData[i + 1] == 'b')
 		{
-			//	°´Å¥
+			//	ï¿½ï¿½Å¥
 			++nCounter;
 		}
 	}
@@ -297,7 +297,7 @@ int InteractiveContext::GetButtonID(int _idx)
 		if(m_szData[i] == '/' &&
 			m_szData[i + 1] == 'b')
 		{
-			//	°´Å¥
+			//	ï¿½ï¿½Å¥
 			if(nCounter == _idx)
 			{
 				//return m_szData[i + 2] - 48;
@@ -306,7 +306,7 @@ int InteractiveContext::GetButtonID(int _idx)
 					if(m_szData[j] >= 48 &&
 						m_szData[j] <= 57)
 					{
-						//	ÊÇÊý×Ö
+						//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						szValue[nInsertIdx++] = m_szData[j];
 					}
 					else
@@ -361,7 +361,7 @@ bool InteractiveContext::InternalCheck()
 	int nInsertIdx = strlen(m_szData);
 	if(nInsertIdx >= (sizeof(m_szData) - 10))
 	{
-		assert("»º´æ²»×ã");
+		assert("ï¿½ï¿½ï¿½æ²»ï¿½ï¿½");
 		return false;
 	}
 	return true;
@@ -369,7 +369,7 @@ bool InteractiveContext::InternalCheck()
 
 void InteractiveContext::InternalUpdateReadOffset(bool _forward)
 {
-	//	ÔÚÇ°Ò»Ò³µÄ»ù´¡ÉÏ ½øÐÐÆ«ÒÆ²Ù×÷
+	//	ï¿½ï¿½Ç°Ò»Ò³ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ«ï¿½Æ²ï¿½ï¿½ï¿½
 	if(_forward)
 	{
 		assert(m_szData[m_nCurReadPageOffsetBegin] == '/' &&
@@ -438,7 +438,7 @@ InteractiveContextEx::~InteractiveContextEx()
 //////////////////////////////////////////////////////////////////////////
 void InteractiveContextEx::Clear()
 {
-	m_xContext.Clear();
+	m_xContext.Reset();
 	if(!m_xNodes.empty())
 	{
 		CONTEXTNODELIST::const_iterator iter = m_xNodes.begin();
@@ -457,7 +457,7 @@ void InteractiveContextEx::AddContextNode(int _x, int _y, const char* _pMsg, int
 	size_t nAvailable = m_xContext.GetAvailableLength();
 	if(nAvailable < strlen(_pMsg) + 1 + 4)
 	{
-		AfxGetHge()->System_Log("Ã»ÓÐ¸ü¶àµÄ»º´æ[InteractiveContextEx]");
+		AfxGetHge()->System_Log("Ã»ï¿½Ð¸ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½[InteractiveContextEx]");
 	}
 	else
 	{

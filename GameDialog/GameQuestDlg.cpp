@@ -1,6 +1,7 @@
 #include "GameQuestDlg.h"
 #include "../BackMir/BackMir.h"
 #include "../GameScene/GameResourceManager.h"
+#include <tolua++.h>
 //////////////////////////////////////////////////////////////////////////
 #define DLG_WIDTH	(450+10)
 #define DLG_HEIGHT	350
@@ -37,10 +38,10 @@ GameQuestDlg::GameQuestDlg()
 	AddCommonButton(CBTN_UPARROW, QUESTBTN_UPARROW_CONTENT, DLG_WIDTH - 30, QUESTSUMMARY_TOP, NULL);
 	AddCommonButton(CBTN_DOWNARROW, QUESTBTN_DOWNARROW_CONTENT, DLG_WIDTH - 30, DLG_HEIGHT - 38, NULL);
 
-	//AddCommonButton(CBTN_CHECKBOX, 4, QUESTSUMMARY_WIDTH + 50, QUESTSUMMARY_TOP + 100, "µ¶µ¶´ÌÉ±");
+	//AddCommonButton(CBTN_CHECKBOX, 4, QUESTSUMMARY_WIDTH + 50, QUESTSUMMARY_TOP + 100, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É±");
 
-	SetWindowTitle("ÈÎÎñ");
-	SetWindowTip("[°ïÖú]ÔÚÈÎÎñÁÐ±íÖÐ¹ö¶¯Êó±êÖÐ¼ü¿ÉÒÔ¿ìËÙÑ¡ÔñÈÎÎñ");
+	SetWindowTitle("Quest");
+	SetWindowTip("[Quest] Quest list, click to select");
 	//m_nCurSelLine = 0;
 	m_nShowIndex = m_nCursorIndex = 0;
 }
@@ -59,7 +60,7 @@ void GameQuestDlg::Render()
 {
 	__super::Render();
 
-	//	»­±ßÀ¸
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	HTEXTURE tex = 0;
 	hgeResourceManager* pResMgr = pTheGame->GetGameRes();
 	GameTextureManager* pPngMgr = GameResourceManager::GetInstance()->GetTexs(RES_CUSTOM);
@@ -108,21 +109,21 @@ void GameQuestDlg::Render()
 
 			const QuestInfo& refInfo = *begIter;
 
-			//	Ö÷Ïß Ö§Ïß
+			//	ï¿½ï¿½ï¿½ï¿½ Ö§ï¿½ï¿½
 			nRenderX = RELATIVE_X(QUESTSUMMARY_LEFT);
 			nRenderY = RELATIVE_Y((i - m_nShowIndex) * QUESTSUMMARY_LINEGAP + QUESTSUMMARY_TOP);
 
 			if(begIter->stSummary.nType == 0)
 			{
-				//	Ö÷Ïß
+				//	ï¿½ï¿½ï¿½ï¿½
 				AfxGetPrinter()->SetColor(ARGB_YELLOW);
-				AfxGetPrinter()->PrintWithoutStroke(nRenderX, nRenderY, "Ö÷Ïß");
+				AfxGetPrinter()->PrintWithoutStroke(nRenderX, nRenderY, "ï¿½ï¿½ï¿½ï¿½");
 			}
 			else
 			{
-				//	Ö§Ïß
+				//	Ö§ï¿½ï¿½
 				AfxGetPrinter()->SetColor(ARGB_GREEN);
-				AfxGetPrinter()->PrintWithoutStroke(nRenderX, nRenderY, "Ö§Ïß");
+				AfxGetPrinter()->PrintWithoutStroke(nRenderX, nRenderY, "Ö§ï¿½ï¿½");
 			}
 
 			if(nQuestIndex == nSelectIndex)
@@ -136,14 +137,14 @@ void GameQuestDlg::Render()
 			
 			AfxGetPrinter()->PrintWithoutStroke(nRenderX + 12 * 2 + 5, nRenderY, begIter->stSummary.xQuestName.c_str());
 
-			//	ÈÎÎñÄÚÈÝ
+			//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if(nQuestIndex == nSelectIndex)
 			{
 				const char* pszContent = NULL;
 				nContentLine = 0;
 
 				AfxGetPrinter()->SetColor(ARGB_RED);
-				AfxGetPrinter()->PrintWithoutStroke(RELATIVE_X(QUESTCONTENT_LEFT), RELATIVE_Y(QUESTSUMMARY_TOP), "ÈÎÎñËµÃ÷£º");
+				AfxGetPrinter()->PrintWithoutStroke(RELATIVE_X(QUESTCONTENT_LEFT), RELATIVE_Y(QUESTSUMMARY_TOP), "ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½");
 				++nContentLine;
 				if(!begIter->stTip.xDescript.empty())
 				{
@@ -151,7 +152,7 @@ void GameQuestDlg::Render()
 				}
 				else
 				{
-					pszContent = "ÎÞ";
+					pszContent = "ï¿½ï¿½";
 				}
 				float fPreGapY = AfxGetPrinter()->GetKerningHeight();
 				AfxGetPrinter()->SetKerningHeight(1);
@@ -161,7 +162,7 @@ void GameQuestDlg::Render()
 				++nContentLine;
 				//
 				AfxGetPrinter()->SetColor(ARGB_RED);
-				AfxGetPrinter()->PrintWithoutStroke(RELATIVE_X(QUESTCONTENT_LEFT), RELATIVE_Y(QUESTSUMMARY_TOP) + nContentLine * 13, "ÈÎÎñÒªÇó£º");
+				AfxGetPrinter()->PrintWithoutStroke(RELATIVE_X(QUESTCONTENT_LEFT), RELATIVE_Y(QUESTSUMMARY_TOP) + nContentLine * 13, "ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½");
 				++nContentLine;
 				if(!begIter->stTip.xRequire.empty())
 				{
@@ -169,7 +170,7 @@ void GameQuestDlg::Render()
 				}
 				else
 				{
-					pszContent = "ÎÞ";
+					pszContent = "ï¿½ï¿½";
 				}
 				AfxGetPrinter()->SetKerningHeight(1);
 				AfxGetPrinter()->SetColor(ARGB_WHITE);
@@ -178,7 +179,7 @@ void GameQuestDlg::Render()
 				++nContentLine;
 				//
 				AfxGetPrinter()->SetColor(ARGB_RED);
-				AfxGetPrinter()->PrintWithoutStroke(RELATIVE_X(QUESTCONTENT_LEFT), RELATIVE_Y(QUESTSUMMARY_TOP) + nContentLine * 13, "ÈÎÎñ½±Àø£º");
+				AfxGetPrinter()->PrintWithoutStroke(RELATIVE_X(QUESTCONTENT_LEFT), RELATIVE_Y(QUESTSUMMARY_TOP) + nContentLine * 13, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 				++nContentLine;
 				if(!begIter->stTip.xReward.empty())
 				{
@@ -186,7 +187,7 @@ void GameQuestDlg::Render()
 				}
 				else
 				{
-					pszContent = "ÎÞ";
+					pszContent = "ï¿½ï¿½";
 				}
 				AfxGetPrinter()->SetKerningHeight(1);
 				AfxGetPrinter()->SetColor(ARGB_WHITE);
@@ -278,13 +279,13 @@ bool GameQuestDlg::CursorScrollUp()
 		}
 		else
 		{
-			//	µ½¶¥ÁË
+			//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			return false;
 		}
 	}
 	else
 	{
-		//	²»ÔÚ×î¶¥²¿
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½î¶¥ï¿½ï¿½
 		--m_nCursorIndex;
 	}
 
@@ -296,12 +297,12 @@ bool GameQuestDlg::CursorScrollDown()
 	int nCurrentSel = m_nShowIndex + m_nCursorIndex;
 	if(nCurrentSel >= m_xQuestInfoList.size() - 1)
 	{
-		//	µ½µ×²¿ÁË
+		//	ï¿½ï¿½ï¿½×²ï¿½ï¿½ï¿½
 		return false;
 	}
 	else
 	{
-		//	»¹ÄÜÍùÏÂ
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		++m_nCursorIndex;
 		if(m_nCursorIndex >= MAX_QUEST_LIST)
 		{

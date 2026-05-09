@@ -1,6 +1,7 @@
-#include "GameDonateDlg.h"
+ï»¿#include "GameDonateDlg.h"
 #include "GameDlgBase.h"
 #include "../BackMir/BackMir.h"
+#include <tolua++.h>
 //////////////////////////////////////////////////////////////////////////
 static const int nDrawBeginX = 18;
 static const int nDrawBeginY = 80;
@@ -16,7 +17,7 @@ GameDonateDlg::GameDonateDlg()
 	m_rcClient.bottom = m_rcClient.top + HELP_DLG_HEIGHT;
 
 	CalcCloseButtonPosition();
-	SetWindowTitle("¾èÔùÐÅÏ¢");
+	SetWindowTitle("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢");
 	SetVisible(false);
 	m_nHelpID = 0;
 
@@ -171,7 +172,7 @@ void GameDonateDlg::OnNativeCommand(DWORD _dwCmd)
 		HWND hWnd = AfxGetHge()->System_GetState(HGE_HWND);
 		char szURL[] = "http://sryanyuan.github.io/web/";
 		ShellExecute(hWnd, "open", "iexplore.exe", szURL, "", SW_SHOW);
-		//MessageBox(NULL, "Ö§¸¶±¦ÕË»§Îª:sryan@qq.com,¸ÐÐ»ÄúµÄ¾èÖú", "¾èÔùÐÅÏ¢", MB_OK | MB_ICONINFORMATION);
+		//MessageBox(NULL, "Ö§ï¿½ï¿½ï¿½ï¿½ï¿½Ë»ï¿½Îª:sryan@qq.com,ï¿½ï¿½Ð»ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢", MB_OK | MB_ICONINFORMATION);
 	}
 	else if(_dwCmd == 10001)
 	{

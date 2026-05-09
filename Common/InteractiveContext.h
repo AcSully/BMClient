@@ -1,4 +1,4 @@
-#ifndef INTERACTIVECONTEXT_H_
+ï»¿#ifndef INTERACTIVECONTEXT_H_
 #define INTERACTIVECONTEXT_H_
 
 #define INTERACTIVE_BUTTON_PREPAGE		0
@@ -6,17 +6,21 @@
 #define INTERACTIVE_BUTTON_CLOSE		2
 
 #include "../../CommonModule/ByteBuffer.h"
+#include "../../CommonModule/GamePacket.h"   // brings in InteractiveDialogItem
 #include <Windows.h>
+#include <vector>
 
-//	> 5 µÄ°´Å¥ÃüÁîID ¾ù»á±»´«¸ø½Å±¾´¦Àí
+typedef std::vector<InteractiveDialogItem> InteractiveDialogItemList;
+
+//	> 5 ï¿½Ä°ï¿½Å¥ï¿½ï¿½ï¿½ï¿½ID ï¿½ï¿½ï¿½á±»ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½
 
 #define BUFER_SIZE						1024 * 2
 
 
-//	»¥¶¯´°¿ÚÉÏÏÂÎÄ Ò³ÊýÓÉ0¿ªÊ¼ È·¶¨°´Å¥´¦Àí½»¸øÍâ½ç´¦Àí ÆäËü×Ô¼º´¦Àí
-/*  '/'×ªÒå·û p¸ÃÄÚÈÝÒ³Êý h±êÌâ tÄÚÈÝ b°´Å¥
+//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ò³ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½Ê¼ È·ï¿½ï¿½ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ç´¦ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½
+/*  '/'×ªï¿½ï¿½ï¿½ pï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ hï¿½ï¿½ï¿½ï¿½ tï¿½ï¿½ï¿½ï¿½ bï¿½ï¿½Å¥
 Format: /p/h[TEXT]/t/b[ID][TEXT]/p[NEXTPAGE]
-Exp:	/p/hÐ¡··/tÇëÎÊÒªÂò/b3È·¶¨...
+Exp:	/p/hÐ¡ï¿½ï¿½/tï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½/b3È·ï¿½ï¿½...
 */
 
 class InteractiveContext
@@ -26,7 +30,7 @@ public:
 	~InteractiveContext();
 
 public:
-	//	Íâ½ç½Ó¿Ú
+	//	ï¿½ï¿½ï¿½Ó¿ï¿½
 	void AddPage();
 	void AddButton(int _id, const char* _text);
 	void AddHead(const char* _text);
@@ -34,7 +38,7 @@ public:
 	//void EndPage();
 
 public:
-	//	ÄÚ²¿´¦Àí
+	//	ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½
 	int GetPageCount();
 	int GetCurPage();
 	bool NextPage();

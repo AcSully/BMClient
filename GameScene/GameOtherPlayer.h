@@ -1,9 +1,10 @@
-#ifndef _INC_GAMEOTHERPLAYER_
+ï»¿#ifndef _INC_GAMEOTHERPLAYER_
 #define _INC_GAMEOTHERPLAYER_
 //////////////////////////////////////////////////////////////////////////
 #include "../Common/GameRenderObject.h"
 #include "../Net/GamePacketHandler.h"
 #include "../GameScene/MagicEffect.h"
+#include "../../CommonModule/ShareDefine.h"
 //////////////////////////////////////////////////////////////////////////
 class GameOtherPlayer : public GameObject
 {
@@ -17,7 +18,7 @@ public:
 	virtual bool ProcUserCmd(const POINT& _mp);
 	virtual bool IsLastFrame();
 	virtual void TransparentRender();
-	//	»æÖÆÃû×Ö
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	virtual void RenderName();
 	virtual void RenderSaying();
 
@@ -68,15 +69,15 @@ public:
 			}break;
 		case 1:
 			{
-				return "·¨Ê¦";
+				return "ï¿½ï¿½Ê¦";
 			}break;
 		case 2:
 			{
-				return "µÀÊ¿";
+				return "ï¿½ï¿½Ê¿";
 			}break;
 		default:
 			{
-				return "Î´¶¨Òå";
+				return "Î´ï¿½ï¿½ï¿½ï¿½";
 			}break;
 		}
 	}
@@ -122,7 +123,7 @@ public:
 
 	void PlayAttackSound();
 
-	//	ÈËÎïÐ§¹û
+	//	ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½
 	void RefleashHumState();
 	void ClearHumState();
 	void UpdateHumState();
@@ -131,7 +132,7 @@ public:
 
 	void RenderSkillEffect();
 
-	//	»­ÈËÎï¸÷¸ö×é¼þ²¿·Ö
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void RenderHum();
 	void RenderHair();
 	void RenderWeapon();
@@ -143,7 +144,7 @@ public:
 	void ClearSkillLevel();
 
 //////////////////////////////////////////////////////////////////////////
-	//	Êý¾Ý°ü´¦Àí
+	//	ï¿½ï¿½ï¿½Ý°ï¿½ï¿½ï¿½ï¿½ï¿½
 public:
 	virtual void OnPacket(const PacketHeader* _pPkt);
 
@@ -236,20 +237,20 @@ protected:
 
 	BYTE m_bJob;
 
-	//	ÉÏ´Î¹¥»÷Ê±¼ä
+	//	ï¿½Ï´Î¹ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 	DWORD m_dwLastAttackTime;
 	DWORD m_dwLastAttackStopTime;
 
-	//	ÉÏ´Î¹¥»÷Ä£Ê½ 0:ÎïÀí¹¥»÷ 1:Ä§·¨¹¥»÷
+	//	ï¿½Ï´Î¹ï¿½ï¿½ï¿½Ä£Ê½ 0:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1:Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	DWORD m_dwLastAttackMode;
 
-	//	Ä§·¨Ð§¹û
+	//	Ä§ï¿½ï¿½Ð§ï¿½ï¿½
 	MagicElementList m_xHumStates;
 
 	//	
 	DWORD m_dwJinGangExpireTime;
 
-	//	ÁÒ»ð½£·¨µÄµÈ¼¶ ÓÃÓÚäÖÈ¾¼¼ÄÜÐ§¹û
+	//	ï¿½Ò»ð½£·ï¿½ï¿½ÄµÈ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¾ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½
 	int m_nLieHuoSkillLevel;
 
 	//DWORD m_dwLastMoveTime;
@@ -257,13 +258,13 @@ protected:
 	DWORD m_dwLastNameColorChangeTime;
 	int m_nLastNameColorIndex;
 
-	//	¼¼ÄÜµÈ¼¶ÐÅÏ¢
+	//	ï¿½ï¿½ï¿½ÜµÈ¼ï¿½ï¿½ï¿½Ï¢
 	map<DWORD, DWORD> m_xSkillInfo;
 
-	//	À©Õ¹ÈËÎïÊôÐÔ
+	//	ï¿½ï¿½Õ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	ExtendHeroAttrib m_stExtAttrib;
 
-	// ×øÆï
+	// ï¿½ï¿½ï¿½ï¿½
 	bool m_bInRider;
 };
 //////////////////////////////////////////////////////////////////////////

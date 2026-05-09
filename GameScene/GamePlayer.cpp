@@ -1,4 +1,4 @@
-#include "../GameScene/GamePlayer.h"
+ï»¿#include "../GameScene/GamePlayer.h"
 #include <math.h>
 #include "../GameScene/GameResourceManager.h"
 #include "../GameScene/GameMonster.h"
@@ -86,7 +86,7 @@ void GamePlayer::Reset()
 	m_nDonateLeft = 0;
 	m_bRequestSmallQuit = false;
 
-	//	³õÊ¼»¯¾ØÐÎ
+	//	ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	RECT rc = {385, 125, 445, 255};
 	SetRect(rc);
 
@@ -231,14 +231,14 @@ void GamePlayer::Render()
 		}break;
 	default:
 		{
-			//	·´×Å
+			//	ï¿½ï¿½ï¿½ï¿½
 			bool bWingRendered = false;
 			if(GetDirection() == PDT_DOWN ||
 				GetDirection() == PDT_RIGHTDOWN ||
 				GetDirection() == PDT_RIGHT ||
 				GetDirection() == PDT_LEFTUP)
 			{
-				//	»­³á°ò
+				//	ï¿½ï¿½ï¿½ï¿½ï¿½
 				RenderWing();
 				bWingRendered = true;
 			}
@@ -248,7 +248,7 @@ void GamePlayer::Render()
 
 			if(!bWingRendered)
 			{
-				//	»­³á°ò
+				//	ï¿½ï¿½ï¿½ï¿½ï¿½
 				RenderWing();
 			}
 			
@@ -258,7 +258,7 @@ void GamePlayer::Render()
 				GetDirection() == PDT_RIGHT ||
 				GetDirection() == PDT_LEFTUP)
 			{
-				//	»­³á°ò
+				//	ï¿½ï¿½ï¿½ï¿½ï¿½
 				ttexs = GameResourceManager::GetInstance()->GetTexs(RES_HUMEFFECT);
 				if(ttexs &&
 					GetRenderMode() == ORM_TRANSPARENT
@@ -286,14 +286,14 @@ void GamePlayer::Render()
 			}
 
 			{
-				//	»­ÈËÎï
+				//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				int nResIndex = 0;
 				m_nCurrentTextureIndex = CalTextureIndex(NULL, &nResIndex) + m_bCurFrame;
 
 				ttexs = GameResourceManager::GetInstance()->GetTexs(RES_HUM + nResIndex);
 				if(!ttexs)
 				{
-					hge->System_Log("Ã»ÓÐÔØÈëÈËÎï×ÊÔ´");
+					hge->System_Log("Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´");
 				}
 
 				HTEXTURE tex = ttexs->GetTexture(m_nCurrentTextureIndex);
@@ -319,7 +319,7 @@ void GamePlayer::Render()
 			}
 
 			{
-				//	»­·¢ÐÍ
+				//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				ttexs = GameResourceManager::GetInstance()->GetTexs(RES_HAIR);
 				if(!ttexs)
 				{
@@ -349,9 +349,9 @@ void GamePlayer::Render()
 			}
 
 			{
-				//	»­ÊÖÉÏÎäÆ÷
+				//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				ttexs = GameResourceManager::GetInstance()->GetTexs(RES_WEAPON);
-				//	»­ÊÖÉÏÎäÆ÷
+				//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				//if(!m_texs[PLAYER_RES_WEAPON])
 				if(!ttexs)
 				{
@@ -384,7 +384,7 @@ void GamePlayer::Render()
 
 			if(!bWingRendered)
 			{
-				//	»­³á°ò
+				//	ï¿½ï¿½ï¿½ï¿½ï¿½
 				ttexs = GameResourceManager::GetInstance()->GetTexs(RES_HUMEFFECT);
 				if(ttexs &&
 					GetRenderMode() == ORM_TRANSPARENT
@@ -418,7 +418,7 @@ void GamePlayer::RenderHP()
 	static const int nRenderX = VIEW_WIDTH / 2 - 16 - 5;
 	static const int nRenderY = VIEW_HEIGHT / 2 - 12;
 
-	//	»­ÑªÌõ
+	//	ï¿½ï¿½Ñªï¿½ï¿½
 	{
 		float fScale = 0.0f;
 		GameTextureManager* ttex = GameResourceManager::GetInstance()->GetTexs(RES_OPUI);
@@ -491,7 +491,7 @@ bool GamePlayer::LoadSaveData_SaveFile(const char* _pszFile)
 	if(dwHeaderSize == 0)
 	{
 		xSave.Close();
-		AfxGetHge()->System_Log("ÎÞÐ§µÄÎÄ¼þÍ·");
+		AfxGetHge()->System_Log("ï¿½ï¿½Ð§ï¿½ï¿½ï¿½Ä¼ï¿½Í·");
 		return false;
 	}
 
@@ -529,7 +529,7 @@ bool GamePlayer::LoadSaveData_SaveFile(const char* _pszFile)
 		{
 			xSave.Close();
 			delete[] pSavData;
-			AfxGetHge()->System_Log("ÎÞ·¨¶ÁÈ¡´æµµÊý¾Ý");
+			AfxGetHge()->System_Log("ï¿½Þ·ï¿½ï¿½ï¿½È¡ï¿½æµµï¿½ï¿½ï¿½ï¿½");
 			return false;
 		}
 
@@ -566,7 +566,7 @@ bool GamePlayer::LoadSaveData_ZipArchive(const char* _pszFile)
 	ZIP_INDEX_TYPE zIndex = xArh.FindFile("head");
 	if(zIndex == ZIP_FILE_INDEX_NOT_FOUND)
 	{
-		AfxGetHge()->System_Log("ÎÞ·¨¶ÁÈ¡ÎÄ¼þÍ·");
+		AfxGetHge()->System_Log("ï¿½Þ·ï¿½ï¿½ï¿½È¡ï¿½Ä¼ï¿½Í·");
 		xArh.Close();
 		return false;
 	}
@@ -676,7 +676,7 @@ bool GamePlayer::LoadProperty(int _id)
 	if(dwHeaderSize == 0)
 	{
 		xSave.Close();
-		AfxGetHge()->System_Log("ÎÞÐ§µÄÎÄ¼þÍ·");
+		AfxGetHge()->System_Log("ï¿½ï¿½Ð§ï¿½ï¿½ï¿½Ä¼ï¿½Í·");
 		return false;
 	}
 	
@@ -713,7 +713,7 @@ bool GamePlayer::LoadProperty(int _id)
 		{
 			xSave.Close();
 			delete[] pSavData;
-			AfxGetHge()->System_Log("ÎÞ·¨¶ÁÈ¡´æµµÊý¾Ý");
+			AfxGetHge()->System_Log("ï¿½Þ·ï¿½ï¿½ï¿½È¡ï¿½æµµï¿½ï¿½ï¿½ï¿½");
 			return false;
 		}
 
@@ -985,7 +985,7 @@ bool GamePlayer::HandleSpellMagic(const POINT& _mp)
 #endif
 			if(m_attrib.MP < nCost)
 			{
-				//GameInfoBoardDlg::GetInstance()->InsertBoardMsg(ARGB_RED, "ÄúµÄMP²»×ã");
+				//GameInfoBoardDlg::GetInstance()->InsertBoardMsg(ARGB_RED, "ï¿½ï¿½ï¿½ï¿½MPï¿½ï¿½ï¿½ï¿½");
 				return true;
 			}
 
@@ -1035,7 +1035,7 @@ bool GamePlayer::HandleSpellMagic(const POINT& _mp)
 
 			if(pSelectObj != NULL)
 			{
-				//	Ñ¡ÖÐÁË±ðµÄÄ¿±êÁË
+				//	Ñ¡ï¿½ï¿½ï¿½Ë±ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½
 				if(pDetail->wID != MEFF_HEAL &&
 					pDetail->wID != MEFF_CHARMAC &&
 					pDetail->wID != MEFF_HEAL &&
@@ -1044,8 +1044,7 @@ bool GamePlayer::HandleSpellMagic(const POINT& _mp)
 					pDetail->wID != MEFF_ICEROAR &&
 					pDetail->wID != MEFF_LIONROAR &&
 					pDetail->wID != MEFF_FIRESHOWER &&
-					pDetail->wID != MEFF_SUPERHEAL /*&&
-					pDetail->wID != MEFF_BIGPOISON*/)
+					pDetail->wID != MEFF_SUPERHEAL)
 				{
 					SetMgcTarget(pSelectObj);
 				}
@@ -1054,21 +1053,20 @@ bool GamePlayer::HandleSpellMagic(const POINT& _mp)
 			}
 			else
 			{
-				//	Ã»ÓÐÄ¿±ê ÏÈ¼ì²âÊÇ·ñÓÐËø¶¨Ä¿±ê
+				//	Ã»ï¿½ï¿½Ä¿ï¿½ï¿½ ï¿½È¼ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½
 				if(pDetail->wID == MEFF_CHARMAC ||
 					pDetail->wID == MEFF_FIREWALL ||
 					pDetail->wID == MEFF_ICEROAR ||
 					pDetail->wID == MEFF_LIONROAR ||
 					pDetail->wID == MEFF_FIRESHOWER ||
-					pDetail->wID == MEFF_SUPERHEAL/*||
-					pDetail->wID == MEFF_BIGPOISON*/)
+					pDetail->wID == MEFF_SUPERHEAL)
 				{
-					//	Õ½¼×Êõ ²»ÐèÒªtarget
+					//	Õ½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Òªtarget
 					req.uParam2 = MAKELONG(ptDest.x, ptDest.y);
 				}
 				else if(pDetail->wID == MEFF_HEAL)
 				{
-					//	ÖÎÓúÊõ²»ÐèÒªtarget
+					//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªtarget
 					if(pSelectObj)
 					{
 						req.uTargetId = pSelectObj->GetHandlerID();
@@ -1082,25 +1080,25 @@ bool GamePlayer::HandleSpellMagic(const POINT& _mp)
 				{
 					if(GetMgcTarget() != NULL)
 					{
-						//	¼ì²â ÊÇ·ñ³¬³ö·¶Î§
+						//	ï¿½ï¿½ï¿½ ï¿½Ç·ñ³¬³ï¿½ï¿½ï¿½Î§
 						int nOutBoundWidth = (VIEW_WIDTH / UNIT_WIDTH - 1) / 2;
 						int nOutBoundHeight = (VIEW_HEIGHT / UNIT_HEIGHT - 1) / 2;
 						if(abs(GetCoordX() - GetMgcTarget()->GetCoordX()) > nOutBoundWidth ||
 							abs(GetCoordY() - GetMgcTarget()->GetCoordY()) > nOutBoundHeight)
 						{
-							//	³¬³ö·¶Î§ ÎÞÐ§
+							//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§ ï¿½ï¿½Ð§
 							req.uParam2 = MAKELONG(ptDest.x, ptDest.y);
 						}
 						else
 						{
-							//	Ã»ÓÐ³¬³ö·¶Î§
+							//	Ã»ï¿½Ð³ï¿½ï¿½ï¿½ï¿½ï¿½Î§
 							req.uTargetId = GetMgcTarget()->GetHandlerID();
 							req.uParam2 = MAKELONG(ptDest.x, ptDest.y);
 						}
 					}
 					else
 					{
-						//	Ã»ÓÐÄ¿±ê
+						//	Ã»ï¿½ï¿½Ä¿ï¿½ï¿½
 						req.uParam2 = MAKELONG(ptDest.x, ptDest.y);
 					}
 				}
@@ -1110,7 +1108,7 @@ bool GamePlayer::HandleSpellMagic(const POINT& _mp)
 			g_xBuffer.Reset();
 			g_xBuffer << req;
 			SendBufferToGS(&g_xBuffer);
-			//	Ëø¶¨
+			//	ï¿½ï¿½ï¿½ï¿½
 			Lock(PST_SK_LEIDIANSHU);
 			m_dwLastUseMagicTime = GetTickCount();
 
@@ -1197,7 +1195,7 @@ bool GamePlayer::HandleMagicInput(const POINT& _mp)
 
 bool GamePlayer::ProcUserCmd(const POINT& _mp)
 {
-	//	´¦ÀíÓÃ»§ÊäÈë
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½
 	//GameObject* pSelectObj = GameScene::sThis->FindGameMonsterByArea(_mp.x, _mp.y);
 	GameObject* pSelectObj = GameScene::sThis->GetTarget();
 
@@ -1270,13 +1268,13 @@ bool GamePlayer::ProcUserCmd(const POINT& _mp)
 	if(!IsMoving() &&
 		CanAttack())
 	{
-		//	²»ÔÚÒÆ¶¯×´Ì¬ÏÂ²ÅÄÜ´¦ÀíÊäÈë
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½×´Ì¬ï¿½Â²ï¿½ï¿½Ü´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		POINT pt1 = {VIEW_WIDTH / 2, VIEW_HEIGHT / 2};
 		PLAYER_DIRECTION pd = GetAngle(pt1, _mp);
 
-		//	NPC µã»÷´¦Àí
+		//	NPC ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		NPCClick(pSelectObj);
-		//	ÆäËüÍæ¼Ò²Ù×÷
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½
 		OtherPlayerClick(pSelectObj);
 
 		if(GameScene::sThis->GetMouseCoordX() == GetCoordX() &&
@@ -1401,10 +1399,10 @@ bool GamePlayer::ProcUserCmd(const POINT& _mp)
 				{
 					if(pSelectObj)
 					{
-						//	Ñ¡ÖÐÁËNPC
+						//	Ñ¡ï¿½ï¿½ï¿½ï¿½NPC
 						if(!AttackMonster(pSelectObj))
 						{
-							//	µãÁËÖ®ºóÃ»ÓÐ´¦Àí ¾ÍÄÜ×ß¶¯
+							//	ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½Ã»ï¿½Ð´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß¶ï¿½
 							PLAYER_DIRECTION pdpre = GetDirection();
 							bool bWalked = Walk(pd);
 
@@ -1426,7 +1424,7 @@ bool GamePlayer::ProcUserCmd(const POINT& _mp)
 					}
 					else
 					{
-						//	µãÁËÖ®ºóÃ»ÓÐ´¦Àí ¾ÍÄÜ×ß¶¯
+						//	ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½Ã»ï¿½Ð´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß¶ï¿½
 						PLAYER_DIRECTION pdpre = GetDirection();
 						bool bWalked = Walk(pd);
 
@@ -1477,24 +1475,24 @@ bool GamePlayer::Run(PLAYER_DIRECTION _pd)
 	int nOftY = 0;
 	//if(AfxGetHge()->Input_GetKeyState(HGEK_RBUTTON))
 	{
-		//	ÓÒ¼ü ÅÜ²½
+		//	ï¿½Ò¼ï¿½ ï¿½Ü²ï¿½
 		switch (_pd)
 		{
 		case PDT_UP:
 			{
 				if(GameMapManager::GetInstance()->CanThrough(GetCoordX(), GetCoordY() - 1))
 				{
-					//	ÄÜ×ßÒ»¸ö ¾Í×ß
+					//	ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 					//SetOffsetCoordY(-1);
 					nOftY = -1;
 					SetStatus(PST_WALK);
 					bWalked = true;
-					//	ÄÜ×ßµÄÇé¿öÏÂ ÔÙÅÐ¶ÏÏÂÒ»¸ñ
-					//	×¢ÒâGetCoordµÄÊ±ºòÒòÎªÉÏÃæÒÑ¾­-1ÁË ËùÒÔÖ»ÒªÆ«ÒÆÒ»Î»
+					//	ï¿½ï¿½ï¿½ßµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
+					//	×¢ï¿½ï¿½GetCoordï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½-1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö»ÒªÆ«ï¿½ï¿½Ò»Î»
 					//if(GameMapManager::GetInstance()->CanThrough(GetCoordX(), GetCoordY() - 1))
 					if(GameMapManager::GetInstance()->CanThrough(GetCoordX(), GetCoordY() - 2))
 					{
-						//	¼ÙÈçÇ°Ò»¸ñ»¹ÄÜ×ß ÔÙ¼ÓÒ» ±äÎªÅÜ×´Ì¬
+						//	ï¿½ï¿½ï¿½ï¿½Ç°Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¼ï¿½Ò» ï¿½ï¿½Îªï¿½ï¿½×´Ì¬
 						//SetOffsetCoordY(-1);
 						nOftY = -2;
 						SetStatus(PST_RUN);
@@ -1525,7 +1523,7 @@ bool GamePlayer::Run(PLAYER_DIRECTION _pd)
 			}break;
 		case PDT_LEFT:
 			{
-				//	ÏÈÅÐ¶Ï×èµ²
+				//	ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½èµ²
 				if(GameMapManager::GetInstance()->CanThrough(GetCoordX() - 1, GetCoordY()))
 				{
 					//SetOffsetCoordX(-1);
@@ -1572,7 +1570,7 @@ bool GamePlayer::Run(PLAYER_DIRECTION _pd)
 									GameMapManager::GetInstance()->CanThrough(GetCoordX() + 1, GetCoordY()))*/
 				)
 				{
-					//	Ð±Ïò ÏÈÅÐ¶ÏÐ±Ïò×ßÒ»¸ñ ÔÙÁ½¸ñ
+					//	Ð±ï¿½ï¿½ ï¿½ï¿½ï¿½Ð¶ï¿½Ð±ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					//SetOffsetCoordX(1);
 					//SetOffsetCoordY(-1);
 					nOftX = 1;
@@ -1735,7 +1733,7 @@ bool GamePlayer::Walk(PLAYER_DIRECTION _pd)
 	int nOftY = 0;
 
 	{
-		//	¿ÉÒÔ×ß¶¯µÄ»°
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½ß¶ï¿½ï¿½Ä»ï¿½
 		SetAtkMonster(NULL);
 
 		switch (_pd)
@@ -1764,7 +1762,7 @@ bool GamePlayer::Walk(PLAYER_DIRECTION _pd)
 			}break;
 		case PDT_LEFT:
 			{
-				//	ÅÐ¶Ï×èµ²
+				//	ï¿½Ð¶ï¿½ï¿½èµ²
 				if(GameMapManager::GetInstance()->CanThrough(GetCoordX() - 1, GetCoordY()))
 				{
 					SetStatus(PST_WALK);
@@ -1776,7 +1774,7 @@ bool GamePlayer::Walk(PLAYER_DIRECTION _pd)
 			}break;
 		case PDT_RIGHT:
 			{
-				//	×èµ²
+				//	ï¿½èµ²
 				if(GameMapManager::GetInstance()->CanThrough(GetCoordX() + 1, GetCoordY()))
 				{
 					//SetOffsetCoordX(1);
@@ -1787,7 +1785,7 @@ bool GamePlayer::Walk(PLAYER_DIRECTION _pd)
 				SetDirection(PDT_RIGHT);
 			}break;
 			/*
-			*	Ð±×Å×ß ¼ÙÈôÇ°½ø·½ÏòÁ½±ß×èµ² ÔòÅÐ¶ÏÎª²»ÄÜ×ß¶¯
+			*	Ð±ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½èµ² ï¿½ï¿½ï¿½Ð¶ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ß¶ï¿½
 			*/
 		case PDT_RIGHTUP:
 			{
@@ -1894,7 +1892,7 @@ bool GamePlayer::AttackMonster(GameObject* _mons)
 	}
 	else if(_mons->GetType() == OBJ_MONS)
 	{
-		//	µã»÷¹ÖÎï
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		GameMonster* pMons = (GameMonster*)_mons;
 
 		if(_mons->GetStatus() != PST_DEAD)
@@ -1905,10 +1903,10 @@ bool GamePlayer::AttackMonster(GameObject* _mons)
 	}
 	else if(_mons->GetType() == OBJ_OTHERPLAYER)
 	{
-		//	²»¶¯
+		//	ï¿½ï¿½ï¿½ï¿½
 		GameOtherPlayer* pPlayer = (GameOtherPlayer*)_mons;
 
-		//	shiftÇé¿öÏÂ²Å»á¸ú×Ù¹¥»÷
+		//	shiftï¿½ï¿½ï¿½ï¿½Â²Å»ï¿½ï¿½ï¿½Ù¹ï¿½ï¿½ï¿½
 		if(_mons->GetStatus() != PST_DEAD &&
 			AfxGetHge()->Input_GetKeyState(HGEK_CTRL))
 		{
@@ -1977,7 +1975,7 @@ void GamePlayer::AutoAttackTarget()
 					{
 						if(m_bUsingPreLock)
 						{
-							//	Ô¤¼ÓËøÄ£Ê½ µÈ´ý·þÎñÆ÷»ØÓ¦ Ëø×¡ÈËÎï¶¯×÷
+							//	Ô¤ï¿½ï¿½ï¿½ï¿½Ä£Ê½ ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ ï¿½ï¿½×¡ï¿½ï¿½ï¿½ï¶¯ï¿½ï¿½
 							SetDirection((PLAYER_DIRECTION)pd);
 							PkgUserActionReq req;
 							req.uAction = ACTION_ATTACK;
@@ -2093,7 +2091,7 @@ void GamePlayer::Update(float _dt)
 
 #define UPDATE_ATTACK_INTERVAL	0.08f
 #define UPDATE_SKILL_INTERVAL	0.08f
-	//	ÕýÔÚÒÆ¶¯ÖÐ ×Ô¶¯ÅÜÂ·
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ ï¿½Ô¶ï¿½ï¿½ï¿½Â·
 	GamePlayer * m_pPlayer = this;
 	PLAYER_DIRECTION pd;
 	float dt = _dt;
@@ -2134,7 +2132,7 @@ void GamePlayer::Update(float _dt)
 
 	AutoAttackTarget();
 
-	//	¼¼ÄÜupdate
+	//	ï¿½ï¿½ï¿½ï¿½update
 	static float fLastUpdateSk = 0.0f;
 	if(GetStatus() == PST_SK_LEIDIANSHU &&
 		!IsLastFrame())
@@ -2158,7 +2156,7 @@ void GamePlayer::Update(float _dt)
 		}
 	}
 
-	//	¹¥»÷update
+	//	ï¿½ï¿½ï¿½ï¿½update
 	static float fLastUpdateAttackTime = 0.0f;
 	//float fAtkInterval = GetAttackInterval();
 	if(m_pPlayer->GetStatus() == PST_ATTACKWEAPON &&
@@ -2221,7 +2219,7 @@ void GamePlayer::Update(float _dt)
 			}
 			else
 			{
-				//	¼ÙÉè»¹ÔÚµÈ´ý·þÎñÆ÷»ØÓ¦ ÔòËø×¡
+				//	ï¿½ï¿½ï¿½è»¹ï¿½ÚµÈ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ ï¿½ï¿½ï¿½ï¿½×¡
 				if(IsWaitServerResponse() &&
 					WAITSERVERRSP_NORMALATK == GetWaitServerResponseType())
 				{
@@ -2268,7 +2266,7 @@ void GamePlayer::Update(float _dt)
 		}
 	}
 
-	//	ËÀÍöupdate
+	//	ï¿½ï¿½ï¿½ï¿½update
 	if(m_pPlayer->GetStatus() == PST_DEAD &&
 		!IsLastFrame())
 	{
@@ -2283,10 +2281,10 @@ void GamePlayer::Update(float _dt)
 	else if(m_pPlayer->GetStatus() == PST_DEAD &&
 		IsLastFrame())
 	{
-		//	ËÀÍö´¦Àí
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	}
 
-	//	¿ÕÊÖ¹¥»÷update
+	//	ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½update
 	static float fLastUpdateNoWeapon = 0.0f;
 	if(m_pPlayer->GetStatus() == PST_ATTACKNOWEAPON &&
 		!IsLastFrame())
@@ -2351,7 +2349,7 @@ void GamePlayer::Update(float _dt)
 			}
 			else
 			{
-				//	¼ÙÉè»¹ÔÚµÈ´ý·þÎñÆ÷»ØÓ¦ ÔòËø×¡
+				//	ï¿½ï¿½ï¿½è»¹ï¿½ÚµÈ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ ï¿½ï¿½ï¿½ï¿½×¡
 				if(IsWaitServerResponse() &&
 					WAITSERVERRSP_NORMALATK == GetWaitServerResponseType())
 				{
@@ -2398,7 +2396,7 @@ void GamePlayer::Update(float _dt)
 		}
 	}
 
-	//	¹¥»÷Í£Ö¹×´Ì¬update
+	//	ï¿½ï¿½ï¿½ï¿½Í£Ö¹×´Ì¬update
 	/*static float fLastUpdateStop = 0.0f;
 	if(GetStatus() == PST_ATTACKSTOP &&
 		!IsLastFrame())
@@ -2430,7 +2428,7 @@ void GamePlayer::Update(float _dt)
 	}
 
 
-	//	ÊÜÉËupdate
+	//	ï¿½ï¿½ï¿½ï¿½update
 	static float fLastUpdateAtked = 0.0f;
 	if(GetStatus() == PST_ATTACKED &&
 		!IsLastFrame())
@@ -2481,7 +2479,7 @@ void GamePlayer::Update(float _dt)
 					fMoveOffsetX = /*dt * m_pPlayer->GetSpeed();*/dt * fMovePerSecond;
 					m_pPlayer->SetPosxOffset(fMoveOffsetX);
 					fMoveOffsetXTotal += fMoveOffsetX; 
-					//	ÇÐ»»ÅÜ¶¯Ö¡
+					//	ï¿½Ð»ï¿½ï¿½Ü¶ï¿½Ö¡
 					m_pPlayer->CalTextureIndex(&nTotalFrame);
 					m_pPlayer->SetCurFrame(fMoveOffsetXTotal / (96 /nTotalFrame));
 
@@ -2497,7 +2495,7 @@ void GamePlayer::Update(float _dt)
 					fMoveOffsetX = /*dt * m_pPlayer->GetSpeed() * 0.5f;*/dt * fMovePerSecond * 0.5;
 					m_pPlayer->SetPosxOffset(fMoveOffsetX);
 					fMoveOffsetXTotal += fMoveOffsetX; 
-					//	ÇÐ»»ÅÜ¶¯Ö¡
+					//	ï¿½Ð»ï¿½ï¿½Ü¶ï¿½Ö¡
 					m_pPlayer->CalTextureIndex(&nTotalFrame);
 					m_pPlayer->SetCurFrame(fMoveOffsetXTotal / (48 /nTotalFrame));
 
@@ -2516,7 +2514,7 @@ void GamePlayer::Update(float _dt)
 					fMoveOffsetX = /*- dt * m_pPlayer->GetSpeed()*/- dt * fMovePerSecond;
 					m_pPlayer->SetPosxOffset(fMoveOffsetX);
 					fMoveOffsetXTotal += fMoveOffsetX; 
-					//	ÇÐ»»ÅÜ¶¯Ö¡
+					//	ï¿½Ð»ï¿½ï¿½Ü¶ï¿½Ö¡
 					m_pPlayer->CalTextureIndex(&nTotalFrame);
 					m_pPlayer->SetCurFrame(abs(fMoveOffsetXTotal / (96 /nTotalFrame)));
 
@@ -2532,7 +2530,7 @@ void GamePlayer::Update(float _dt)
 					fMoveOffsetX = /*-dt * m_pPlayer->GetSpeed() * 0.5f*/-dt * fMovePerSecond * 0.5f;
 					m_pPlayer->SetPosxOffset(fMoveOffsetX);
 					fMoveOffsetXTotal += fMoveOffsetX; 
-					//	ÇÐ»»ÅÜ¶¯Ö¡
+					//	ï¿½Ð»ï¿½ï¿½Ü¶ï¿½Ö¡
 					m_pPlayer->CalTextureIndex(&nTotalFrame);
 					m_pPlayer->SetCurFrame(abs(fMoveOffsetXTotal / (48 /nTotalFrame)));
 
@@ -2552,7 +2550,7 @@ void GamePlayer::Update(float _dt)
 					fMoveOffsetY = dt * fMovePerSecond * 0.7f;
 					m_pPlayer->SetPosyOffset(fMoveOffsetY);
 					fMoveOffsetYTotal += fMoveOffsetY;
-					//	ÇÐ»»ÅÜ¶¯Ö¡
+					//	ï¿½Ð»ï¿½ï¿½Ü¶ï¿½Ö¡
 					m_pPlayer->CalTextureIndex(&nTotalFrame);
 					m_pPlayer->SetCurFrame((abs(fMoveOffsetYTotal) / (64 /nTotalFrame)) > 5 ? 5 : (abs(fMoveOffsetYTotal) / (64 /nTotalFrame)));
 
@@ -2569,7 +2567,7 @@ void GamePlayer::Update(float _dt)
 					fMoveOffsetY = dt *fMovePerSecond * 0.5f * 0.7f;
 					m_pPlayer->SetPosyOffset(fMoveOffsetY);
 					fMoveOffsetYTotal += fMoveOffsetY;
-					//	ÇÐ»»ÅÜ¶¯Ö¡
+					//	ï¿½Ð»ï¿½ï¿½Ü¶ï¿½Ö¡
 					m_pPlayer->CalTextureIndex(&nTotalFrame);
 					m_pPlayer->SetCurFrame((abs(fMoveOffsetYTotal) / (32 /nTotalFrame)) > 5 ? 5 :(abs(fMoveOffsetYTotal) / (32 /nTotalFrame)) );
 
@@ -2589,7 +2587,7 @@ void GamePlayer::Update(float _dt)
 					fMoveOffsetY = - dt * fMovePerSecond * 0.7f;
 					m_pPlayer->SetPosyOffset(fMoveOffsetY);
 					fMoveOffsetYTotal += fMoveOffsetY;
-					//	ÇÐ»»ÅÜ¶¯Ö¡
+					//	ï¿½Ð»ï¿½ï¿½Ü¶ï¿½Ö¡
 					m_pPlayer->CalTextureIndex(&nTotalFrame);
 					m_pPlayer->SetCurFrame((abs(fMoveOffsetYTotal) / (64 /nTotalFrame)) > 5 ? 5 : (abs(fMoveOffsetYTotal) / (64 /nTotalFrame)));
 
@@ -2606,7 +2604,7 @@ void GamePlayer::Update(float _dt)
 					fMoveOffsetY = -dt * fMovePerSecond * 0.5f * 0.7f;
 					m_pPlayer->SetPosyOffset(fMoveOffsetY);
 					fMoveOffsetYTotal += fMoveOffsetY;
-					//	ÇÐ»»ÅÜ¶¯Ö¡
+					//	ï¿½Ð»ï¿½ï¿½Ü¶ï¿½Ö¡
 					m_pPlayer->CalTextureIndex(&nTotalFrame);
 					m_pPlayer->SetCurFrame((abs(fMoveOffsetYTotal) / (32 /nTotalFrame)) > 5 ? 5 : (abs(fMoveOffsetYTotal) / (32 /nTotalFrame)));
 
@@ -2631,7 +2629,7 @@ void GamePlayer::Update(float _dt)
 					m_pPlayer->SetPosyOffset(fMoveOffsetY);
 					fMoveOffsetXTotal += fMoveOffsetX;
 					fMoveOffsetYTotal += fMoveOffsetY;
-					//	ÇÐ»»ÅÜ¶¯Ö¡
+					//	ï¿½Ð»ï¿½ï¿½Ü¶ï¿½Ö¡
 					m_pPlayer->CalTextureIndex(&nTotalFrame);
 					nMoveOffset = sqrt(pow((float)fMoveOffsetXTotal, 2) + pow((float)fMoveOffsetYTotal, 2));
 					m_pPlayer->SetCurFrame((nMoveOffset / (RUN_HYPO_DISTANCE /nTotalFrame)) > (nTotalFrame - 1) ? (nTotalFrame - 1) : (nMoveOffset / (RUN_HYPO_DISTANCE /nTotalFrame)));
@@ -2655,7 +2653,7 @@ void GamePlayer::Update(float _dt)
 					m_pPlayer->SetPosyOffset(fMoveOffsetY);
 					fMoveOffsetXTotal += fMoveOffsetX;
 					fMoveOffsetYTotal += fMoveOffsetY;
-					//	ÇÐ»»ÅÜ¶¯Ö¡
+					//	ï¿½Ð»ï¿½ï¿½Ü¶ï¿½Ö¡
 					m_pPlayer->CalTextureIndex(&nTotalFrame);
 					nMoveOffset = sqrt(pow((float)fMoveOffsetXTotal, 2) + pow((float)fMoveOffsetYTotal, 2));
 					m_pPlayer->SetCurFrame((nMoveOffset / (RUN_HYPO_DISTANCE / 2 /nTotalFrame)) > (nTotalFrame - 1) ? (nTotalFrame - 1) : (nMoveOffset / (RUN_HYPO_DISTANCE / 2 /nTotalFrame)));
@@ -2682,7 +2680,7 @@ void GamePlayer::Update(float _dt)
 					m_pPlayer->SetPosyOffset(fMoveOffsetY);
 					fMoveOffsetXTotal += fMoveOffsetX;
 					fMoveOffsetYTotal += fMoveOffsetY;
-					//	ÇÐ»»ÅÜ¶¯Ö¡
+					//	ï¿½Ð»ï¿½ï¿½Ü¶ï¿½Ö¡
 					m_pPlayer->CalTextureIndex(&nTotalFrame);
 					nMoveOffset = sqrt(pow((float)fMoveOffsetXTotal, 2) + pow((float)fMoveOffsetYTotal, 2));
 					m_pPlayer->SetCurFrame((nMoveOffset / (RUN_HYPO_DISTANCE /nTotalFrame)) > (nTotalFrame - 1) ? (nTotalFrame - 1) : (nMoveOffset / (RUN_HYPO_DISTANCE /nTotalFrame)));
@@ -2706,7 +2704,7 @@ void GamePlayer::Update(float _dt)
 					m_pPlayer->SetPosyOffset(fMoveOffsetY);
 					fMoveOffsetXTotal += fMoveOffsetX;
 					fMoveOffsetYTotal += fMoveOffsetY;
-					//	ÇÐ»»ÅÜ¶¯Ö¡
+					//	ï¿½Ð»ï¿½ï¿½Ü¶ï¿½Ö¡
 					m_pPlayer->CalTextureIndex(&nTotalFrame);
 					nMoveOffset = sqrt(pow((float)fMoveOffsetXTotal, 2) + pow((float)fMoveOffsetYTotal, 2));
 					m_pPlayer->SetCurFrame((nMoveOffset / (RUN_HYPO_DISTANCE / 2 /nTotalFrame)) > (nTotalFrame - 1) ? (nTotalFrame - 1) : (nMoveOffset / (RUN_HYPO_DISTANCE / 2 /nTotalFrame)));
@@ -2733,7 +2731,7 @@ void GamePlayer::Update(float _dt)
 					m_pPlayer->SetPosyOffset(fMoveOffsetY);
 					fMoveOffsetXTotal += fMoveOffsetX;
 					fMoveOffsetYTotal += fMoveOffsetY;
-					//	ÇÐ»»ÅÜ¶¯Ö¡
+					//	ï¿½Ð»ï¿½ï¿½Ü¶ï¿½Ö¡
 					m_pPlayer->CalTextureIndex(&nTotalFrame);
 					nMoveOffset = sqrt(pow((float)fMoveOffsetXTotal, 2) + pow((float)fMoveOffsetYTotal, 2));
 					m_pPlayer->SetCurFrame((nMoveOffset / (RUN_HYPO_DISTANCE /nTotalFrame)) > (nTotalFrame - 1) ? (nTotalFrame - 1) : (nMoveOffset / (RUN_HYPO_DISTANCE /nTotalFrame)));
@@ -2757,7 +2755,7 @@ void GamePlayer::Update(float _dt)
 					m_pPlayer->SetPosyOffset(fMoveOffsetY);
 					fMoveOffsetXTotal += fMoveOffsetX;
 					fMoveOffsetYTotal += fMoveOffsetY;
-					//	ÇÐ»»ÅÜ¶¯Ö¡
+					//	ï¿½Ð»ï¿½ï¿½Ü¶ï¿½Ö¡
 					m_pPlayer->CalTextureIndex(&nTotalFrame);
 					nMoveOffset = sqrt(pow((float)fMoveOffsetXTotal, 2) + pow((float)fMoveOffsetYTotal, 2));
 					m_pPlayer->SetCurFrame((nMoveOffset / (RUN_HYPO_DISTANCE / 2 /nTotalFrame)) > (nTotalFrame - 1) ? (nTotalFrame - 1) : (nMoveOffset / (RUN_HYPO_DISTANCE / 2 /nTotalFrame)));
@@ -2784,7 +2782,7 @@ void GamePlayer::Update(float _dt)
 					m_pPlayer->SetPosyOffset(fMoveOffsetY);
 					fMoveOffsetXTotal += fMoveOffsetX;
 					fMoveOffsetYTotal += fMoveOffsetY;
-					//	ÇÐ»»ÅÜ¶¯Ö¡
+					//	ï¿½Ð»ï¿½ï¿½Ü¶ï¿½Ö¡
 					m_pPlayer->CalTextureIndex(&nTotalFrame);
 					nMoveOffset = sqrt(pow((float)fMoveOffsetXTotal, 2) + pow((float)fMoveOffsetYTotal, 2));
 					m_pPlayer->SetCurFrame((nMoveOffset / (RUN_HYPO_DISTANCE /nTotalFrame)) > (nTotalFrame - 1) ? (nTotalFrame - 1) : (nMoveOffset / (RUN_HYPO_DISTANCE /nTotalFrame)));
@@ -2808,7 +2806,7 @@ void GamePlayer::Update(float _dt)
 					m_pPlayer->SetPosyOffset(fMoveOffsetY);
 					fMoveOffsetXTotal += fMoveOffsetX;
 					fMoveOffsetYTotal += fMoveOffsetY;
-					//	ÇÐ»»ÅÜ¶¯Ö¡
+					//	ï¿½Ð»ï¿½ï¿½Ü¶ï¿½Ö¡
 					m_pPlayer->CalTextureIndex(&nTotalFrame);
 					nMoveOffset = sqrt(pow((float)fMoveOffsetXTotal, 2) + pow((float)fMoveOffsetYTotal, 2));
 					m_pPlayer->SetCurFrame((nMoveOffset / (RUN_HYPO_DISTANCE / 2 /nTotalFrame)) > (nTotalFrame - 1) ? (nTotalFrame - 1) : (nMoveOffset / (RUN_HYPO_DISTANCE / 2 /nTotalFrame)));
@@ -2978,7 +2976,7 @@ void GamePlayer::Update(float _dt)
 		!m_pPlayer->IsMoving() &&
 		IsLastFrame())
 	{
-		//	×ß¶¯×´Ì¬
+		//	ï¿½ß¶ï¿½×´Ì¬
 		if(abs(tDetected - 0.0f) < 0.00001f)
 		{
 			tDetected = AfxGetHge()->Timer_GetTime();
@@ -2997,7 +2995,7 @@ void GamePlayer::Update(float _dt)
 	// 		!m_pPlayer->IsMoving() &&
 	// 		IsLastFrame())
 	// 	{
-	// 		//	¹¥»÷×´Ì¬
+	// 		//	ï¿½ï¿½ï¿½ï¿½×´Ì¬
 	// 		if(abs(tDetected - 0.0f) < 0.00001f)
 	// 		{
 	// 			tDetected = AfxGetHge()->Timer_GetTime();
@@ -3016,7 +3014,7 @@ void GamePlayer::Update(float _dt)
 	// 		!m_pPlayer->IsMoving() &&
 	// 		IsLastFrame())
 	// 	{
-	// 		//	¹¥»÷×´Ì¬
+	// 		//	ï¿½ï¿½ï¿½ï¿½×´Ì¬
 	// 		if(abs(tDetected - 0.0f) < 0.00001f)
 	// 		{
 	// 			tDetected = AfxGetHge()->Timer_GetTime();
@@ -3034,7 +3032,7 @@ void GamePlayer::Update(float _dt)
 	// 	else if(m_pPlayer->GetStatus() == PST_ATTACKED &&
 	// 		IsLastFrame())
 	// 	{
-	// 		//	¹¥»÷×´Ì¬
+	// 		//	ï¿½ï¿½ï¿½ï¿½×´Ì¬
 	// 		if(abs(tDetected - 0.0f) < 0.00001f)
 	// 		{
 	// 			tDetected = AfxGetHge()->Timer_GetTime();
@@ -3053,7 +3051,7 @@ void GamePlayer::Update(float _dt)
 	// 	else if(m_pPlayer->GetStatus() == PST_SK_LEIDIANSHU &&
 	// 		IsLastFrame())
 	// 	{
-	// 		//	¹¥»÷×´Ì¬
+	// 		//	ï¿½ï¿½ï¿½ï¿½×´Ì¬
 	// 		if(abs(tDetected - 0.0f) < 0.00001f)
 	// 		{
 	// 			tDetected = AfxGetHge()->Timer_GetTime();
@@ -3074,7 +3072,7 @@ void GamePlayer::Update(float _dt)
 		tDetected = 0.0f;
 	}
 
-	//	¶¯Ì¬
+	//	ï¿½ï¿½Ì¬
 	if(m_pPlayer->GetStatus() == PST_STAND)
 	{
 		if(TEST_FLAG_BOOL(m_dwHumEffectFlag, MMASK_STONE))
@@ -3088,7 +3086,7 @@ void GamePlayer::Update(float _dt)
 		}
 	}
 
-	//	¸üÐÂÈËÎï×°±¸Ð§¹û
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½Ð§ï¿½ï¿½
 	UpdateHumState();
 
 	//UpdatePlayerTexIndex();
@@ -3513,7 +3511,7 @@ void GamePlayer::UpdatePlayerAttrib()
 		
 		if(m_equip[i].type == ITEM_WEAPON)
 		{
-			//	ÎäÆ÷²»¼Ó·ÀÓù Ä§Óù ÒÆ¶¯ËÙ¶È Âé±Ô ÖÐ¶¾ ¹¥ËÙ ¶ã±Ü
+			//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó·ï¿½ï¿½ï¿½ Ä§ï¿½ï¿½ ï¿½Æ¶ï¿½ï¿½Ù¶ï¿½ ï¿½ï¿½ï¿½ ï¿½Ð¶ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			//item.AC += m_equip[i].AC;
 			//item.maxAC += m_equip[i].maxAC;
 			item.DC += m_equip[i].DC;
@@ -3534,7 +3532,7 @@ void GamePlayer::UpdatePlayerAttrib()
 		}
 		else if(m_equip[i].type == ITEM_HELMET)
 		{
-			//	Í·¿ø²»¼Ó
+			//	Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			item.AC += m_equip[i].AC;
 			item.maxAC += m_equip[i].maxAC * fDefenceMulti;
 			item.DC += m_equip[i].DC;
@@ -3723,7 +3721,7 @@ void GamePlayer::UpdatePlayerAttrib()
 		item.lucky += m_equip[i].lucky;
 		item.accuracy += m_equip[i].accuracy;
 		item.hide += m_equip[i].hide;*/
-		//	Òþ²ØÊôÐÔ
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if(refItem.maxMP != 0)
 		{
 			int nActiveAttribSum = HideAttribHelper::GetActiveAttribCount(refItem.maxMP);
@@ -3949,14 +3947,14 @@ void GamePlayer::UpdatePlayerAttrib()
 
 	UpdateSuitAttrib();
 	UpdateSuitSameLevel();
-	//	Í¬Ê±¸üÐÂÎÆÀíË÷Òý
+	//	Í¬Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	//UpdatePlayerTexIndex();
 }
 
 //////////////////////////////////////////////////////////////////////////
 void GamePlayer::UpdateSuitAttrib()
 {
-	//	¼ÆËãÌ××°¸½¼ÓÊôÐÔ
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	ItemAttrib suitAttrib;
 	ZeroMemory(&suitAttrib, sizeof(ItemAttrib));
 
@@ -4150,7 +4148,7 @@ void GamePlayer::UpdateSuitAttrib()
 void GamePlayer::UpdateSuitSameLevel()
 {
 	
-	//	¼ÆËãÌ××°¸½¼ÓÊôÐÔ
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	int nSuitExtraType = 0;
 	int nSuitCount[9] = {0};
 
@@ -4242,12 +4240,12 @@ bool GamePlayer::CanEquip(const ItemAttrib* _item, DWORD* _err)
 	{
 	case 0:
 		{
-			//	Í¨ÓÃ
+			//	Í¨ï¿½ï¿½
 			return true;
 		}break;
 	case REQ_LEVEL:
 		{
-			//	µÈ¼¶
+			//	ï¿½È¼ï¿½
 			if(m_attrib.level < _item->reqValue)
 			{
 				if(_err)
@@ -4263,7 +4261,7 @@ bool GamePlayer::CanEquip(const ItemAttrib* _item, DWORD* _err)
 		}break;
 	case REQ_DC:
 		{
-			//	¹¥»÷
+			//	ï¿½ï¿½ï¿½ï¿½
 			if(m_attrib.maxDC < _item->reqValue)
 			{
 				if(_err)
@@ -4279,7 +4277,7 @@ bool GamePlayer::CanEquip(const ItemAttrib* _item, DWORD* _err)
 		}break;
 	case REQ_MC:
 		{
-			//	Ä§·¨Á¦
+			//	Ä§ï¿½ï¿½ï¿½ï¿½
 			if(m_attrib.maxMC < _item->reqValue)
 			{
 				if(_err)
@@ -4295,7 +4293,7 @@ bool GamePlayer::CanEquip(const ItemAttrib* _item, DWORD* _err)
 		}break;
 	case REQ_SC:
 		{
-			//	µÀÊõ
+			//	ï¿½ï¿½ï¿½ï¿½
 			if(m_attrib.maxSC < _item->reqValue)
 			{
 				if(_err)
@@ -4311,7 +4309,7 @@ bool GamePlayer::CanEquip(const ItemAttrib* _item, DWORD* _err)
 		}break;
 		// 	case REQ_SEX:
 		// 		{
-		// 			//	ÐÔ±ð
+		// 			//	ï¿½Ô±ï¿½
 		// 			if(m_sex != _item->reqValue)
 		// 			{
 		// 				if(_err)
@@ -4358,7 +4356,7 @@ bool GamePlayer::DressEquip(int _bagidx, PLAYER_ITEM_TYPE _type, DWORD* _err /* 
 	if(bagItem.type == ITEM_NO ||
 		bagItem.id == -1)
 	{
-		//	±³°üÎïÆ·²»´æÔÚ
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if(_err)
 		{
 			*_err = REQ_ERR_NOTHING;
@@ -4366,7 +4364,7 @@ bool GamePlayer::DressEquip(int _bagidx, PLAYER_ITEM_TYPE _type, DWORD* _err /* 
 		goto lbl_showerr;
 	}
 
-	//	ÅÐ¶ÏÊÇ·ñÊÇÍ¬ÀàÐÍÎïÆ·
+	//	ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
 	BYTE type = PlayerItem2Item(_type);
 	if(type != bagItem.type)
 	{
@@ -4375,15 +4373,15 @@ bool GamePlayer::DressEquip(int _bagidx, PLAYER_ITEM_TYPE _type, DWORD* _err /* 
 
 	if(!CanEquip(&bagItem, _err))
 	{
-		//	²»Âú×ãÒªÇó
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½
 		goto lbl_showerr;
 	}
 
 	ItemAttrib& dressItem = m_equip[_type];
-	//	´©´÷×°±¸
+	//	ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½
 	if(dressItem.type != ITEM_NO)
 	{
-		//	ÉíÉÏ×°±¸²»Îª¿Õ ÐèÒª»»×°
+		//	ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ ï¿½ï¿½Òªï¿½ï¿½×°
 		ItemAttrib item;
 		memcpy(&item, &dressItem, sizeof(ItemAttrib));
 		memcpy(&dressItem, &bagItem, sizeof(ItemAttrib));
@@ -4393,7 +4391,7 @@ bool GamePlayer::DressEquip(int _bagidx, PLAYER_ITEM_TYPE _type, DWORD* _err /* 
 	}
 	else
 	{
-		//	Ö±½Ó´©ÉÏ
+		//	Ö±ï¿½Ó´ï¿½ï¿½ï¿½
 		memcpy(&dressItem, &bagItem, sizeof(ItemAttrib));
 		ZeroMemory(&bagItem, sizeof(ItemAttrib));
 	}
@@ -4434,7 +4432,7 @@ bool GamePlayer::DressEquip(int _bagidx, DWORD* _err /* = NULL */)
 	if(bagItem.type == ITEM_NO ||
 		bagItem.id == -1)
 	{
-		//	±³°üÎïÆ·²»´æÔÚ
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if(_err)
 		{
 			*_err = REQ_ERR_NOTHING;
@@ -4444,7 +4442,7 @@ bool GamePlayer::DressEquip(int _bagidx, DWORD* _err /* = NULL */)
 
 	if(!CanEquip(&bagItem, _err))
 	{
-		//	²»Âú×ãÒªÇó
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½
 		goto lbl_showerr;
 	}
 
@@ -4455,7 +4453,7 @@ bool GamePlayer::DressEquip(int _bagidx, DWORD* _err /* = NULL */)
 	}
 	else if(itemtype == PLAYER_ITEM_BRACELAT1)
 	{
-		//	¼ì²âÊÖïí1Î»ÖÃÊÇ·ñÎª¿Õ
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1Î»ï¿½ï¿½ï¿½Ç·ï¿½Îªï¿½ï¿½
 		if(m_equip[PLAYER_ITEM_BRACELAT2].type == ITEM_NO &&
 			m_equip[PLAYER_ITEM_BRACELAT1].type != ITEM_NO)
 		{
@@ -4472,10 +4470,10 @@ bool GamePlayer::DressEquip(int _bagidx, DWORD* _err /* = NULL */)
 	}
 
 	ItemAttrib& dressItem = m_equip[itemtype];
-	//	´©´÷×°±¸
+	//	ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½
 	if(dressItem.type != ITEM_NO)
 	{
-		//	ÉíÉÏ×°±¸²»Îª¿Õ ÐèÒª»»×°
+		//	ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ ï¿½ï¿½Òªï¿½ï¿½×°
 		ItemAttrib item;
 		memcpy(&item, &dressItem, sizeof(ItemAttrib));
 		memcpy(&dressItem, &bagItem, sizeof(ItemAttrib));
@@ -4485,7 +4483,7 @@ bool GamePlayer::DressEquip(int _bagidx, DWORD* _err /* = NULL */)
 	}
 	else
 	{
-		//	Ö±½Ó´©ÉÏ
+		//	Ö±ï¿½Ó´ï¿½ï¿½ï¿½
 		memcpy(&dressItem, &bagItem, sizeof(ItemAttrib));
 		ZeroMemory(&bagItem, sizeof(ItemAttrib));
 	}
@@ -4583,13 +4581,11 @@ BYTE GamePlayer::PlayerItem2Item(PLAYER_ITEM_TYPE _type)
 		{
 			return ITEM_NECKLACE;
 		}break;
-	case PLAYER_ITEM_RING1:
-	case PLAYER_ITEM_RING2:
+	case PLAYER_ITEM_RING:
 		{
 			return ITEM_RING;
 		}break;
-	case PLAYER_ITEM_BRACELAT1:
-	case PLAYER_ITEM_BRACELAT2:
+	case PLAYER_ITEM_BRACELAT:
 		{
 			return ITEM_BRACELAT;
 		}break;
@@ -4701,7 +4697,7 @@ bool GamePlayer::MoveBagItemToAssistItem(int _bagidx, int _astidx)
 	ItemAttrib& astitem = m_bag.GetAssistItemList()[_astidx];
 	/*if(astitem.type != ITEM_NO)
 	{
-		//	±³°üÓÐ¶«Î÷
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½
 		ItemAttrib item;
 		memcpy(&item, &astitem, sizeof(ItemAttrib));
 		memcpy(&astitem, &bagitem, sizeof(ItemAttrib));
@@ -4709,7 +4705,7 @@ bool GamePlayer::MoveBagItemToAssistItem(int _bagidx, int _astidx)
 	}
 	else
 	{
-		//	±³°üÃ»¶«Î÷
+		//	ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½
 		memcpy(&astitem, &bagitem, sizeof(ItemAttrib));
 		ZeroMemory(&bagitem, sizeof(ItemAttrib));
 	}*/
@@ -4822,7 +4818,7 @@ bool GamePlayer::UseItemFromAssist(int _astidx)
 #else
 	if(UseItem(&item))
 	{
-		//	Í¬Ê±ÕÒµ½°ü¹üÊÇ·ñ¿ÉÒÔ²¹½ø¸¨ÖúÀ¸µÄ
+		//	Í¬Ê±ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		ZeroMemory(&item, sizeof(ItemAttrib));
 		m_bag.MoveBagItemToAssistItem(nUseID);
 		return true;
@@ -4838,26 +4834,26 @@ bool GamePlayer::UseItem(ItemAttrib* _item)
 	{
 	case ITEM_YAP:
 		{
-			//	ÆÕÍ¨Ò©Æ·
+			//	ï¿½ï¿½Í¨Ò©Æ·
 			AddHP(_item->HP, ADD_SPECL, _item->HP / 5);
 			AddMP(_item->MP, ADD_SPECL, _item->MP / 5);
 		}break;
 	case ITEM_YAO_SPE:
 		{
-			//	ÌØÊâÒ©Æ·
+			//	ï¿½ï¿½ï¿½ï¿½Ò©Æ·
 			AddHP(_item->HP);
 			AddMP(_item->MP);
 		}break;*/
 	/*case ITEM_BOOK:
 		{
-			//	Êé¼®
+			//	ï¿½é¼®
 		}break;
 	case ITEM_SCROLL:
 		{
-			//	¾íÖá
+			//	ï¿½ï¿½ï¿½ï¿½
 			if(_item->id == ITID_RANDOMSCROLL)
 			{
-				//	Ëæ»ú¾í
+				//	ï¿½ï¿½ï¿½ï¿½ï¿½
 				RandomPos();
 			}
 		}break;
@@ -4907,7 +4903,7 @@ int GamePlayer::GetBagItemsEmptySum()
 
 void GamePlayer::RandomPos()
 {
-	//	Ëæ»úÒÆ¶¯Î»ÖÃ
+	//	ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½Î»ï¿½ï¿½
 	GameMapManager* pMap = GameMapManager::GetInstance();
 	MapInfo info;
 	pMap->GetMapData()->GetMapInfo(info);
@@ -4931,7 +4927,7 @@ void GamePlayer::RandomPos()
 
 	if(bCanMove)
 	{
-		//	Ëæ»úÒÆ¶¯
+		//	ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
 		SetReallyCoord(nRandomX, nRandomY);
 	}
 }
@@ -5023,7 +5019,7 @@ void GamePlayer::LevelUp()
 }
 
 /************************************************************************/
-/* ±£´æ
+/* ï¿½ï¿½ï¿½ï¿½
 /************************************************************************/
 bool GamePlayer::Save()
 {
@@ -5036,14 +5032,14 @@ bool GamePlayer::Save()
 	HANDLE hFile = ::CreateFile(szFile, GENERIC_WRITE, FILE_SHARE_READ, NULL, CREATE_ALWAYS, NULL, NULL);
 	if(hFile == INVALID_HANDLE_VALUE)
 	{
-		AfxGetHge()->System_Log("±£´æÈËÎïÊý¾ÝÊ§°Ü,´ò¿ªÎÄ¼þ[%s]Ê§°Ü", szFile);
+		AfxGetHge()->System_Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½,ï¿½ï¿½ï¿½Ä¼ï¿½[%s]Ê§ï¿½ï¿½", szFile);
 		return false;
 	}
 
 	bool bRet = true;
 	::SetFilePointer(hFile, 0, 0, FILE_BEGIN);
 	DWORD dwWrite = 0;
-	//	20×Ö½ÚµÄÈËÎïÃû×Ö
+	//	20ï¿½Ö½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	do 
 	{
 		if(!::WriteFile(hFile, m_attrib.name, 20, &dwWrite, NULL))
@@ -5302,12 +5298,12 @@ void GamePlayer::WriteAccMagicKeyCfg()
 		WriteFile(hCfgFile, g_xBuffer.GetBuffer(), g_xBuffer.GetLength(), &dwWrite, NULL);
 		if(dwWrite == g_xBuffer.GetLength())
 		{
-			AfxGetHge()->System_Log("ÈËÎï¿ì½Ý¼¼ÄÜ±£´æ³É¹¦");
+			AfxGetHge()->System_Log("ï¿½ï¿½ï¿½ï¿½ï¿½Ý¼ï¿½ï¿½Ü±ï¿½ï¿½ï¿½É¹ï¿½");
 		}
 	}
 	else
 	{
-		AfxGetHge()->System_Log("ÎÞ·¨±£´æÈËÎï¿ì½Ý¼¼ÄÜ");
+		AfxGetHge()->System_Log("ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¼ï¿½ï¿½ï¿½");
 	}
 	CloseHandle(hCfgFile);
 }
@@ -5448,7 +5444,7 @@ void GamePlayer::UpdateEnableSkill(int _nSkillType, bool _bEnabled)
 
 void GamePlayer::PreNormalAttackTarget(GameObject* _pTarget)
 {
-	//	Ô¤ÏÈÅÐ¶ÏÄ£Ê½
+	//	Ô¤ï¿½ï¿½ï¿½Ð¶ï¿½Ä£Ê½
 	m_dwPreCalcNormalAttackEffMask = 0;
 	bool bProc = false;
 
@@ -5464,7 +5460,7 @@ void GamePlayer::PreNormalAttackTarget(GameObject* _pTarget)
 	}
 	else if(m_bEnableBanYue)
 	{
-		//	Ä§·¨Öµ¹»µÄ»° ¾Í°ëÔÂµÄ¹¥»÷Ð§¹û
+		//	Ä§ï¿½ï¿½Öµï¿½ï¿½ï¿½Ä»ï¿½ ï¿½Í°ï¿½ï¿½ÂµÄ¹ï¿½ï¿½ï¿½Ð§ï¿½ï¿½
 		const MagicDetail* pDetail = GetMagicByID(MEFF_BANYUE);
 
 		int nCost = GetMagicCost(pDetail);

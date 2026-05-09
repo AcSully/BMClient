@@ -1,36 +1,75 @@
-#ifndef _INC_MAGICSYSTEM_
+ï»¿#ifndef _INC_MAGICSYSTEM_
 #define _INC_MAGICSYSTEM_
 //////////////////////////////////////////////////////////////////////////
-/*
 #include "../Common/GameRenderObject.h"
+#include "../Common/view.h"
 #include "GamePlayer.h"
 #include <list>
+
+#ifndef MAGIC_STAGE_NONE
+#define MAGIC_STAGE_NONE        0
+#define MAGIC_STAGE_SELF        1
+#define MAGIC_STAGE_WAY         2
+#define MAGIC_STAGE_DEST        3
+#endif
+#define MAGIC_MOVE_OFFSET       20.0f
+#ifndef RENDER_OFFSET
+#define RENDER_OFFSET           128
+#endif
+
+class MagicObject;
+struct MagicRenderInfo;
+typedef void (*LASTFRAME_FUNC)(MagicObject*);
+
+struct MagicInfo
+{
+    MagicRenderInfo* prenderinfo;
+    GameObject* psrc;
+    GameObject* pdest;
+    float       srcx;
+    float       srcy;
+    float       destx;
+    float       desty;
+    BYTE        curframe;
+    BYTE        stage;
+    BYTE        atkstage;
+    BYTE        drt;
+    DWORD       looptime;
+    DWORD       updatetotaltime;
+    DWORD       lastupdatetime;
+    DWORD       createtime;
+    double      angle;
+    BYTE        end;
+};
+
+/*
 //////////////////////////////////////////////////////////////////////////
-//	²»»­
+//	ï¿½ï¿½ï¿½ï¿½
 #define MAGIC_STAGE_NONE		0
-//	ÔÚ×ÔÉíµÄÖ¡
+//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡
 #define MAGIC_STAGE_SELF		1
-//	ÔÚ¹ý³ÌÖÐµÄÖ¡
+//	ï¿½Ú¹ï¿½ï¿½ï¿½ï¿½Ðµï¿½Ö¡
 #define MAGIC_STAGE_WAY			2
-//	ÔÚÄ¿±êµÄÖ¡
+//	ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½Ö¡
 #define MAGIC_STAGE_DEST		3
 
 #define MAGIC_MOVE_OFFSET		20.0f
 #define RENDER_OFFSET			128
 
 class MagicObject;
+class MagicObject;
 typedef void (*LASTFRAME_FUNC)(MagicObject*);
 //////////////////////////////////////////////////////////////////////////
 
 / *
- *	Ä§·¨·ÖÀà:
- *	1.ÓÐÓ½³ªÖ¡ ÓÐÐÐ½øÖ¡ ÓÐ±¬Õ¨Ö¡ : MagicFireball
- *	2.ÓÐÓ½³ªÖ¡ ÎÞÐÐ½øÖ¡ ÓÐ±¬Õ¨Ö¡ : MagicIceRoar
- *	3.ÓÐÓ½³ªÖ¡ ÎÞ½øÐÐÖ¡ ÎÞ±¬Õ¨Ö¡ : MagicHeal
- *	4.×´Ì¬Ä§·¨ ¼´Õ½Ê¿µÄ¹¥»÷Ð§¹û ·¨Ê¦µÄÄ§·¨¶Ü
- *	1,2,3Àà¼ÓÈëÄ§·¨ÏµÍ³¿ØÖÆ 4·â×°ÈëÓÎÏ·ÎïÌåÄÚ
- *	_nMgcIdÎªÄ§·¨ID _nIdÎª±êÊ¶·û
- *	Ä§·¨²úÉúºó£¬¹Ø¼üÖ¡»á»Øµ÷LASTFRAME_FUNC£¬ÓÃÓÚÇëÇó·þÎñÆ÷Êý¾Ý
+ *	Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:
+ *	1.ï¿½ï¿½Ó½ï¿½ï¿½Ö¡ ï¿½ï¿½ï¿½Ð½ï¿½Ö¡ ï¿½Ð±ï¿½Õ¨Ö¡ : MagicFireball
+ *	2.ï¿½ï¿½Ó½ï¿½ï¿½Ö¡ ï¿½ï¿½ï¿½Ð½ï¿½Ö¡ ï¿½Ð±ï¿½Õ¨Ö¡ : MagicIceRoar
+ *	3.ï¿½ï¿½Ó½ï¿½ï¿½Ö¡ ï¿½Þ½ï¿½ï¿½ï¿½Ö¡ ï¿½Þ±ï¿½Õ¨Ö¡ : MagicHeal
+ *	4.×´Ì¬Ä§ï¿½ï¿½ ï¿½ï¿½Õ½Ê¿ï¿½Ä¹ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ ï¿½ï¿½Ê¦ï¿½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½
+ *	1,2,3ï¿½ï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½ÏµÍ³ï¿½ï¿½ï¿½ï¿½ 4ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ *	_nMgcIdÎªÄ§ï¿½ï¿½ID _nIdÎªï¿½ï¿½Ê¶ï¿½ï¿½
+ *	Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó£¬¹Ø¼ï¿½Ö¡ï¿½ï¿½Øµï¿½LASTFRAME_FUNCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  * /
 
 //////////////////////////////////////////////////////////////////////////
@@ -129,7 +168,6 @@ protected:
 /************************************************************************/
 /* Magic element
 /************************************************************************/
-/*
 class GameTextureManager;
 class MagicObject : public RenderObject
 {
@@ -221,10 +259,10 @@ protected:
 	static hgeSprite* s_pSpr;
 };
 
-/ ************************************************************************ /
-/ * inherit element
-/ ************************************************************************ /
-//	»ðÇòÏµÁÐ ÏàÍ¬µÄÐÐÎª³éÏó ¾ßÓÐÄ§·¨ÒÆ¶¯¶¯×÷
+/************************************************************************/
+/* inherit element
+/************************************************************************/
+//	ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½
 class MagicFireball : public MagicObject
 {
 public:
@@ -245,18 +283,18 @@ protected:
 	float m_fDistance;
 };
 
-//	¸¨ÖúÏµÁÐ
-class MagicHeal : public MagicObject
+//	ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½
+class MagicHealEx : public MagicObject
 {
 public:
-	MagicHeal(int _nId, int _nMgcId)
+	MagicHealEx(int _nId, int _nMgcId)
 		: MagicObject(_nId, _nMgcId){}
 
 public:
 	virtual void Update(float _dt);
 };
 
-//	±ùÅØÏøÏµÁÐ ÎÞÄ§·¨ÒÆ¶¯¶¯×÷
+//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ ï¿½ï¿½Ä§ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½
 class MagicIceRoar : public MagicObject
 {
 public:
@@ -269,7 +307,7 @@ public:
 	virtual bool Init();
 };
 
-//	¼²¹âµçÓ°ÏµÁÐ
+//	ï¿½ï¿½ï¿½ï¿½ï¿½Ó°Ïµï¿½ï¿½
 class MagicChainThunder : public MagicObject
 {
 public:
@@ -280,11 +318,11 @@ public:
 	virtual void Update(float _dt);
 };
 
-//	»ðÇ½ÏµÁÐ ³ÖÐøÐÔÄ§·¨
-class MagicFireWall : public MagicObject
+//	ï¿½ï¿½Ç½Ïµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½
+class MagicFireWallEx : public MagicObject
 {
 public:
-	MagicFireWall(int _nId, int _nMgcId)
+	MagicFireWallEx(int _nId, int _nMgcId)
 		: MagicObject(_nId, _nMgcId){}
 
 public:
@@ -294,7 +332,7 @@ public:
 
 
 //////////////////////////////////////////////////////////////////////////
-//	×´Ì¬Ä§·¨ÏµÁÐ
+//	×´Ì¬Ä§ï¿½ï¿½Ïµï¿½ï¿½
 class MagicSwordKee : public MagicObject
 {
 public:
@@ -314,11 +352,11 @@ protected:
 	GameObject* m_pObj;
 };
 
-//	Ä§·¨¶Ü
-class MagicShield : public MagicObject
+//	Ä§ï¿½ï¿½ï¿½ï¿½
+class MagicShieldEx : public MagicObject
 {
 public:
-	MagicShield(int _nMgcId, GameObject* _pObj)
+	MagicShieldEx(int _nMgcId, GameObject* _pObj)
 		: MagicObject(-1, _nMgcId)
 	{
 		m_stInfo.psrc = _pObj;
@@ -331,9 +369,9 @@ protected:
 	GameObject* m_pObj;
 };
 
-/ ************************************************************************ /
-/ * Magic factory
-/ ************************************************************************ /
+/************************************************************************/
+/* Magic factory
+/************************************************************************/
 typedef std::list<MagicObject*> MagicObjectList;
 //typedef std::map<MagicObject*> MagicObjectMap;
 class MagicSystem : public RenderObject
@@ -357,13 +395,13 @@ public:
 	}
 
 public:
-	//	´´½¨ÆÕÍ¨Ä§·¨
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨Ä§ï¿½ï¿½
 	MagicObject* CreateMagic(int _nId, int _nMgcId);
-	//	´´½¨×´Ì¬Ä§·¨ ÈËÎï³õÊ¼»¯µÄÊ±ºò»ñÈ¡
+	//	ï¿½ï¿½ï¿½ï¿½×´Ì¬Ä§ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½È¡
 	MagicObject* CreateStaticMagic(int _nMgcId, GameObject* _pObj);
-	//	×´Ì¬Ä§·¨²»Òª¼ÓÈëÄ§·¨ÏµÍ³¿ØÖÆ
+	//	×´Ì¬Ä§ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½ÏµÍ³ï¿½ï¿½ï¿½ï¿½
 	void PushMagic(MagicObject* _pMgc);
-	//	ÒÆ³ý·Ç×´Ì¬Ä§·¨
+	//	ï¿½Æ³ï¿½ï¿½ï¿½×´Ì¬Ä§ï¿½ï¿½
 	void RemoveMagic(int _nId);
 
 public:
@@ -372,7 +410,7 @@ public:
 
 protected:
 	MagicObjectList m_xObjects;
-};*/
+};
 
 
 #endif

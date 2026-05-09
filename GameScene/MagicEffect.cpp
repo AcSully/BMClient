@@ -17,29 +17,29 @@ const char* g_szMgcDescriptor[MEFF_USERTOTAL] =
 	//	1
 	"",
 	//	2
-	"基本剑术:提高剑术的熟练度和准确率",
+	"BasicSword: Attack with sword",
 	//	3
-	"刺杀剑术:运用刀光攻击敌人",
+	"Berserker: Increase attack power",
 	//	4
-	"攻杀剑术:使用聚集的内力给敌人致命一击",
+	"KTSword: Critical attack",
 	//	5
-	"半月弯刀:运用刀光攻击身前所有敌人",
+	"Spirit: Attack ahead",
 	//	6
-	"烈火剑法:凝聚火精灵的力量给敌人致命一击",
+	"Heal: Restore HP",
 	//	7
-	"稳如泰山:减小被打中后的后仰几率",
+	"SuperHeal: Restore more HP",
 	//	8
-	"狂战士:提高攻击速度",
+	"Warrior: Increase attack speed",
 	//	9
-	"狮子吼:采用内功吼住周围一定范围敌人，使敌人麻痹",
+	"LionRoar: Stun nearby enemies",
 	//	10
-	"炙炎剑法:凝聚火精灵的力量给身前直线上的敌人致命一击",
+	"CiSha: Attack ahead enemies",
 	//	11
-	"开天斩:运用刀光攻击身前直线上的所有敌人",
+	"BanYue: Attack ahead enemies",
 	//	12
-	"血龙剑法:一定几率出现暴击",
+	"BloodDragon: Attack range",
 	//	13
-	"金刚不坏:运用真气保护肉身，一定几率吸收伤害与反弹伤害",
+	"JinGang: Reflect damage",
 	//	14
 	"",
 	//	15
@@ -74,35 +74,35 @@ const char* g_szMgcDescriptor[MEFF_USERTOTAL] =
 	//	28
 	"",
 	//	29
-	"小火球",
+	"SmallFireball",
 	//	30
-	"大火球",
+	"Fireball",
 	//	31
-	"爆裂火焰",
+	"FireStorm",
 	//	32
-	"圣言术",
+	"HolyShield",
 	//	33
-	"冰咆哮",
+	"KuLou",
 	//	34
-	"地狱雷光",
+	"SummonSkeleton",
 	//	35
-	"雷电术",
+	"Thunder",
 	//	36
-	"火墙",
+	"FireWall",
 	//	37
-	"魔法盾: 制造一个魔法盾来保护施法者，持续时间和强度随着技能等级的提高而提高。进阶技能护体神盾可限制受到的最大伤害，当血量低于一定比例后，一定几率无视伤害",
+	"MagicPower: Increase magic power",
 	//	38
-	"诱惑之光: 诱惑怪物作为自己的奴仆，可以召唤不高于法师等级3级的非不死系怪物",
+	"SummonTiger: Summon tiger",
 	//	39
-	"寒冰掌: 扔出一个冰球，随机造成怪物减速，在冰冻状态下可提升火系魔法伤害",
+	"CharmAC: Increase defense",
 	//	40
-	"灭天火: 召唤火龙攻击单个怪物，忽视部分魔法防御",
+	"CharmMC: Increase magic defense",
 	//	41
-	"火流星: 召唤炙热的流星雨连续攻击处于锁定魔法阵中的所有怪物",
+	"Summon: Summon creature",
 	//	42
-	"冰焰术: 通过制造冰柱来攻击敌人.",
+	"SummonBowman: Summon bowman",
 	//	43
-	"火龙气焰: 在一定时间内灼伤周围的所有敌人",
+	"FireShower: Attack area",
 	//	44
 	"",
 	//	45
@@ -132,39 +132,60 @@ const char* g_szMgcDescriptor[MEFF_USERTOTAL] =
 	//	55
 	"",
 	//	56
-	"治愈术",
+	"Poison",
 	//	57
-	"灵魂火符",
+	"Hide",
 	//	58
-	"神圣战甲术",
+	"SummonShenShou",
 	//	59
-	"幽灵盾",
+	"Summon",
 	//	60
-	"隐身术: 可以在一定时间内隐藏自己不被怪物发现,隐身时间随着技能等级和道术的提高而提高。",
+	"SummonAC: Increase summon power",
 	//	61
-	"精神力战法: 通过精神力提高物理攻击的专注度，提高准确率",
+	"SummonTiger: Summon tiger companion",
 	//	62
-	"召唤术",
+	"SummonDog",
 	//	63
-	"施毒术",
+	"SummonSkeleton",
 	//	64
-	"召唤骷髅",
+	"SummonTiger",
 	//	65
-	"进阶召唤",
+	"SuperSummon",
 	//	66
-	"神兽天御",
+	"SummonShenShou",
 	//	67
-	"先天气功",
+	"SummonBowman",
 	//	68
-	"召唤白虎",
+	"SummonTiger",
 	//	69
-	"群体治愈术",
+	"GroupHeal",
 	//	70
-	"索命毒雾: 通过驱使护身符散播毒雾,使一定范围内怪物承受持续性攻击,一定几率使怪物中毒。",
+	"PoisonCloud: Poison area attack",
 	//	71
-	"召唤月灵",
+	"SummonTiger",
 	//	END
 	""
+};
+//////////////////////////////////////////////////////////////////////////
+// Magic name table (short names for each magic ID)
+const char* g_szMagicName[MEFF_USERTOTAL] =
+{
+	"", "", "BasicSword", "Berserker", "KTSword", "Spirit", "Heal", "SuperHeal",
+	"Poison", "BigPoison", "Tempt", "Hide", "Door", "Firewall", "Shield",
+	"EnergyShield", "LieHuo", "SLieHuo", "CiSha", "BanYue", "LionRoar",
+	"FireShower", "SkyFire", "FireCharm", "SFireball", "Thunder", "IcePalm",
+	"IceRoar", "IceThrust", "DragonBluster", "BloodDragon", "JinGang",
+	"KuLou", "Summon", "SummonAC", "SummonBowman", "SummonTiger", "SuperSummon",
+	"CharmAC", "CharmMC",
+	// Fill remaining slots with empty strings
+	"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+	"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+	"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+	"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+	"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+	"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+	"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+	"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
 };
 //////////////////////////////////////////////////////////////////////////
 hgeSprite* MagicElement::pEffectRender = NULL;

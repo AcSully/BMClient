@@ -1,4 +1,4 @@
-#include "../GameScene/MagicSystem.h"
+ï»¿#include "../GameScene/MagicSystem.h"
 #include "../GameScene/GameInfoManager.h"
 #include "../GameScene/GameResourceManager.h"
 #include "../Common/GlobalFunction.h"
@@ -131,7 +131,7 @@ bool MagicObject::Init()
 	UpdateValid();
 	m_stInfo.createtime = ::GetTickCount();
 
-	//	ÉèÖÃstage
+	//	ï¿½ï¿½ï¿½ï¿½stage
 	m_stInfo.stage = MAGIC_STAGE_SELF;
 	return true;
 }
@@ -167,7 +167,7 @@ void MagicFireball::Update(float _dt)
 	}
 	if(dwCurTime - m_stInfo.createtime > 10000)
 	{
-		//	10sºó×Ô¶¯Ïú»Ù
+		//	10sï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½
 		m_stInfo.end = 1;
 		return;
 	}
@@ -237,26 +237,26 @@ void MagicFireball::Update(float _dt)
 				++m_stInfo.curframe;
 			}
 
-			//	ÒÆ¶¯¹ý³ÌÖÐÅÐ¶ÏÊÇ·ñµ½ÁËÄ¿±êµã
+			//	ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
 			if((m_stInfo.curx == m_stInfo.destx &&
 				m_stInfo.cury == m_stInfo.desty)/ *
 				 ||
 								m_fDistance <= 0.0001f* /
 				)
 			{
-				//	µ½´ï ÏÂÒ»½×¶Î
+				//	ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ò»ï¿½×¶ï¿½
 				m_stInfo.stage = MAGIC_STAGE_DEST;
 				m_stInfo.curframe = 0;
 			}
 			else
 			{
-				//	°´±ÈÀýÒÆ¶¯
+				//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
 				float fMoveX = 0.0f;
 				float fMoveY = 0.0f;
 				float fMove = 0.0f;
 				if(m_stInfo.angle == -1000.0f)
 				{
-					//	yÎª0 Ö»¸üÐÂx
+					//	yÎª0 Ö»ï¿½ï¿½ï¿½ï¿½x
 					fMoveX = m_fDistance > MAGIC_MOVE_OFFSET ? MAGIC_MOVE_OFFSET : m_fDistance;
 					fMoveX = m_bRightMove ? fMoveX : (-fMoveX);
 					m_stInfo.curx += fMoveX;
@@ -269,7 +269,7 @@ void MagicFireball::Update(float _dt)
 				}
 				else if(m_stInfo.angle == -2000.0f)
 				{
-					//	xÎª0 Ö»¸üÐÂy
+					//	xÎª0 Ö»ï¿½ï¿½ï¿½ï¿½y
 					fMoveY = m_fDistance > MAGIC_MOVE_OFFSET ? MAGIC_MOVE_OFFSET : m_fDistance;
 					fMoveY = m_bDownMove ? fMoveY : (-fMoveY);
 					m_stInfo.cury += fMoveY;
@@ -291,7 +291,7 @@ void MagicFireball::Update(float _dt)
 						m_stInfo.curx += fMoveX;
 						m_stInfo.cury += fMoveY;
 						m_fDistance -= MAGIC_MOVE_OFFSET;
-						//AfxGetHge()->System_Log("ÒÆ¶¯%f,%f", fMoveX, fMoveY);
+						//AfxGetHge()->System_Log("ï¿½Æ¶ï¿½%f,%f", fMoveX, fMoveY);
 					}
 					else
 					{
@@ -345,7 +345,7 @@ bool MagicFireball::Init()
  *	MagicHeal
  * /
 //////////////////////////////////////////////////////////////////////////
-void MagicHeal::Update(float _dt)
+void MagicHealEx::Update(float _dt)
 {
 	//
 	if(!m_bValid)
@@ -364,7 +364,7 @@ void MagicHeal::Update(float _dt)
 	}
 	if(dwCurTime - m_stInfo.createtime > 10000)
 	{
-		//	10sºó×Ô¶¯Ïú»Ù
+		//	10sï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½
 		m_stInfo.end = 1;
 		return;
 	}
@@ -424,7 +424,7 @@ void MagicIceRoar::Update(float _dt)
 	}
 	if(dwCurTime - m_stInfo.createtime > 10000)
 	{
-		//	10sºó×Ô¶¯Ïú»Ù
+		//	10sï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½
 		//m_stRenderInfo.end = 1;
 		//return;
 	}
@@ -515,7 +515,7 @@ void MagicChainThunder::Update(float _dt)
 	}
 	if(dwCurTime - m_stInfo.createtime > 10000)
 	{
-		//	10sºó×Ô¶¯Ïú»Ù
+		//	10sï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½
 		m_stInfo.end = 1;
 		return;
 	}
@@ -530,7 +530,7 @@ void MagicChainThunder::Update(float _dt)
  *	MagicFireWall
  * /
 //////////////////////////////////////////////////////////////////////////
-void MagicFireWall::Update(float _dt)
+void MagicFireWallEx::Update(float _dt)
 {
 	if(!m_bValid)
 	{
@@ -604,7 +604,7 @@ void MagicFireWall::Update(float _dt)
 	m_stInfo.lastupdatetime = dwCurTime;
 }
 
-void MagicFireWall::Render()
+void MagicFireWallEx::Render()
 {
 	if(!m_bValid)
 	{
@@ -795,7 +795,7 @@ void MagicSwordKee::Render()
  *	MagicShield
  * /
 //////////////////////////////////////////////////////////////////////////
-void MagicShield::Update(float _dt)
+void MagicShieldEx::Update(float _dt)
 {
 	//
 	if(!m_bValid)
@@ -864,7 +864,7 @@ void MagicShield::Update(float _dt)
 	m_stInfo.lastupdatetime = dwCurTime;
 }
 
-// void MagicShield::Render()
+// void MagicShieldEx::Render()
 // {
 // 	//
 // 	__super::Render();
@@ -946,12 +946,12 @@ MagicObject* MagicSystem::CreateMagic(int _nId, int _nMgcId)
 	MagicObject* pRet = NULL;
 	switch(_nMgcId)
 	{
-		//	¸ù¾ÝÄ§·¨id·µ»Ø²»Í¬µÄÄ§·¨¶ÔÏó
-	case 1://	Ð¡»ðÇò
-	case 5://	´ó»ðÇò
-	case 12://	ÓÄÁé¶Ü
-	case 13://	ÉñÊ¥Õ½¼×Êõ
-	case 14://	Áé»ê»ð·û
+		//	ï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½idï¿½ï¿½ï¿½Ø²ï¿½Í¬ï¿½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	case 1://	Ð¡ï¿½ï¿½ï¿½ï¿½
+	case 5://	ï¿½ï¿½ï¿½ï¿½ï¿½
+	case 12://	ï¿½ï¿½ï¿½ï¿½ï¿½
+	case 13://	ï¿½ï¿½Ê¥Õ½ï¿½ï¿½ï¿½ï¿½
+	case 14://	ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			pRet = new MagicFireball(_nId, _nMgcId);
 			if(pRet->Init())
@@ -964,15 +964,15 @@ MagicObject* MagicSystem::CreateMagic(int _nId, int _nMgcId)
 				return NULL;
 			}
 		}break;
-	case 10://	±¬ÁÑ»ðÑæ
-	case 11://	À×µçÊõ
-	case 15://	À§Ä§Öä
-	case 18://	ÓÕ»óÖ®¹â
-	case 21://	±¬ÁÑ»ðÑæ
-	case 24://	ÈºÌåÖÎÓúÊõ
-	case 44://	±ùÅØÏø
-	case 46://	Ê¥ÑÔÊõ
-	case 47://	ÐÄÁéÆôÊ¾
+	case 10://	ï¿½ï¿½ï¿½Ñ»ï¿½ï¿½ï¿½
+	case 11://	ï¿½×µï¿½ï¿½ï¿½
+	case 15://	ï¿½ï¿½Ä§ï¿½ï¿½
+	case 18://	ï¿½Õ»ï¿½Ö®ï¿½ï¿½
+	case 21://	ï¿½ï¿½ï¿½Ñ»ï¿½ï¿½ï¿½
+	case 24://	Èºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	case 44://	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	case 46://	Ê¥ï¿½ï¿½ï¿½ï¿½
+	case 47://	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
 		{
 			pRet = new MagicIceRoar(_nId, _nMgcId);
 			if(pRet->Init())
@@ -985,10 +985,10 @@ MagicObject* MagicSystem::CreateMagic(int _nId, int _nMgcId)
 				return NULL;
 			}
 		}break;
-	case 22://	µØÓüÀ×¹â
-	case 19://	Ë²Ï¢ÒÆ¶¯
+	case 22://	ï¿½ï¿½ï¿½ï¿½ï¿½×¹ï¿½
+	case 19://	Ë²Ï¢ï¿½Æ¶ï¿½
 		{
-			pRet = new MagicHeal(_nId, _nMgcId);
+			pRet = new MagicHealEx(_nId, _nMgcId);
 			if(pRet->Init())
 			{
 				return pRet;
@@ -999,9 +999,9 @@ MagicObject* MagicSystem::CreateMagic(int _nId, int _nMgcId)
 				return NULL;
 			}
 		}break;
-	case 20://	»ðÇ½
+	case 20://	ï¿½ï¿½Ç½
 		{
-			pRet = new MagicFireWall(_nId, _nMgcId);
+			pRet = new MagicFireWallEx(_nId, _nMgcId);
 			if(pRet->Init())
 			{
 				return pRet;
@@ -1029,22 +1029,22 @@ MagicObject* MagicSystem::CreateStaticMagic(int _nMgcId, GameObject* _pObj)
 
 	switch (_nMgcId)
 	{
-	case 7://	¹¥É±
-	case 16://	´ÌÉ±
-	case 23://	°ëÔÂ
-	case 25://	¹¥É±1
-	case 26://	¹¥É±2
-	case 27://	¹¥É±3
-	case 28://	´ÌÉ±1
-	case 29://	´ÌÉ±2
-	case 30://	´ÌÉ±3
-	case 31://	´ÌÉ±4
-	case 32://	°ëÔÂ1
-	case 33://	°ëÔÂ2
-	case 34://	°ëÔÂ3
-	case 35://	°ëÔÂ4
+	case 7://	ï¿½ï¿½É±
+	case 16://	ï¿½ï¿½É±
+	case 23://	ï¿½ï¿½ï¿½ï¿½
+	case 25://	ï¿½ï¿½É±1
+	case 26://	ï¿½ï¿½É±2
+	case 27://	ï¿½ï¿½É±3
+	case 28://	ï¿½ï¿½É±1
+	case 29://	ï¿½ï¿½É±2
+	case 30://	ï¿½ï¿½É±3
+	case 31://	ï¿½ï¿½É±4
+	case 32://	ï¿½ï¿½ï¿½ï¿½1
+	case 33://	ï¿½ï¿½ï¿½ï¿½2
+	case 34://	ï¿½ï¿½ï¿½ï¿½3
+	case 35://	ï¿½ï¿½ï¿½ï¿½4
 	case 36://	
-	case 43://	ÁÒ»ð
+	case 43://	ï¿½Ò»ï¿½
 		{
 			//
 			pRet = new MagicSwordKee(_nMgcId, _pObj);
@@ -1058,10 +1058,10 @@ MagicObject* MagicSystem::CreateStaticMagic(int _nMgcId, GameObject* _pObj)
 				return NULL;
 			}
 		}break;
-	case 45://	Ä§·¨¶Ü
+	case 45://	Ä§ï¿½ï¿½ï¿½ï¿½
 		{
 			//
-			pRet = new MagicShield(_nMgcId, _pObj);
+			pRet = new MagicShieldEx(_nMgcId, _pObj);
 			if(pRet->Init())
 			{
 				return pRet;
@@ -1109,9 +1109,9 @@ void MagicSystem::RemoveMagic(int _nId)
 	}
 }
 
-/ ************************************************************************ /
-/ * Update
-/ ************************************************************************ /
+/* ************************************************************************ */
+/* Update                                                                   */
+/* ************************************************************************ */
 void MagicSystem::Update(float _dt)
 {
 	//
@@ -1135,9 +1135,9 @@ void MagicSystem::Update(float _dt)
 	}
 }
 
-/ ************************************************************************ /
-/ * Render
-/ ************************************************************************ /
+/* ************************************************************************ */
+/* Render                                                                   */
+/* ************************************************************************ */
 void MagicSystem::Render()
 {
 	MagicObject* pObj = NULL;
@@ -1149,4 +1149,4 @@ void MagicSystem::Render()
 		pObj = *iter;
 		pObj->Render();
 	}
-}*/
+}

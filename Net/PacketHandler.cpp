@@ -1,9 +1,9 @@
 /************************************************************************/
 /* class PacketHandler
-/* °ü´¦Àí»ùÀà ×¢²á¸øSocketDataCenterÓÃÒÔ´¦ÀíÊý¾Ý°ü
+/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ×¢ï¿½ï¿½ï¿½SocketDataCenterï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý°ï¿½
 /*
 /* class SocketDataCenter
-/* Êý¾Ý°ü½âÎöÖÐÐÄ µ÷ÓÃ×¢²á¹ýµÄÎï¼þµÄOnPacketº¯Êý
+/* ï¿½ï¿½ï¿½Ý°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½OnPacketï¿½ï¿½ï¿½ï¿½
 /************************************************************************/
 #include "../Net/PacketHandler.h"
 #include "../GameScene/GamePlayer.h"
@@ -17,6 +17,7 @@
 #include "../../CommonModule/DataEncryptor.h"
 #include "../../CommonModule/version.h"
 #include <ZipArchive.h>
+#include <zlib.h>
 #include <direct.h>
 #include <Windows.h>
 #include "../../CommonModule/base64.h"
@@ -127,7 +128,7 @@ void SocketDataCenter::ProcessSystemPacket(const PacketHeader* _pPkt)
 
 	default:
 		{
-			AfxGetHge()->System_Log("Î´´¦ÀíµÄÏµÍ³Êý¾Ý°ü[%d]",
+			AfxGetHge()->System_Log("Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½ï¿½Ý°ï¿½[%d]",
 				_pPkt->uOp);
 		}break;
 	}
@@ -141,7 +142,7 @@ void SocketDataCenter::DoPacket_SystemUserLoginAck(const PkgUserLoginAck* _pPkt)
 	//	login process
 	if(_pPkt->bOk == false)
 	{
-		::MessageBox(NULL, "·þÎñÆ÷ÑéÖ¤Ê§°Ü", "Error", MB_ICONERROR | MB_TASKMODAL);
+		::MessageBox(NULL, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤Ê§ï¿½ï¿½", "Error", MB_ICONERROR | MB_TASKMODAL);
 		::PostQuitMessage(0);
 		return;
 	}
@@ -151,7 +152,7 @@ void SocketDataCenter::DoPacket_SystemUserLoginAck(const PkgUserLoginAck* _pPkt)
 		{
 #ifdef _DEBUG
 #else
-			::MessageBox(NULL, "¿Í»§¶Ë·þÎñ¶Ë°æ±¾²»Æ¥Åä", "Error", MB_ICONERROR | MB_TASKMODAL);
+			::MessageBox(NULL, "Client version mismatch", "Error", MB_ICONERROR | MB_TASKMODAL);
 			::PostQuitMessage(0);
 			return;
 #endif
@@ -326,12 +327,12 @@ void SocketDataCenter::DoPacket_SystemUserLoginAck(const PkgUserLoginAck* _pPkt)
 								pAssistItem = &pPlayer->GetPlayerBag()->GetAssistItemList()[i];
 								if(pAssistItem->type == ITEM_NO)
 								{
-									//	Ö±½Ó·ÅÉÏÈ¥
+									//	Ö±ï¿½Ó·ï¿½ï¿½ï¿½È¥
 									pPlayer->GetPlayerBag()->MoveBagItemToAssistItem(nAssistID[i]);
 								}
 								else
 								{
-									//	Òª½»»»ÁË
+									//	Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 									ItemAttrib* pBagItem = NULL;
 									ItemList& items = pPlayer->GetPlayerBag()->GetItemList();
 									for(int i = 0; i < HERO_MAINBAG_SIZE_CUR; ++i)
@@ -412,7 +413,7 @@ void SocketDataCenter::DoPacket_SystemUserLoginAck(const PkgUserLoginAck* _pPkt)
 		}
 		else
 		{
-			ALERT_MSGBOX("½âÑ¹·þÎñÆ÷Êý¾ÝÊ§°Ü!");
+			ALERT_MSGBOX("ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½!");
 			delete[] pBuf;
 			return;
 		}
@@ -431,7 +432,7 @@ void SocketDataCenter::DoPacket_SystemForceActionAck(const PkgForceActionAck* _p
 	{
 	case FORCE_KICK_OUT:
 		{
-			::MessageBox(NULL, "·þÎñÆ÷ÑéÖ¤Ê§°Ü", "ERROR", MB_ICONERROR | MB_TASKMODAL);
+			::MessageBox(NULL, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤Ê§ï¿½ï¿½", "ERROR", MB_ICONERROR | MB_TASKMODAL);
 			PostQuitMessage(0);
 		}break;
 	}
@@ -455,7 +456,7 @@ bool SocketDataCenter::SaveHumData_ZipArchive(const char* _pszFile, const PkgSys
 
 	if(_pPkt->xData.empty())
 	{
-		strcpy(szExpr, "´æµµÊý¾ÝÎª¿Õ!");
+		strcpy(szExpr, "ï¿½æµµï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½!");
 	}
 	else
 	{
@@ -508,16 +509,16 @@ bool SocketDataCenter::SaveHumData_ZipArchive(const char* _pszFile, const PkgSys
 							xArh.WriteNewFile(g_xBuffer.GetBuffer(), g_xBuffer.GetLength());
 							xArh.CloseNewFile();
 
-							strcpy(szExpr, "´æµµ³É¹¦!");
+							strcpy(szExpr, "ï¿½æµµï¿½É¹ï¿½!");
 						}
 						else
 						{
-							strcpy(szExpr, "´æµµÊý¾ÝÎª¿Õ!");
+							strcpy(szExpr, "ï¿½æµµï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½!");
 						}
 					}
 					else
 					{
-						//	ÐÂ´æµµ
+						//	ï¿½Â´æµµ
 						if(!_pPkt->xData.empty())
 						{
 							CZipFileHeader zHeader;
@@ -530,17 +531,17 @@ bool SocketDataCenter::SaveHumData_ZipArchive(const char* _pszFile, const PkgSys
 							xArh.WriteNewFile(g_xBuffer.GetBuffer(), g_xBuffer.GetLength());
 							xArh.CloseNewFile();
 
-							strcpy(szExpr, "´æµµ³É¹¦!");
+							strcpy(szExpr, "ï¿½æµµï¿½É¹ï¿½!");
 						}
 						else
 						{
-							strcpy(szExpr, "´æµµÊý¾ÝÎª¿Õ!");
+							strcpy(szExpr, "ï¿½æµµï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½!");
 						}
 					}
 
 					xArh.Close();
 
-					//	ÐÞ¸ÄËùÓÐÎïÆ·ÊôÐÔÎª°ó¶¨
+					//	ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½
 					ItemList& bagitems = GamePlayer::GetInstance()->GetPlayerBag()->GetItemList();
 					ItemList& astitems = GamePlayer::GetInstance()->GetPlayerBag()->GetAssistItemList();
 
@@ -571,18 +572,18 @@ bool SocketDataCenter::SaveHumData_ZipArchive(const char* _pszFile, const PkgSys
 				}
 				else
 				{
-					strcpy(szExpr, "ÎÞ·¨¶¨Î»ÎÄ¼þÍ·");
+					strcpy(szExpr, "ï¿½Þ·ï¿½ï¿½ï¿½Î»ï¿½Ä¼ï¿½Í·");
 					xArh.Close();
 				}
 			}
 			else
 			{
-				strcpy(szExpr, "ÎÞ·¨´ò¿ª´æµµÎÄ¼þ");
+				strcpy(szExpr, "ï¿½Þ·ï¿½ï¿½ò¿ª´æµµï¿½Ä¼ï¿½");
 			}
 		}
 		else
 		{
-			strcpy(szExpr, "ÎÞ·¨¶¨Î»´æµµÎÄ¼þ");
+			strcpy(szExpr, "ï¿½Þ·ï¿½ï¿½ï¿½Î»ï¿½æµµï¿½Ä¼ï¿½");
 		}
 	}
 
@@ -635,7 +636,7 @@ bool SocketDataCenter::SaveHumData_ZipArchiveMultiLogin(const PkgSystemUserDataA
 
 	if(_pPkt->xData.empty())
 	{
-		strcpy(szExpr, "´æµµÊý¾ÝÎª¿Õ!");
+		strcpy(szExpr, "ï¿½æµµï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½!");
 	}
 	else
 	{
@@ -701,7 +702,7 @@ bool SocketDataCenter::SaveHumData_ZipArchiveMultiLogin(const PkgSystemUserDataA
 					if(header.szName[0] == 0 ||
 						nSaveIndex == -1)
 					{
-						//	Ã»ÓÐÏàÍ¬µÄ ×Ô¼º´´Ò»¸ö
+						//	Ã»ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
 						if(nEmptyPlace != -1)
 						{
 							nSaveIndex = nEmptyPlace;
@@ -762,16 +763,16 @@ bool SocketDataCenter::SaveHumData_ZipArchiveMultiLogin(const PkgSystemUserDataA
 								xArh.WriteNewFile(g_xBuffer.GetBuffer(), g_xBuffer.GetLength());
 								xArh.CloseNewFile();
 
-								strcpy(szExpr, "´æµµ³É¹¦!");
+								strcpy(szExpr, "ï¿½æµµï¿½É¹ï¿½!");
 							}
 							else
 							{
-								strcpy(szExpr, "´æµµÊý¾ÝÎª¿Õ!");
+								strcpy(szExpr, "ï¿½æµµï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½!");
 							}
 						}
 						else
 						{
-							//	ÐÂ´æµµ
+							//	ï¿½Â´æµµ
 							if(!_pPkt->xData.empty())
 							{
 								CZipFileHeader zHeader;
@@ -784,17 +785,17 @@ bool SocketDataCenter::SaveHumData_ZipArchiveMultiLogin(const PkgSystemUserDataA
 								xArh.WriteNewFile(g_xBuffer.GetBuffer(), g_xBuffer.GetLength());
 								xArh.CloseNewFile();
 
-								strcpy(szExpr, "´æµµ³É¹¦!");
+								strcpy(szExpr, "ï¿½æµµï¿½É¹ï¿½!");
 							}
 							else
 							{
-								strcpy(szExpr, "´æµµÊý¾ÝÎª¿Õ!");
+								strcpy(szExpr, "ï¿½æµµï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½!");
 							}
 						}
 
 						xArh.Close();
 
-						//	ÐÞ¸ÄËùÓÐÎïÆ·ÊôÐÔÎª°ó¶¨
+						//	ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½
 						ItemList& bagitems = GamePlayer::GetInstance()->GetPlayerBag()->GetItemList();
 						ItemList& astitems = GamePlayer::GetInstance()->GetPlayerBag()->GetAssistItemList();
 
@@ -829,19 +830,19 @@ bool SocketDataCenter::SaveHumData_ZipArchiveMultiLogin(const PkgSystemUserDataA
 					}
 					else
 					{
-						strcpy(szExpr, "ÎÞ·¨¶¨Î»ÎÄ¼þÍ·");
+						strcpy(szExpr, "ï¿½Þ·ï¿½ï¿½ï¿½Î»ï¿½Ä¼ï¿½Í·");
 						xArh.Close();
 					}
 				}
 				else
 				{
-					strcpy(szExpr, "ÎÞ·¨´ò¿ª´æµµÎÄ¼þ");
+					strcpy(szExpr, "ï¿½Þ·ï¿½ï¿½ò¿ª´æµµï¿½Ä¼ï¿½");
 				}
 			} while (0);
 		}
 		else
 		{
-			strcpy(szExpr, "ÎÞ·¨¶¨Î»´æµµÎÄ¼þ");
+			strcpy(szExpr, "ï¿½Þ·ï¿½ï¿½ï¿½Î»ï¿½æµµï¿½Ä¼ï¿½");
 		}
 	}
 
@@ -895,13 +896,13 @@ bool SocketDataCenter::SaveExtHumData_ZipArchiveMulti(const PkgSystemExtUserData
 	{
 		if(ack.xData.empty())
 		{
-			strcpy(szExpr, "ÎÞÐ§µÄÀ©Õ¹Êý¾Ý");
+			strcpy(szExpr, "ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½Õ¹ï¿½ï¿½ï¿½ï¿½");
 			break;
 		}
 
 		if(!PathFileExists(szPath))
 		{
-			strcpy(szExpr, "ÕÒ²»µ½´æµµÎÄ¼þ");
+			strcpy(szExpr, "ï¿½Ò²ï¿½ï¿½ï¿½ï¿½æµµï¿½Ä¼ï¿½");
 			break;
 		}
 
@@ -913,7 +914,7 @@ bool SocketDataCenter::SaveExtHumData_ZipArchiveMulti(const PkgSystemExtUserData
 		{
 			if(!xArh.Open(szPath))
 			{
-				strcpy(szExpr, "ÎÞ·¨´ò¿ª´æµµÎÄ¼þ");
+				strcpy(szExpr, "ï¿½Þ·ï¿½ï¿½ò¿ª´æµµï¿½Ä¼ï¿½");
 				break;
 			}
 			bOpened = true;
@@ -954,7 +955,7 @@ bool SocketDataCenter::SaveExtHumData_ZipArchiveMulti(const PkgSystemExtUserData
 
 			if(-1 == nSaveIndex)
 			{
-				strcpy(szExpr, "ÎÞ·¨¶¨Î»´æµµÈËÎï");
+				strcpy(szExpr, "ï¿½Þ·ï¿½ï¿½ï¿½Î»ï¿½æµµï¿½ï¿½ï¿½ï¿½");
 				break;
 			}
 
@@ -976,7 +977,7 @@ bool SocketDataCenter::SaveExtHumData_ZipArchiveMulti(const PkgSystemExtUserData
 			xArh.CloseNewFile();
 
 			GameMainOptUI::GetInstance()->GetBigStoreDlg()->BindAllItem();
-			strcpy(szExpr, "±£´æÈËÎïÀ©Õ¹Êý¾Ý³É¹¦");
+			strcpy(szExpr, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¹ï¿½ï¿½ï¿½Ý³É¹ï¿½");
 		} while (false);
 
 		if(bOpened)
@@ -1022,7 +1023,7 @@ bool SocketDataCenter::SaveHumData_ZipArchiveMulti(const PkgSystemUserDataAck* _
 
 	if(_pPkt->xData.empty())
 	{
-		strcpy(szExpr, "´æµµÊý¾ÝÎª¿Õ!");
+		strcpy(szExpr, "ï¿½æµµï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½!");
 	}
 	else
 	{
@@ -1080,7 +1081,7 @@ bool SocketDataCenter::SaveHumData_ZipArchiveMulti(const PkgSystemUserDataAck* _
 					if(header.szName[0] == 0 ||
 						nSaveIndex == -1)
 					{
-						strcpy(szExpr, "´æµµÊý¾Ý³öÏÖ´íÎó!");
+						strcpy(szExpr, "ï¿½æµµï¿½ï¿½ï¿½Ý³ï¿½ï¿½Ö´ï¿½ï¿½ï¿½!");
 						xArh.Close();
 						break;
 					}
@@ -1120,16 +1121,16 @@ bool SocketDataCenter::SaveHumData_ZipArchiveMulti(const PkgSystemUserDataAck* _
 								xArh.WriteNewFile(g_xBuffer.GetBuffer(), g_xBuffer.GetLength());
 								xArh.CloseNewFile();
 
-								strcpy(szExpr, "±£´æÈËÎïÊý¾Ý³É¹¦!");
+								strcpy(szExpr, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý³É¹ï¿½!");
 							}
 							else
 							{
-								strcpy(szExpr, "´æµµÊý¾ÝÎª¿Õ!");
+								strcpy(szExpr, "ï¿½æµµï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½!");
 							}
 						}
 						else
 						{
-							//	ÐÂ´æµµ
+							//	ï¿½Â´æµµ
 							if(!_pPkt->xData.empty())
 							{
 								CZipFileHeader zHeader;
@@ -1142,17 +1143,17 @@ bool SocketDataCenter::SaveHumData_ZipArchiveMulti(const PkgSystemUserDataAck* _
 								xArh.WriteNewFile(g_xBuffer.GetBuffer(), g_xBuffer.GetLength());
 								xArh.CloseNewFile();
 
-								strcpy(szExpr, "±£´æÈËÎïÊý¾Ý³É¹¦!");
+								strcpy(szExpr, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý³É¹ï¿½!");
 							}
 							else
 							{
-								strcpy(szExpr, "´æµµÊý¾ÝÎª¿Õ!");
+								strcpy(szExpr, "ï¿½æµµï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½!");
 							}
 						}
 
 						xArh.Close();
 
-						//	ÐÞ¸ÄËùÓÐÎïÆ·ÊôÐÔÎª°ó¶¨
+						//	ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½
 						ItemList& bagitems = GamePlayer::GetInstance()->GetPlayerBag()->GetItemList();
 						ItemList& astitems = GamePlayer::GetInstance()->GetPlayerBag()->GetAssistItemList();
 
@@ -1184,19 +1185,19 @@ bool SocketDataCenter::SaveHumData_ZipArchiveMulti(const PkgSystemUserDataAck* _
 					}
 					else
 					{
-						strcpy(szExpr, "ÎÞ·¨¶¨Î»ÎÄ¼þÍ·");
+						strcpy(szExpr, "ï¿½Þ·ï¿½ï¿½ï¿½Î»ï¿½Ä¼ï¿½Í·");
 						xArh.Close();
 					}
 				}
 				else
 				{
-					strcpy(szExpr, "ÎÞ·¨´ò¿ª´æµµÎÄ¼þ");
+					strcpy(szExpr, "ï¿½Þ·ï¿½ï¿½ò¿ª´æµµï¿½Ä¼ï¿½");
 				}
 			} while (0);
 		}
 		else
 		{
-			strcpy(szExpr, "ÎÞ·¨¶¨Î»´æµµÎÄ¼þ");
+			strcpy(szExpr, "ï¿½Þ·ï¿½ï¿½ï¿½Î»ï¿½æµµï¿½Ä¼ï¿½");
 		}
 	}
 
@@ -1234,14 +1235,14 @@ bool SocketDataCenter::SaveHumData_SaveFile(const char* _pszFile, const PkgSyste
 		bSaveOK = xSav.Load(_pszFile);
 		if(!bSaveOK)
 		{
-			strcpy(szExpr, "ÎÞ·¨´´½¨´æµµÎÄ¼þ!");
+			strcpy(szExpr, "ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æµµï¿½Ä¼ï¿½!");
 		}
 		else
 		{
 			bSaveOK = xSav.WriteHeader(&header);
 			if(!bSaveOK)
 			{
-				strcpy(szExpr, "ÎÞ·¨´´½¨ÎÄ¼þÍ·!");
+				strcpy(szExpr, "ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Í·!");
 			}
 			else
 			{
@@ -1250,13 +1251,13 @@ bool SocketDataCenter::SaveHumData_SaveFile(const char* _pszFile, const PkgSyste
 				bSaveOK = xSav.WriteData((const char*)g_xBuffer.GetBuffer(), g_xBuffer.GetLength());
 				if(!bSaveOK)
 				{
-					strcpy(szExpr, "ÎÞ·¨Ð´Èë´æµµÊý¾Ý!");
+					strcpy(szExpr, "ï¿½Þ·ï¿½Ð´ï¿½ï¿½æµµï¿½ï¿½ï¿½ï¿½!");
 				}
 				else
 				{
-					strcpy(szExpr, "´æµµ³É¹¦!");
+					strcpy(szExpr, "ï¿½æµµï¿½É¹ï¿½!");
 
-					//	ÐÞ¸ÄËùÓÐÎïÆ·ÊôÐÔÎª°ó¶¨
+					//	ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½
 					ItemList& bagitems = GamePlayer::GetInstance()->GetPlayerBag()->GetItemList();
 					ItemList& astitems = GamePlayer::GetInstance()->GetPlayerBag()->GetAssistItemList();
 
@@ -1294,8 +1295,8 @@ bool SocketDataCenter::SaveHumData_SaveFile(const char* _pszFile, const PkgSyste
 	}
 	else
 	{
-		//GameScene::sThis->GetMainOpt()->GetStaticDlg()->Create("É¾³ý´æµµÎÄ¼þÊ§°Ü!Çë¼ì²éÊÇ·ñÕ¼ÓÃ!", 3000);
-		GameScene::sThis->GetMainOpt()->GetQuitDlg()->CreateMsgDlg("É¾³ý´æµµÎÄ¼þÊ§°Ü!Çë¼ì²éÊÇ·ñÕ¼ÓÃ!");
+		//GameScene::sThis->GetMainOpt()->GetStaticDlg()->Create("É¾ï¿½ï¿½ï¿½æµµï¿½Ä¼ï¿½Ê§ï¿½ï¿½!ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Õ¼ï¿½ï¿½!", 3000);
+		GameScene::sThis->GetMainOpt()->GetQuitDlg()->CreateMsgDlg("É¾ï¿½ï¿½ï¿½æµµï¿½Ä¼ï¿½Ê§ï¿½ï¿½!ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Õ¼ï¿½ï¿½!");
 	}
 	return true;
 }
@@ -1315,8 +1316,8 @@ void SocketDataCenter::DoPacket_SystemUserDataAck(const PkgSystemUserDataAck* _p
 
 	if(_pPkt->xData.empty())
 	{
-		//GameScene::sThis->GetMainOpt()->GetStaticDlg()->Create("ÇëÇó·þÎñÆ÷Êý¾ÝÊ§°Ü!Êý¾ÝÎª¿Õ!", 3000);
-		GameScene::sThis->GetMainOpt()->GetQuitDlg()->CreateMsgDlg("±³°üÄÚº¬ÓÐÎÞ·¨´æµµÎïÆ·,Çë¶ªÆúºó´æµµ!");
+		//GameScene::sThis->GetMainOpt()->GetStaticDlg()->Create("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½!ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½!", 3000);
+		GameScene::sThis->GetMainOpt()->GetQuitDlg()->CreateMsgDlg("ï¿½ï¿½ï¿½ï¿½ï¿½Úºï¿½ï¿½ï¿½ï¿½Þ·ï¿½ï¿½æµµï¿½ï¿½Æ·,ï¿½ë¶ªï¿½ï¿½ï¿½ï¿½æµµ!");
 	}
 	else
 	{
@@ -1383,12 +1384,12 @@ bool SocketDataCenter::SaveHumConfig(const char* _pszFile)
 		WriteFile(hCfgFile, g_xBuffer.GetBuffer(), g_xBuffer.GetLength(), &dwWrite, NULL);
 		if(dwWrite == g_xBuffer.GetLength())
 		{
-			AfxGetHge()->System_Log("ÈËÎï²Ù×÷ÅäÖÃ±£´æ³É¹¦");
+			AfxGetHge()->System_Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½É¹ï¿½");
 		}
 	}
 	else
 	{
-		AfxGetHge()->System_Log("ÎÞ·¨±£´æÈËÎïÅäÖÃ");
+		AfxGetHge()->System_Log("ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 	}
 	CloseHandle(hCfgFile);
 	return true;
@@ -1435,12 +1436,12 @@ void SocketDataCenter::DoPacket(const PkgDelNPCNot& not)
 	}
 	if(GameScene::sThis->RemoveNPC(not.uTargetId))
 	{
-		AfxGetHge()->System_Log("Çå³ý¹ÖÎï[%d]",
+		AfxGetHge()->System_Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[%d]",
 			not.uTargetId);
 	}
 	else
 	{
-		AfxGetHge()->System_Log("ÎÞ·¨Çå³ý¹ÖÎï[%d]",
+		AfxGetHge()->System_Log("ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[%d]",
 			not.uTargetId);
 	}
 }
@@ -1479,7 +1480,7 @@ void SocketDataCenter::DoPacket(const PkgSystemNotifyNot& not)
 //////////////////////////////////////////////////////////////////////////
 void SocketDataCenter::DoPacket(const PkgSystemClientVersionErrNtf& not)
 {
-	std::string xMsg = "ÄúµÄ¿Í»§¶Ë°æ±¾Óë·þÎñ¶Ë°æ±¾²»·û£¬·þÎñ¶Ë°æ±¾ºÅ£º";
+	std::string xMsg = "Client version error, server version: ";
 	xMsg += not.xServerVersion;
 	ALERT_MSGBOX(xMsg.c_str());
 }
@@ -1497,7 +1498,7 @@ void SocketDataCenter::DoPacket(const PkgSystemWorldSayNot& not)
 	}
 
 	std::string xSay;
-	xSay = "[ÊÀ½ç]";
+	xSay = "[ï¿½ï¿½ï¿½ï¿½]";
 	xSay += not.xName;
 	xSay += "Ëµ:";
 	xSay += not.xMsg;
@@ -1521,7 +1522,7 @@ void SocketDataCenter::ProcessGamePacket(const PacketHeader* _pPkt)
 		iterFind->second == NULL)
 	{
 		//??
-		AfxGetHge()->System_Log("´¦ÀíÓÎÏ·Êý¾Ý°ü[%d]Ê±£¬ÓÉÓÚÑ°ÕÒ²»µ½Ä¿±ê[%d]£¬Êý¾Ý°üºöÂÔ",
+		AfxGetHge()->System_Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½Ý°ï¿½[%d]Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ°ï¿½Ò²ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½[%d]ï¿½ï¿½ï¿½ï¿½ï¿½Ý°ï¿½ï¿½ï¿½ï¿½ï¿½",
 			_pPkt->uOp, _pPkt->uTargetId);
 		PkgPlayerMonsInfoReq req;
 		req.uUserId = GamePlayer::GetInstance()->GetHandlerID();
@@ -1588,7 +1589,7 @@ void SocketDataCenter::ProcessData(const void* _pData, unsigned int _nLen)
 	pReadPacket->uLen = _nLen;
 
 	unsigned int uOpCode = pPacket->uOp;
-	//AfxGetHge()->System_Log("´¦ÀíÊý¾Ý°ü[%d]", uOpCode);
+	//AfxGetHge()->System_Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý°ï¿½[%d]", uOpCode);
 
 	if(uOpCode >= GAME_PKG_HEADER &&
 		uOpCode < GAME_PKG_END)
@@ -1606,17 +1607,17 @@ void SocketDataCenter::ProcessData(const void* _pData, unsigned int _nLen)
 		else
 		{
 			//	undefine code??
-			AfxGetHge()->System_Log("Î´´¦ÀíµÄÊý¾Ý°ü[%d]",
+			AfxGetHge()->System_Log("Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý°ï¿½[%d]",
 				uOpCode);
 		}
 	}
 	else
 	{
 		//	undefine code??
-		AfxGetHge()->System_Log("Î´¶¨ÒåµÄÊý¾Ý°ü[%d]",
+		AfxGetHge()->System_Log("Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý°ï¿½[%d]",
 			uOpCode);
 	}
-	//AfxGetHge()->System_Log("´¦ÀíÊý¾Ý°üÍê±Ï[%d]", uOpCode);
+	//AfxGetHge()->System_Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý°ï¿½ï¿½ï¿½ï¿½[%d]", uOpCode);
 }
 
 

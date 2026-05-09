@@ -1,4 +1,4 @@
-#include "../DuiWnd/AssistPaneWnd.h"
+ï»¿#include "../DuiWnd/AssistPaneWnd.h"
 #include "../BackMir/BackMir.h"
 #include <io.h>
 #include <direct.h>
@@ -34,10 +34,14 @@
 #include <float.h>
 #include "GlobalLuaConfig.h"
 #include "BMDonateWnd.h"
+#include <tolua++.h>
 
 #ifdef DEMO
 #undef DEMO
 #endif
+
+// Stub for unused CheckVersion
+static bool CheckVersion() { return true; }
 
 #ifdef _THEMIDA_
 #include "../Themida/ThemidaSDK.h"
@@ -56,6 +60,13 @@ TOLUA_API int  tolua_BackMirClient_open (lua_State* tolua_S);
 ByteBuffer g_xBuffer(10240);
 //	Game instance
 MirGame* pTheGame = NULL;
+//	Extra attribute name table (stubs â€” real strings come from lua config)
+const char* g_szExtraAttribDescriptor[64] = {
+	"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+	"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+	"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+	"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+};
 
 //////////////////////////////////////////////////////////////////////////
 MirGame* MirGame::GetInstance()
@@ -254,7 +265,7 @@ bool MirGame::UserInitial()
 	EnumDisplaySettings(NULL, ENUM_CURRENT_SETTINGS, &devmode);
 	if(devmode.dmBitsPerPel != 32)
 	{
-		MessageBox(NULL, "ÏÔÊ¾Æ÷ÏÔÊ¾Î»Êý²»ÎªÕæ²ÊÉ«(32Î»),Çëµ÷ÕûÎªÕæ²ÊÉ«,·ñÔòÓÎÏ·½«ÎÞ·¨Õý³£½øÐÐ", MB_OK | MB_ICONERROR);
+		MessageBox(NULL, "ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ê¾Î»ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½É«(32Î»),ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½É«,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", MB_OK | MB_ICONERROR);
 	}*/
 #if _MSC_VER >= 1500
 	// Set the double precision
@@ -262,7 +273,7 @@ bool MirGame::UserInitial()
 	 _controlfp_s(&uPrevPrecision, 0, 0);
 	 _controlfp_s(0, _PC_53, MCW_PC);
 #endif
-	//	ÉèÖÃÍ¼±ê
+	//	ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½
 	HICON hIcon = LoadIcon(GetModuleHandle(NULL), LPCSTR(IDI_ICON1));
 	::SendMessage(m_hWin, WM_SETICON, FALSE, (LPARAM)hIcon);
 
@@ -297,7 +308,7 @@ bool MirGame::UserInitial()
 
 #endif
 
-	//	³õÊ¼»¯DC¾ä±ú
+	//	ï¿½ï¿½Ê¼ï¿½ï¿½DCï¿½ï¿½ï¿½
 	HWND hWnd = m_pHGE->System_GetState(HGE_HWND);
 	HDC hDC = ::GetDC(hWnd);
 	GameTextureManager::Init(hDC, m_pHGE);
@@ -305,10 +316,10 @@ bool MirGame::UserInitial()
 	m_pHGE->System_SetState(HGE_HIDEMOUSE, false);
 	AfxInitHge(m_pHGE);
 
-	//	½«·þÎñÆ÷µÄsocketÖØ¶¨Î»µ½´Ë´°Ìå
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½socketï¿½Ø¶ï¿½Î»ï¿½ï¿½ï¿½Ë´ï¿½ï¿½ï¿½
 	if(GetGameMode() == GM_NORMAL)
 	{
-		//	½öÓÐÓÎÏ··þÎñÆ÷ ÔòClientSocket¾ÍÊÇÓÎÏ··þÎñÆ÷socket
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ClientSocketï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½socket
 		if ( WSAAsyncSelect(g_xClientSocket.GetSocket(), hWnd, WM_SOCKMSG, FD_CONNECT|FD_READ|FD_CLOSE ) == SOCKET_ERROR)
 		{
 			wsprintf(strError, "WSAAsyncSelect() generated error %d\n", WSAGetLastError());
@@ -318,7 +329,7 @@ bool MirGame::UserInitial()
 	}
 	else if(GetGameMode() == GM_LOGIN)
 	{
-		//	µÇÂ½ÓÎÏ··þÎñÆ÷ ÔòClientSocketÊÇµÇÂ½·þÎñÆ÷ ClientSocket2ÊÇÓÎÏ··þÎñÆ÷ 2¸ö¶¼ÖØ¶¨Î»
+		//	ï¿½ï¿½Â½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ClientSocketï¿½Çµï¿½Â½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ClientSocket2ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ï¿½ï¿½ï¿½Ø¶ï¿½Î»
 		if ( WSAAsyncSelect(g_xClientSocket.GetSocket(), hWnd, WM_SOCKMSG, FD_CONNECT|FD_READ|FD_CLOSE ) == SOCKET_ERROR)
 		{
 			wsprintf(strError, "WSAAsyncSelect() generated error %d\n", WSAGetLastError());
@@ -333,7 +344,7 @@ bool MirGame::UserInitial()
 			return false;
 		}
 
-		//	ÐÄÌø°ü¼ÆÊ±Æ÷
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 		SetTimer(m_hWin, TIMER_SEND_LOGIN_HEARTBEAT, 15 * 1000, NULL);
 	}
 	else
@@ -341,27 +352,27 @@ bool MirGame::UserInitial()
 		return false;
 	}
 
-	//	ÉèÖÃ´°¿Ú±êÌâ
+	//	ï¿½ï¿½ï¿½Ã´ï¿½ï¿½Ú±ï¿½ï¿½ï¿½
 	UpdateWindowTitle(-1);
 
-	//	ÉèÖÃÈ«¾ÖÒì³£´¦ÀíÆ÷
+	//	ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	SetUnhandledExceptionFilter(&BM_UnhandledExceptionFilter);
 
-	//	°æ±¾ÅÐ¶Ï
+	//	ï¿½æ±¾ï¿½Ð¶ï¿½
 	if(false && !CheckVersion())
 	{
-		::MessageBox(NULL, "ÎÄ¼þ°æ±¾²»Æ¥Åä", "´íÎó", MB_ICONERROR | MB_TASKMODAL);
+		::MessageBox(NULL, "ï¿½Ä¼ï¿½ï¿½æ±¾ï¿½ï¿½Æ¥ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½", MB_ICONERROR | MB_TASKMODAL);
 		return false;
 	}
 
-	//	¶ÁÈ¡Ì××°ÐÅÏ¢
+	//	ï¿½ï¿½È¡ï¿½ï¿½×°ï¿½ï¿½Ï¢
 	//InitItemExtraAttrib();
 
-	//	¶ÁÈ¡·Ö½âÐÅÏ¢
+	//	ï¿½ï¿½È¡ï¿½Ö½ï¿½ï¿½ï¿½Ï¢
 	//InitItemGrade();
 
 
-	//	¶ÁÈ¡È«¾ÖÅäÖÃ
+	//	ï¿½ï¿½È¡È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	/*sprintf(szBuf, "%s\\cfg.ini",
 		GetRootPath());
 	SettingLoader::GetInstance()->LoadSetting(szBuf);*/
@@ -388,7 +399,7 @@ bool MirGame::UserInitial()
 	szPsw[4] = 'z';
 	if(false == AfxGetHge()->Resource_AttachPack(szBuf, szPsw))
 	{
-		AfxGetHge()->System_Log("×ÊÔ´°üÔØÈë´íÎó[%s]",
+		AfxGetHge()->System_Log("ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[%s]",
 			szBuf);
 	}
 
@@ -406,7 +417,7 @@ bool MirGame::UserInitial()
 
 	if(!m_pxLoginScene->Init(m_pxResMgr))
 	{
-		::MessageBox(NULL, "¶ÁÈ¡ÈËÎï´æµµÊý¾ÝÊ§°Ü", "´íÎó", MB_ICONERROR | MB_TASKMODAL);
+		::MessageBox(NULL, "ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½æµµï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½", MB_ICONERROR | MB_TASKMODAL);
 		return false;
 	}
 
@@ -416,15 +427,15 @@ bool MirGame::UserInitial()
 
 	if(!GameSoundManager::GetInstancePtr()->Initialize())
 	{
-		AfxGetHge()->System_Log("ÎÞ·¨³õÊ¼»¯ÉùÒôÏµÍ³");
+		AfxGetHge()->System_Log("ï¿½Þ·ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÏµÍ³");
 	}
 
 	m_pHGE->System_SetState(HGE_FPS,				Config_GetFPS());  
 
-	//	Ä§·¨ÏûºÄ
+	//	Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if(!GameInfoManager::GetInstance()->InitMgcCostTable())
 	{
-		AfxGetHge()->System_Log("Ä§·¨ÐÅÏ¢¶ÁÈ¡Ê§°Ü");
+		AfxGetHge()->System_Log("Ä§ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½È¡Ê§ï¿½ï¿½");
 	}
 
 	m_bInitialized = true;
@@ -436,7 +447,7 @@ bool MirGame::UserInitial()
 		mkdir(szBuf);
 	}
 
-	//	ÉèÖÃ½Å±¾¶ÁÈ¡Â·¾¶
+	//	ï¿½ï¿½ï¿½Ã½Å±ï¿½ï¿½ï¿½È¡Â·ï¿½ï¿½
 #ifdef _DEBUG
 	sprintf(szBuf, "%s\\Script\\",
 		GetRootPath());
@@ -447,20 +458,20 @@ bool MirGame::UserInitial()
 	m_xScript.SetLuaLoadPath(szBuf);
 	LoadScript(0);
 
-	//	¶ÁÈ¡¶ÍÔìÐÅÏ¢
+	//	ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	if(!StoveManager::GetInstance()->Init(pTheGame->GetScriptEngine()->GetVM()))
 	{
-		::MessageBox(NULL, "¶ÁÈ¡¶ÍÔìÐÅÏ¢Ê§°Ü", "´íÎó", MB_ICONERROR | MB_TASKMODAL);
+		::MessageBox(NULL, "ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢Ê§ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½", MB_ICONERROR | MB_TASKMODAL);
 		return false;
 	}
 
-	//	¶ÁÈ¡ÈÎÎñ½Å±¾
+	//	ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Å±ï¿½
 	if(!LoadQuestScript())
 	{
-		AfxGetHge()->System_Log("ÎÞ·¨¶ÁÈ¡ÈÎÎñ½Å±¾");
+		AfxGetHge()->System_Log("ï¿½Þ·ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Å±ï¿½");
 	}
 
-	//	³õÊ¼»¯¸¨ÖúÃæ°å
+	//	ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_pAssistPaneWnd = new AssistPaneWnd;
 	m_pAssistPaneWnd->SetParentHWND(hWnd);
 	m_pAssistPaneWnd->CreateDuiWindow(hWnd, "AssistPane");
@@ -476,11 +487,11 @@ bool MirGame::UserInitial()
 	m_pDonateValueWnd->m_pDonateWnd = m_pDonateWnd;
 	m_pDonateValueWnd->CreateDuiWindow(hWnd, "DonateValueWnd");
 
-	//	Ñ¡ÔñÎÆÀíµÄhgeÖ¸Õë
+	//	Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½hgeÖ¸ï¿½ï¿½
 	SelectedTextureManager::GetInstance()->SetHGE(m_pHGE);
 	OutlineTextureManager::GetInstance()->SetHGE(m_pHGE);
 
-	//	Êó±ê
+	//	ï¿½ï¿½ï¿½
 	SetGameCursor(42);
 
 	//ShowWindow(hWnd, SW_HIDE);
@@ -491,7 +502,7 @@ bool MirGame::UserInitial()
 
 void MirGame::UserUninitial()
 {
-	//	É¾³ýµ¥Àý
+	//	É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	delete GamePlayer::GetInstance();
 	delete GameResourceManager::GetInstance();
 	delete GameMapManager::GetInstance();
@@ -516,7 +527,7 @@ void MirGame::UserUninitial()
 }
 
 /************************************************************************/
-/* ½ÓÊÜÓÃ»§ÊäÈë ¸üÐÂ
+/* ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 /************************************************************************/
 void MirGame::UserFrameFunc()
 {
@@ -572,7 +583,7 @@ void MirGame::UserFrameFunc()
 }
 
 /************************************************************************/
-/* »æÖÆº¯Êý
+/* ï¿½ï¿½ï¿½Æºï¿½ï¿½ï¿½
 /************************************************************************/
 void MirGame::UserRenderFunc()
 {
@@ -585,7 +596,7 @@ void MirGame::UserRenderFunc()
 	{
 		if(NULL == g_hWndDC)
 		{
-			//	³õÊ¼»¯DC¾ä±ú
+			//	ï¿½ï¿½Ê¼ï¿½ï¿½DCï¿½ï¿½ï¿½
 			HWND hWnd = m_pHGE->System_GetState(HGE_HWND);
 			g_hWndDC = ::GetDC(hWnd);
 			GameTextureManager::Init(g_hWndDC, m_pHGE);
@@ -625,17 +636,17 @@ void MirGame::UserRenderFunc()
 
 
 /************************************************************************/
-/* ÉèÖÃ±êÌâ
+/* ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½
 /************************************************************************/
 const char* MirGame::GetDifficultyLevelName(int _nDifficultyLevel)
 {
 	static const char* s_szDifficultyLevel[] =
 	{
-		"ÆÕÍ¨",
-		"ÐÂÊÖ",
-		"¼òµ¥",
-		"ÆÕÍ¨",
-		"µØÓü"
+		"ï¿½ï¿½Í¨",
+		"ï¿½ï¿½ï¿½ï¿½",
+		"ï¿½ï¿½",
+		"ï¿½ï¿½Í¨",
+		"ï¿½ï¿½ï¿½ï¿½"
 	};
 
 	if(_nDifficultyLevel < 0 ||
@@ -679,7 +690,7 @@ void MirGame::UpdateWindowTitle(int _nDifficultyLevel)
 
 
 /************************************************************************/
-/* ³õÊ¼»¯ÈÕÖ¾
+/* ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ö¾
 /************************************************************************/
 void MirGame::InitLogfile()
 {
@@ -693,11 +704,11 @@ void MirGame::InitLogfile()
 	}
 	sprintf(szfile, "%s\\clientlog\\%02d-%02d-%02d.log",GetRootPath(), time.wYear, time.wMonth, time.wDay);
 	m_pHGE->System_SetState(HGE_LOGFILE, szfile);
-	m_pHGE->System_Log("ÈÕÖ¾ÎÄ¼þ³õÊ¼»¯³É¹¦");
+	m_pHGE->System_Log("ï¿½ï¿½Ö¾ï¿½Ä¼ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½É¹ï¿½");
 }
 
 /************************************************************************/
-/* »ñÈ¡ÃüÁîÐÐ²ÎÊý
+/* ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½
 /************************************************************************/
 bool MirGame::CheckParam()
 {
@@ -708,7 +719,7 @@ bool MirGame::CheckParam()
 	CommandLineHelper xHelper;
 	if(!xHelper.InitParam())
 	{
-		::MessageBox(NULL, "ÓÎÏ·Æô¶¯Ê§°Ü£¬ÇëÊ¹ÓÃµÇÂ½Æ÷µÇÂ½", "´íÎó", MB_ICONERROR);
+		::MessageBox(NULL, "ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½Ê¹ï¿½Ãµï¿½Â½ï¿½ï¿½ï¿½ï¿½Â½", "ï¿½ï¿½ï¿½ï¿½", MB_ICONERROR);
 		return false;
 	}
 
@@ -716,14 +727,14 @@ bool MirGame::CheckParam()
 	if(pszLauncherKey == NULL ||
 		0 != strcmp(pszLauncherKey, "lk0x"))
 	{
-		::MessageBox(NULL, "ÓÎÏ·Æô¶¯Ê§°Ü£¬ÇëÊ¹ÓÃµÇÂ½Æ÷(BMLauncher.exe)µÇÂ½", "´íÎó", MB_ICONERROR);
+		::MessageBox(NULL, "ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½Ê¹ï¿½Ãµï¿½Â½ï¿½ï¿½(BMLauncher.exe)ï¿½ï¿½Â½", "ï¿½ï¿½ï¿½ï¿½", MB_ICONERROR);
 		return false;
 	}
 
 	const char* pszValue = xHelper.GetParam("svrip");
 	if(pszValue == NULL)
 	{
-		::MessageBox(NULL, "ÓÎÏ·Æô¶¯Ê§°Ü£¬ÇëÊ¹ÓÃµÇÂ½Æ÷µÇÂ½", "´íÎó", MB_ICONERROR);
+		::MessageBox(NULL, "ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½Ê¹ï¿½Ãµï¿½Â½ï¿½ï¿½ï¿½ï¿½Â½", "ï¿½ï¿½ï¿½ï¿½", MB_ICONERROR);
 		return false;
 	}
 
@@ -770,12 +781,12 @@ bool MirGame::CheckParam()
 	szArglist = CommandLineToArgvW(GetCommandLineW(), &nArgs);   
 	if( NULL != szArglist)   
 	{   
-		//szArglist¾ÍÊÇ±£´æ²ÎÊýµÄÊý×é   
-		//nArgsÊÇÊý×éÖÐ²ÎÊýµÄ¸öÊý   
-		//Êý×éµÄµÚÒ»¸öÔªËØ±íÊ¾½ø³ÌµÄpath£¬Ò²¾ÍÊÇszArglist[0]£¬ÆäËûµÄÔªËØÒÀ´ÎÊÇÊäÈë²ÎÊý
+		//szArglistï¿½ï¿½ï¿½Ç±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½   
+		//nArgsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½   
+		//ï¿½ï¿½ï¿½ï¿½Äµï¿½Ò»ï¿½ï¿½Ôªï¿½Ø±ï¿½Ê¾ï¿½ï¿½ï¿½Ìµï¿½pathï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½szArglist[0]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if(nArgs <= 1)
 		{
-			::MessageBox(NULL, "ÓÎÏ·Æô¶¯Ê§°Ü£¬ÇëÊ¹ÓÃµÇÂ½Æ÷µÇÂ½", "´íÎó", MB_ICONERROR);
+			::MessageBox(NULL, "ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½Ê¹ï¿½Ãµï¿½Â½ï¿½ï¿½ï¿½ï¿½Â½", "ï¿½ï¿½ï¿½ï¿½", MB_ICONERROR);
 			//LocalFree(szArglist); 
 			//PostQuitMessage(0);
 			bRet = false;
@@ -854,10 +865,10 @@ bool MirGame::CheckParam()
 #endif
 		}
 
-		//È¡µÃ²ÎÊýºó£¬ÊÍ·ÅCommandLineToArgvWÉêÇëµÄ¿Õ¼ä   
+		//È¡ï¿½Ã²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½CommandLineToArgvWï¿½ï¿½ï¿½ï¿½Ä¿Õ¼ï¿½   
 		LocalFree(szArglist); 
 	}   
-	//m_pHGE->System_Log("²ÎÊý¼ì²â³É¹¦£¬½øÈëÓÎÏ·");
+	//m_pHGE->System_Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·");
 
 	return bRet;
 }
@@ -1157,9 +1168,9 @@ bool MirGame::LoadScript(int _nMapID)
 {
 	char szPath[MAX_PATH];
 
-	//	Çå³ýºÚÒ¹±ê¼Ç
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½Ò¹ï¿½ï¿½ï¿½
 	SetDarkMode(0);
-	//	Çå³þµØÍ¼ÏÔÊ¾±ê¼Ç
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½
 	SetShowMapSnap(true);
 
 	strcpy(szPath, "client/main");
@@ -1191,7 +1202,7 @@ bool MirGame::LoadScript(int _nMapID)
 		return false;
 	}
 
-	//	³õÊ¼»¯µØÍ¼º¯Êý
+	//	ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½
 	lua_getglobal(m_xScript.GetVM(), "LoadScene");
 	lua_pushinteger(m_xScript.GetVM(), _nMapID);
 	tolua_pushusertype(m_xScript.GetVM(), this, "MirGame");
@@ -1220,7 +1231,7 @@ bool MirGame::LoadScript(int _nMapID)
 		return false;
 	}
 
-	//	³õÊ¼»¯µØÍ¼º¯Êý
+	//	ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½
 	lua_getglobal(m_xScript.GetVM(), "LoadScene");
 	lua_pushinteger(m_xScript.GetVM(), _nMapID);
 	tolua_pushusertype(m_xScript.GetVM(), this, "MirGame");
@@ -1302,11 +1313,11 @@ HTEXTURE MirGame::GetDarkModeTexture()
 }
 
 /************************************************************************/
-/* ´¦ÀíSocketÏûÏ¢
+/* ï¿½ï¿½ï¿½ï¿½Socketï¿½ï¿½Ï¢
 /************************************************************************/
 void MirGame::OnSocketMessage(SOCKET _s, LPARAM lParam)
 {
-	//	½âÎöÊý¾Ý°ü
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý°ï¿½
 	//static char s_szBuf[1024 * 5];
 
 	if(WSAGETSELECTERROR(lParam))
@@ -1325,7 +1336,7 @@ void MirGame::OnSocketMessage(SOCKET _s, LPARAM lParam)
 
 	if(GetGameMode() == GM_NORMAL)
 	{
-		//	ÆÕÍ¨ Ö»ÓÐÓÎÏ··þÎñÆ÷
+		//	ï¿½ï¿½Í¨ Ö»ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if(_s == g_xClientSocket.GetSocket())
 		{
 			OnGameSvrMsg(_s, lParam);
@@ -1333,7 +1344,7 @@ void MirGame::OnSocketMessage(SOCKET _s, LPARAM lParam)
 	}
 	else if(GetGameMode() == GM_LOGIN)
 	{
-		//	µÇÂ½Ä£Ê½ ÓÎÏ·ºÍµÇÂ¼·þÎñÆ÷
+		//	ï¿½ï¿½Â½Ä£Ê½ ï¿½ï¿½Ï·ï¿½Íµï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if(_s == g_xClientSocket.GetSocket())
 		{
 			OnLoginSvrMsg(_s, lParam);
@@ -1362,7 +1373,7 @@ void MirGame::OnLoginSvrMsg(SOCKET _s, LPARAM lParam)
 			{
 				closesocket(_s);
 
-				ALERT_MSGBOX("ÓëµÇÂ½·þÎñÆ÷¶Ï¿ªÁ¬½Ó");
+				ALERT_MSGBOX("ï¿½ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½");
 			}
 			else
 			{
@@ -1381,7 +1392,7 @@ void MirGame::OnLoginSvrMsg(SOCKET _s, LPARAM lParam)
 				g_xClientSocket2.CloseSocket();
 			}
 
-			ALERT_MSGBOX("ÓëµÇÂ½·þÎñÆ÷¶Ï¿ªÁ¬½Ó");
+			ALERT_MSGBOX("ï¿½ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½");
 		}break;
 	}
 }
@@ -1410,7 +1421,7 @@ void MirGame::OnGameSvrMsg(SOCKET _s, LPARAM lParam)
 					g_xClientSocket2.CloseSocket();
 				}
 
-				ALERT_MSGBOX("ÓëÓÎÏ··þÎñÆ÷¶Ï¿ªÁ¬½Ó");
+				ALERT_MSGBOX("ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½");
 #ifdef _DEBUG
 #else
 				PostQuitMessage(0);
@@ -1433,7 +1444,7 @@ void MirGame::OnGameSvrMsg(SOCKET _s, LPARAM lParam)
 				g_xClientSocket2.CloseSocket();
 			}
 
-			ALERT_MSGBOX("ÓëÓÎÏ··þÎñÆ÷¶Ï¿ªÁ¬½Ó");
+			ALERT_MSGBOX("ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½");
 #ifdef _DEBUG
 #else
 			PostQuitMessage(0);
@@ -1508,7 +1519,7 @@ bool MirGame::PumpMessage() {
 }
 
 /************************************************************************/
-/* ¹ýÂËwindowsÏûÏ¢
+/* ï¿½ï¿½ï¿½ï¿½windowsï¿½ï¿½Ï¢
 /************************************************************************/
  LRESULT MirGame::WinEventFilter(HWND h, UINT u, WPARAM w, LPARAM l)
  {
@@ -1534,12 +1545,12 @@ bool MirGame::PumpMessage() {
 		}break;
 	case WM_SCENE_PROG:
 		{
-			//	³¡¾°½ø¶È
+			//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			m_pxLoginScene->OnSceneProg(w, l);
 		}break;
 	case WM_ENTER_GAMESCENE:
 		{
-			//	½øÈëÓÎÏ·³¡¾°
+			//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½
 			if(m_pxLoginScene->GetPage() == PAGE_LOAD)
 			{
 				SAFE_DELETE(m_pxLoginScene);
@@ -1552,20 +1563,20 @@ bool MirGame::PumpMessage() {
 				g_xBuffer.Reset();
 				g_xBuffer << ack;
 				SendBufferToGS(&g_xBuffer);
-				m_pGameScene->GetMainOpt()->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[¹«¸æ]»¶Ó­½øÈëÃÎ»Ø´«ÆæµÄÊÀ½ç",ARGB_YELLOW);
-				m_pGameScene->GetMainOpt()->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[ÌáÊ¾]ÈçÐè°ïÖú£¬°´E¼ü£¬Ñ¡ÔñÓÎÏ·°ïÖú¡£ÓÎÏ·µØÍ¼ÄÚÍøÖ·¾ùÓë±¾ÓÎÏ·ÎÞ¹Ø£¬¾ùÎªÍøÂçËØ²Ä",ARGB_YELLOW);
-				m_pGameScene->GetMainOpt()->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[ÌáÊ¾]CTRL+H ¸ü¸Ä¹¥»÷Ä£Ê½",ARGB_YELLOW);
-				//m_pGameScene->GetMainOpt()->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[°ïÖú]ÈËÎï F9",ARGB_RED);
-				//m_pGameScene->GetMainOpt()->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[°ïÖú]±³°ü F10",ARGB_RED);
-				//m_pGameScene->GetMainOpt()->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[°ïÖú]¼¼ÄÜ F11",ARGB_RED);
-				//m_pGameScene->GetMainOpt()->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[°ïÖú]´óµØÍ¼ TAB",ARGB_RED);
-				//m_pGameScene->GetMainOpt()->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[°ïÖú]¼ñÈ¡ ¿Õ¸ñ »ò CTRL¼ÓÊó±ê×ó¼ü",ARGB_RED);
-				//m_pGameScene->GetMainOpt()->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[°ïÖú]½ØÍ¼ CTRL+S",ARGB_RED);
+				m_pGameScene->GetMainOpt()->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[ï¿½ï¿½ï¿½ï¿½]ï¿½ï¿½Ó­ï¿½ï¿½ï¿½ï¿½ï¿½Î»Ø´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",ARGB_YELLOW);
+				m_pGameScene->GetMainOpt()->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[ï¿½ï¿½Ê¾]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ë±¾ï¿½ï¿½Ï·ï¿½Þ¹Ø£ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ø²ï¿½",ARGB_YELLOW);
+				m_pGameScene->GetMainOpt()->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[ï¿½ï¿½Ê¾]CTRL+H ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ï¿½Ä£Ê½",ARGB_YELLOW);
+				//m_pGameScene->GetMainOpt()->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[ï¿½ï¿½ï¿½ï¿½]ï¿½ï¿½ï¿½ï¿½ F9",ARGB_RED);
+				//m_pGameScene->GetMainOpt()->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[ï¿½ï¿½ï¿½ï¿½]ï¿½ï¿½ï¿½ï¿½ F10",ARGB_RED);
+				//m_pGameScene->GetMainOpt()->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[ï¿½ï¿½ï¿½ï¿½]ï¿½ï¿½ï¿½ï¿½ F11",ARGB_RED);
+				//m_pGameScene->GetMainOpt()->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[ï¿½ï¿½ï¿½ï¿½]ï¿½ï¿½ï¿½Í¼ TAB",ARGB_RED);
+				//m_pGameScene->GetMainOpt()->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[ï¿½ï¿½ï¿½ï¿½]ï¿½ï¿½È¡ ï¿½Õ¸ï¿½ ï¿½ï¿½ CTRLï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",ARGB_RED);
+				//m_pGameScene->GetMainOpt()->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[ï¿½ï¿½ï¿½ï¿½]ï¿½ï¿½Í¼ CTRL+S",ARGB_RED);
 				PkgPlayerQuickMsgNtf ntf;
 				ntf.nMsgID = QMSG_ATTACKMODE;
 				ntf.nParam = 0;
 				GamePlayer::GetInstance()->DoPacket(ntf);
-				//	ÓÎÏ·³¡¾°³õÊ¼»¯
+				//	ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½
 				Sleep(50);
 			}
 		}break;
@@ -1625,7 +1636,7 @@ bool MirGame::PumpMessage() {
 		{
 			if(GetCurStage() == SCENE_GAME)
 			{
-				//	»Øµ½ÈËÎï½çÃæ
+				//	ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				GameSoundManager::GetInstancePtr()->StopBkSound();
 				GameSoundManager::GetInstancePtr()->PlayBkSound(3);
 				SetCurState(SCENE_LOGIN);

@@ -38,7 +38,7 @@ void GameNPC::Render()
 	if(ttex)
 	{
 		GameTextureManager* res = ttex;
-		//	»­¹ÖÎï
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		int nTexIndex = CalRenderIndex() + m_bCurFrame;
 		HTEXTURE tex = res->GetTexture(nTexIndex);
 		short sOffsetX = 0;
@@ -69,16 +69,16 @@ void GameNPC::Render()
 			}
 			sOffsetX = res->GetTextureOffsetX(nTexIndex);
 			sOffsetY = res->GetTextureOffsetY(nTexIndex);
-			//	¸ù¾ÝÍæ¼ÒÎ»ÖÃ µÃÏÈËã³öÀ´Õý³£¾ØÐÎµÄÎ»ÖÃ
+			//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îµï¿½Î»ï¿½ï¿½
 			nDrawOffsetX = CENTRAL_X + (int)m_fPosx - (int)pPlayer->GetObjx();
 			nDrawOffsetY = CENTRAL_Y + (int)m_fPosy - (int)pPlayer->GetObjy();
 			m_pSpr->Render(nDrawOffsetX + sOffsetX,
 				nDrawOffsetY + sOffsetY);
-			//	¼ÇÂ¼µ±Ç°ÎÆÀíË÷Òý
+			//	ï¿½ï¿½Â¼ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			m_nCurrentTextureIndex = nTexIndex;
 		}
 
-		//	Ãû×Ö
+		//	ï¿½ï¿½ï¿½ï¿½
 		/*if(m_bRenderName)
 		{
 			AfxGetFont()->Print(nDrawOffsetX + strlen(m_attrib.name) / 4 * FONT_WIDTH_WORD,
@@ -94,7 +94,7 @@ void GameNPC::RenderName()
 	{
 		return;
 	}
-	//	¼ÆËãÖÐÖµ×ø±ê
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½
 	int nDrawX = 0;
 	int nDrawY = 0;
 	GamePlayer* pPlayer = GamePlayer::GetInstance();
@@ -131,7 +131,7 @@ void GameNPC::Update(float _dt)
 		{
 			if(!IsLastFrame())
 			{
-				//	Ôö¼ÓÖ¡
+				//	ï¿½ï¿½ï¿½ï¿½Ö¡
 				if(m_fUpdateTime > 0.8f)
 				{
 					++m_bCurFrame;
@@ -140,7 +140,7 @@ void GameNPC::Update(float _dt)
 			}
 			else
 			{
-				//	×îºóÒ»Ö¡ Ö¡ÉèÎª0
+				//	ï¿½ï¿½ï¿½Ò»Ö¡ Ö¡ï¿½ï¿½Îª0
 				if(m_fUpdateTime > 0.8f)
 				{
 					m_bCurFrame = 0;
@@ -152,7 +152,7 @@ void GameNPC::Update(float _dt)
 		{
 			if(!IsLastFrame())
 			{
-				//	Ôö¼Ó
+				//	ï¿½ï¿½ï¿½ï¿½
 				if(m_fUpdateTime > 0.8f)
 				{
 					++m_bCurFrame;
@@ -161,7 +161,7 @@ void GameNPC::Update(float _dt)
 			}
 			else
 			{
-				//	×îºóÒ»Ö¡ Ö¡ÉèÎª0
+				//	ï¿½ï¿½ï¿½Ò»Ö¡ Ö¡ï¿½ï¿½Îª0
 				if(m_fUpdateTime > 0.8f)
 				{
 					m_bCurFrame = 0;
@@ -193,7 +193,7 @@ int GameNPC::CalRenderIndex()
 	{
 	case PST_WALK:
 		{
-			//	NPCµÄwalk×´Ì¬Îª¶¯×÷
+			//	NPCï¿½ï¿½walk×´Ì¬Îªï¿½ï¿½ï¿½ï¿½
 			nIndex =m_pRenderInfo->walkbegin/* + nDirIdx * m_renderInfo.walktotal*/;
 		}break;
 	case PST_STAND:
@@ -258,7 +258,7 @@ HTEXTURE GameNPC::GetCurTexture()
 // 		short sWidth = ttex->GetTextureWidthEx(CalRenderIndex());
 // 		short sHeight = ttex->GetTextureHeightEx(CalRenderIndex());
 // 
-// 		//	ËõÐ¡4ÏñËØ Éú³É¼ì²â¾ØÐÎ
+// 		//	ï¿½ï¿½Ð¡4ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½É¼ï¿½ï¿½ï¿½ï¿½ï¿½
 // 		RECT rcMons;
 // 		rcMons.left = nDrawX + sOffsetX + 2;
 // 		rcMons.right = rcMons.left + sWidth - 2;
@@ -275,8 +275,8 @@ HTEXTURE GameNPC::GetCurTexture()
 // 			return false;
 // 		}
 // 
-// 		//	½øÐÐÏñËØ¼ì²â
-// 		//	»¹Ô­Ïà¶Ô¾ØÐÎ
+// 		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½
+// 		//	ï¿½ï¿½Ô­ï¿½ï¿½Ô¾ï¿½ï¿½ï¿½
 // 		POINT ptDetect = _pt;
 // 		ptDetect.x = _pt.x - (nDrawX + sOffsetX);
 // 		ptDetect.y = _pt.y - (nDrawY + sOffsetY);
@@ -309,14 +309,14 @@ HTEXTURE GameNPC::GetCurTexture()
 
 
 //////////////////////////////////////////////////////////////////////////
-//	Êý¾Ý°ü
+//	ï¿½ï¿½ï¿½Ý°ï¿½
 void GameNPC::OnPacket(const PacketHeader *_pPkt)
 {
 	g_xBuffer.Reset();
 	unsigned int uWriteLen = g_xBuffer.Write(_pPkt, _pPkt->uLen);
 	if(uWriteLen != _pPkt->uLen)
 	{
-		ALERT_MSGBOX("Ð´ÈëÈ«¾ÖBufferÊ§°Ü");
+		ALERT_MSGBOX("Ð´ï¿½ï¿½È«ï¿½ï¿½BufferÊ§ï¿½ï¿½");
 		::PostQuitMessage(0);
 		return;
 	}
@@ -380,8 +380,8 @@ void GameNPC::DoPacket(const PkgPlayerShowShopAck& ack)
 	if(ack.bType == SHOP_SELLSHOP)
 	{
 		pShopDlg->ClearItem();
-		std::list<USHORT>::const_iterator begiter = ack.xItems.begin();
-		std::list<USHORT>::const_iterator enditer = ack.xItems.end();
+		std::vector<int>::const_iterator begiter = ack.xItems.begin();
+		std::vector<int>::const_iterator enditer = ack.xItems.end();
 		for(begiter; begiter != enditer; ++begiter)
 		{
 			pShopDlg->AddItem(*begiter);
@@ -446,7 +446,7 @@ void MagicDoorNPC::Update(float _dt)
 		{
 			if(!IsLastFrame())
 			{
-				//	Ôö¼ÓÖ¡
+				//	ï¿½ï¿½ï¿½ï¿½Ö¡
 				if(m_fUpdateTime > 0.1f)
 				{
 					++m_bCurFrame;
@@ -455,7 +455,7 @@ void MagicDoorNPC::Update(float _dt)
 			}
 			else
 			{
-				//	×îºóÒ»Ö¡ Ö¡ÉèÎª0
+				//	ï¿½ï¿½ï¿½Ò»Ö¡ Ö¡ï¿½ï¿½Îª0
 				if(m_fUpdateTime > 0.1f)
 				{
 					m_bCurFrame = 0;
@@ -467,7 +467,7 @@ void MagicDoorNPC::Update(float _dt)
 		{
 			if(!IsLastFrame())
 			{
-				//	Ôö¼Ó
+				//	ï¿½ï¿½ï¿½ï¿½
 				if(m_fUpdateTime > 0.1f)
 				{
 					++m_bCurFrame;
@@ -476,7 +476,7 @@ void MagicDoorNPC::Update(float _dt)
 			}
 			else
 			{
-				//	×îºóÒ»Ö¡ Ö¡ÉèÎª0
+				//	ï¿½ï¿½ï¿½Ò»Ö¡ Ö¡ï¿½ï¿½Îª0
 				if(m_fUpdateTime > 0.1f)
 				{
 					m_bCurFrame = 0;
@@ -501,7 +501,7 @@ void MagicDoorNPC::Render()
 	if(ttex)
 	{
 		GameTextureManager* res = ttex;
-		//	»­¹ÖÎï
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		HTEXTURE tex = res->GetTexture(CalRenderIndex() + m_bCurFrame);
 		short sOffsetX = 0;
 		short sOffsetY = 0;
@@ -522,12 +522,12 @@ void MagicDoorNPC::Render()
 			}
 			sOffsetX = res->GetTextureOffsetX(CalRenderIndex() + m_bCurFrame);
 			sOffsetY = res->GetTextureOffsetY(CalRenderIndex() + m_bCurFrame);
-			//	¸ù¾ÝÍæ¼ÒÎ»ÖÃ µÃÏÈËã³öÀ´Õý³£¾ØÐÎµÄÎ»ÖÃ
+			//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îµï¿½Î»ï¿½ï¿½
 			nDrawOffsetX = CENTRAL_X + (int)m_fPosx - (int)pPlayer->GetObjx();
 			nDrawOffsetY = CENTRAL_Y + (int)m_fPosy - (int)pPlayer->GetObjy();
 			MagicElement::pEffectRender->Render(nDrawOffsetX + sOffsetX,
 				nDrawOffsetY + sOffsetY);
-			//	¼ÇÂ¼µ±Ç°ÎÆÀíË÷Òý
+			//	ï¿½ï¿½Â¼ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			m_nCurrentTextureIndex = CalRenderIndex() + m_bCurFrame;
 		}
 	}
@@ -579,7 +579,7 @@ void GameNPCAltar::Render()
 			ttex->GetTextureHeight(nTextIndex));
 		sOffsetX = ttex->GetTextureOffsetX(nTextIndex);
 		sOffsetY = ttex->GetTextureOffsetY(nTextIndex);
-		//	¸ù¾ÝÍæ¼ÒÎ»ÖÃ µÃÏÈËã³öÀ´Õý³£¾ØÐÎµÄÎ»ÖÃ
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îµï¿½Î»ï¿½ï¿½
 		nDrawOffsetX = GetScreenPosX();
 		nDrawOffsetY = GetScreenPosY();
 		MagicElement::pEffectRender->Render(nDrawOffsetX + sOffsetX,

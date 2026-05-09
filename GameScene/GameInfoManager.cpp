@@ -1,4 +1,4 @@
-#include "../GameScene/GameInfoManager.h"
+ï»¿#include "../GameScene/GameInfoManager.h"
 #include <stdio.h>
 #include "../Common/SKnl3Helper.h"
 #include "../Common/GlobalFunction.h"
@@ -13,7 +13,10 @@
 #endif
 #include "../../CommonModule/LuaDataLoader.h"
 
-static const char* g_szAttribName[] = 
+// sqlcipher stub: standard sqlite3 build doesn't ship sqlite3_key.
+static inline int sqlite3_key(void*, const void*, int) { return 0 /* SQLITE_OK */; }
+
+static const char* g_szAttribName[] =
 {
 	"HP","MP","reqValue","reqType","weight","lucky","DC","maxDC","sex","atkSpeed",
 		"AC","maxAC"
@@ -28,18 +31,18 @@ GameInfoManager::GameInfoManager()
 #endif
 	m_bLuaConfig = false;
 	m_sql = NULL;
-	//	ÅÐ¶ÏÊý¾Ý¿âÎÄ¼þÊÇ·ñ´æÔÚ ´æÔÚÆôÓÃÊý¾Ý¿â ²»´æÔÚÓÃINIÎÄ¼þ´æÈ¡
+	//	ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ä¼ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½INIï¿½Ä¼ï¿½ï¿½ï¿½È¡
 	char szDBFile[MAX_PATH];
 	GetRootPath(szDBFile, sizeof(szDBFile));
 	//sprintf(szDBFile, "%s%s", szDBFile, "Help\\legend.bm");
 	strcat(szDBFile, "Help\\legend.bm");
 	if(0 == access(szDBFile, 0))
 	{
-		//	´æÔÚ
+		//	ï¿½ï¿½ï¿½ï¿½
 		//	frist open without password
 		if(SQLITE_OK == sqlite3_open(szDBFile, &m_sql))
 		{
-			//	ÎÄ¼þ´ò¿ª³É¹¦ ÊäÈëÃÜÂë
+			//	ï¿½Ä¼ï¿½ï¿½ò¿ª³É¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //#ifdef NDEBUG
 			DWORD dwPsw[2];
 			char* pWrt = (char*)dwPsw;
@@ -66,8 +69,8 @@ GameInfoManager::GameInfoManager()
 // 			}
 // 			else
 // 			{
-// 				//	ÃÜÂë´í
-// 				AfxGetHge()->System_Log("Êý¾Ý¿âÃÜÂë´íÎó");
+// 				//	ï¿½ï¿½ï¿½ï¿½ï¿½
+// 				AfxGetHge()->System_Log("ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 // 				sqlite3_close(m_sql);
 // 				m_sql = NULL;
 // 			}
@@ -125,7 +128,7 @@ bool GameInfoManager::GetItemDesc(int _id, ItemDesc* _pDesc)
 		return false;
 	}
 
-	//	²éÕÒ»º´æ
+	//	ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½
 	const ItemDesc* pDesc = m_pItemDescCache[_id];
 	if(NULL != pDesc)
 	{
@@ -175,7 +178,7 @@ bool GameInfoManager::GetItemDescINI(int _id, ItemDesc* _pDesc)
 	::GetPrivateProfileString(szId, "name", "", buf, sizeof(buf), szPath);
 	if(strlen(buf) == 0)
 	{
-		//	Ð´ÈëÄ¬ÈÏ»º´æ
+		//	Ð´ï¿½ï¿½Ä¬ï¿½Ï»ï¿½ï¿½ï¿½
 		m_pItemDescCache[_id] = &s_stDefItemDesc;
 		return false;
 	}
@@ -185,7 +188,7 @@ bool GameInfoManager::GetItemDescINI(int _id, ItemDesc* _pDesc)
 	if(dwRead == 0 ||
 		buf[0] == 0)
 	{
-		//	Ð´ÈëÄ¬ÈÏ»º´æ
+		//	Ð´ï¿½ï¿½Ä¬ï¿½Ï»ï¿½ï¿½ï¿½
 		m_pItemDescCache[_id] = &s_stDefItemDesc;
 		return false;
 	}
@@ -212,7 +215,7 @@ bool GameInfoManager::GetItemDescSQL(int _id, ItemDesc* _pDesc)
 	char* pErr = NULL;
 	if(SQLITE_OK != sqlite3_exec(m_sql, szExpr, &GameInfoManager::DBCallbackItemDesc, _pDesc, &pErr))
 	{
-		AfxGetHge()->System_Log("Êý¾Ý¿â²éÑ¯[%d]×°±¸Ê§°Ü,%s", _id, pErr);
+		AfxGetHge()->System_Log("ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ñ¯[%d]×°ï¿½ï¿½Ê§ï¿½ï¿½,%s", _id, pErr);
 		sqlite3_free(pErr);
 		m_pItemDescCache[_id] = &s_stDefItemDesc;
 		return false;
@@ -321,7 +324,7 @@ bool GameInfoManager::GetItemAttribSQL(int _id, ItemAttrib* _pitem)
 	char* pErr = NULL;
 	if(SQLITE_OK != sqlite3_exec(m_sql, szExpr, &GameInfoManager::DBCallbackItemAttrib, _pitem, &pErr))
 	{
-		AfxGetHge()->System_Log("Êý¾Ý¿â²éÑ¯[%d]×°±¸Ê§°Ü,%s", _id, pErr);
+		AfxGetHge()->System_Log("ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ñ¯[%d]×°ï¿½ï¿½Ê§ï¿½ï¿½,%s", _id, pErr);
 		return false;
 	}
 
@@ -335,7 +338,7 @@ bool GameInfoManager::InitMgcCostTable()
 	char* pErr = NULL;
 	if(SQLITE_OK != sqlite3_exec(m_sql, szExpr, &GameInfoManager::DBCallbackMagicCost, NULL, &pErr))
 	{
-		AfxGetHge()->System_Log("Ä§·¨Êý¾Ý»ñÈ¡Ê§°Ü,%s", pErr);
+		AfxGetHge()->System_Log("Ä§ï¿½ï¿½ï¿½ï¿½ï¿½Ý»ï¿½È¡Ê§ï¿½ï¿½,%s", pErr);
 		return false;
 	}
 
@@ -472,7 +475,7 @@ bool GameInfoManager::GetMonsterAttribSQL(int _id, ItemAttrib* _pitem)
 	char* pErr = NULL;
 	if(SQLITE_OK != sqlite3_exec(m_sql, szExpr, &GameInfoManager::DBCallbackItemAttrib, _pitem, &pErr))
 	{
-		AfxGetHge()->System_Log("Êý¾Ý¿â²éÑ¯[%d]¹ÖÎïÊ§°Ü,%s", _id, pErr);
+		AfxGetHge()->System_Log("ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ñ¯[%d]ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½,%s", _id, pErr);
 		return false;
 	}
 
@@ -951,7 +954,7 @@ int GameInfoManager::DBCallbackItemDesc(void* _param, int _count, char** _value,
 	assert(_count == 2);
 	if(_count != 2)
 	{
-		AfxGetHge()->System_Log("²éÑ¯×°±¸ÃèÊöÁÐÊý³ö´í");
+		AfxGetHge()->System_Log("ï¿½ï¿½Ñ¯×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		return -1;
 	}
 
@@ -1001,7 +1004,7 @@ int GameInfoManager::DBCallbackItemAttrib(void* _param, int _count, char** _valu
 	assert(_count == 35);
 	if(_count < 35)
 	{
-		AfxGetHge()->System_Log("²éÑ¯×°±¸ÁÐÊý³ö´í");
+		AfxGetHge()->System_Log("ï¿½ï¿½Ñ¯×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		return -1;
 	}
 
@@ -1058,7 +1061,7 @@ bool GameInfoManager::GetShopSellItems(ItemList* _list, BYTE _type, int _minleve
 	char* pErr = NULL;
 	if(SQLITE_OK != sqlite3_exec(m_sql, szExpr, &GameInfoManager::DBCallbackShopItems, _list, &pErr))
 	{
-		AfxGetHge()->System_Log("Êý¾Ý¿â²éÑ¯[%d]ÉÌµêÐÅÏ¢Ê§°Ü,%s", _type, pErr);
+		AfxGetHge()->System_Log("ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ñ¯[%d]ï¿½Ìµï¿½ï¿½ï¿½Ï¢Ê§ï¿½ï¿½,%s", _type, pErr);
 		return false;
 	}
 
@@ -1071,7 +1074,7 @@ int GameInfoManager::DBCallbackShopItems(void* _param, int _count, char** _value
 	assert(_count == 34);
 	if(_count < 34)
 	{
-		AfxGetHge()->System_Log("²éÑ¯×°±¸ÁÐÊý³ö´í");
+		AfxGetHge()->System_Log("ï¿½ï¿½Ñ¯×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		return -1;
 	}
 
@@ -1145,7 +1148,7 @@ int GameInfoManager::DBCallbackMagicCost(void* _param, int _count, char** _value
 	assert(_count == 13);
 	if(_count < 13)
 	{
-		AfxGetHge()->System_Log("²éÑ¯Ä§·¨ÁÐÊý³ö´í");
+		AfxGetHge()->System_Log("ï¿½ï¿½Ñ¯Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		return -1;
 	}
 

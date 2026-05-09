@@ -1,7 +1,8 @@
-#include "GlobalLuaConfig.h"
+ï»¿#include "GlobalLuaConfig.h"
 #include "LuaClientEngine.h"
 #include <Windows.h>
 #include "../Common/GlobalFunction.h"
+#include <tolua++.h>
 //////////////////////////////////////////////////////////////////////////
 TOLUA_API int tolua_BackMirClient_open(lua_State* tolua_S);
 //////////////////////////////////////////////////////////////////////////
@@ -13,7 +14,7 @@ int LoadGlobalLuaConfig()
 {
 	char szBuf[MAX_PATH];
 	LuaClientEngine eng;
-	//	ÉèÖÃ½Å±¾¶ÁÈ¡Â·¾¶
+	//	ï¿½ï¿½ï¿½Ã½Å±ï¿½ï¿½ï¿½È¡Â·ï¿½ï¿½
 #ifdef _DEBUG
 	sprintf(szBuf, "%s\\Script\\",
 		GetRootPath());

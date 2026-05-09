@@ -3,6 +3,7 @@
 
 #include "../Common/GameRenderObject.h"
 #include "../Common/GfxFont.h"
+#include "../../CommonModule/ShareDefine.h"
 
 #define MAX_BOARDMSG_LENGTH		40
 #define MAX_BOARDMSG_NUM		30

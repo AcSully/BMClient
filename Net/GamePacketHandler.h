@@ -7,6 +7,7 @@
 class GameObject;
 //////////////////////////////////////////////////////////////////////////
 #define ALERT_MSGBOX(T) ::MessageBox(NULL, T, "ERROR", MB_ICONERROR | MB_TASKMODAL)
+#define BUFFER_EXCEPTION_CATCH_RETURN_VOID	catch(...) { return; }
 #define DO_PACKET(PKT)	PKT pkt;try{g_xBuffer >> pkt;}BUFFER_EXCEPTION_CATCH_RETURN_VOID;\
 						DoPacket(pkt);
 #define BEGIN_HANDLE_PACKET(pkt)	switch(pkt->uOp){

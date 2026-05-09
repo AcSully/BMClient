@@ -1,4 +1,4 @@
-#ifndef _BACKMIR_H_
+ï»¿#ifndef _BACKMIR_H_
 #define _BACKMIR_H_
 #include "SGameBase.h"
 #include <Windows.h>
@@ -13,6 +13,7 @@
 #include "LuaClientEngine.h"
 #include "../../CommonModule/SaveFile.h"
 #include "../../CommonModule/SettingLoader.h"
+#include "../../CommonModule/ShareDefine.h"
 #include "../../CommonModule/DataParser.h"
 #include "../DuiWnd/AssistPaneWnd.h"
 #include "../Common/SelectedTextureManager.h"
@@ -233,9 +234,9 @@ public:
 	void Log(const char* _plog);
 	bool LoadScript(int _nMapID);
 	bool LoadQuestScript();
-	//	ÊÇ·ñ¿ªÆôÁË±äËÙ¾«Áé
+	//	ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ë±ï¿½ï¿½Ù¾ï¿½ï¿½ï¿½
 	bool IsTimerFunctionRepalaced();
-	//	»ñµÃµØÍ¼Ãû³Æ
+	//	ï¿½ï¿½Ãµï¿½Í¼ï¿½ï¿½ï¿½ï¿½
 	bool GetMapName(int _id, std::string& _xName);
 
 private:
@@ -277,13 +278,13 @@ private:
 	static bool PumpMessage();
 
 private:
-	//	ÓÎÏ·³¡¾°
+	//	ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½
 	GameScene* m_pGameScene;
-	//	µÇÂ½³¡¾°
+	//	ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½
 	LoginScene* m_pxLoginScene;
-	//	Ëù´¦³¡¾°
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	BYTE m_bScene;
-	//	ÊÇ·ñ³õÊ¼»¯Íê±Ï
+	//	ï¿½Ç·ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½
 	bool m_bInitialized;
 
 	hgeResourceManager* m_pxResMgr;
@@ -293,49 +294,49 @@ private:
 	WORD m_wPort;
 	char m_szHero[20];
 
-	//	½Å±¾ÒýÇæ(¶Ô»°½Å±¾)
+	//	ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½Ô»ï¿½ï¿½Å±ï¿½)
 	LuaClientEngine m_xScript;
-	//	½Å±¾ÒýÇæ(ÈÎÎñÌáÊ¾½Å±¾)
+	//	ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½Å±ï¿½)
 	//LuaClientEngine m_xQuestScript;
 
-	//	·þ×° ÎäÆ÷ ÎÆÀíË÷Òý
+	//	ï¿½ï¿½×° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	std::map<int, int> m_xClothTable;
 	std::map<int, int> m_xWeaponTable;
 
 	bool m_bSoundForbid;
 	bool m_bSoundEnable;
 
-	//	ÊÇ·ñÒÑÁ¬½Ó
+	//	ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	bool m_bConnect;
-	//	ÓÎÏ·ÉèÖÃ
+	//	ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½
 	SettingLoader m_xSettings;
 	bool m_bConfigCache[12];
 	int m_nFps;
-	//	ÓÎÏ· Ä£Ê½
+	//	ï¿½ï¿½Ï· Ä£Ê½
 	GAME_MODE m_eGameMode;
 
 	DataParser m_xLoginMsgParser;
 
-	//	¸¨Öú´°¿Ú
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	AssistPaneWnd* m_pAssistPaneWnd;
-	// ¾èÔù´°¿Ú
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	BMDonateWnd* m_pDonateWnd;
 	BMDonateValueWnd* m_pDonateValueWnd;
 
-	//	ÄÚ´æ¼ì²âÊÍ·Å¼ÆÊ±
+	//	ï¿½Ú´ï¿½ï¿½ï¿½ï¿½Í·Å¼ï¿½Ê±
 	DWORD m_dwLastCheckMemoryStatus;
 
-	//	ºÚÒ¹Ð§¹û
+	//	ï¿½ï¿½Ò¹Ð§ï¿½ï¿½
 	int m_nDarkMode;
 	HTEXTURE m_texDarkMode;
 
-	//	ÊÇ·ñÏÔÊ¾Ð¡µØÍ¼ºÍ´óµØÍ¼
+	//	ï¿½Ç·ï¿½ï¿½ï¿½Ê¾Ð¡ï¿½ï¿½Í¼ï¿½Í´ï¿½ï¿½Í¼
 	bool m_bShowMapSnap;
 
-	//	Êó±ê
+	//	ï¿½ï¿½ï¿½
 	int m_nCursorResourceId;
 
-	// µÇÂ½Ïà¹Ø
+	// ï¿½ï¿½Â½ï¿½ï¿½ï¿½
 	std::string m_xLoginAccount;
 };
 

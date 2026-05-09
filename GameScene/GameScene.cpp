@@ -1,4 +1,4 @@
-#include "../GameScene/GameScene.h"
+ï»¿#include "../GameScene/GameScene.h"
 #include "../Common/SKnl3Helper.h"
 #include "../Common/GlobalFunction.h"
 #include <math.h>
@@ -43,7 +43,7 @@ extern ByteBuffer g_xBuffer;
 
 static const char* g_MapTable[] = 
 {
-	//	0 ÐÂÊÖ´å
+	//	0 ï¿½ï¿½ï¿½Ö´ï¿½
 	"XSC"
 };
 
@@ -92,7 +92,7 @@ GameScene::~GameScene()
 }
 
 /************************************************************************/
-/* ³õÊ¼»¯
+/* ï¿½ï¿½Ê¼ï¿½ï¿½
 /************************************************************************/
 bool GameScene::Init(HGE* _hge)
 {
@@ -100,43 +100,43 @@ bool GameScene::Init(HGE* _hge)
 
  	AfxGetHge()->Random_Seed();
  	ZeroMemory(m_stMapObjects, sizeof(m_stMapObjects));
- 	//	¸ºÔð³õÊ¼»¯ËùÓÐ×ÊÔ´
+ 	//	ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´
  	s_hge = _hge;
  	char szSrcBuf[MAX_PATH];
  	GetRootPath(szSrcBuf, MAX_PATH);
-	//	³õÊ¼»¯ÈËÎïÊý¾Ý
+	//	ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  	m_pPlayer = GamePlayer::GetInstance();
  	AfxInitPlayer(m_pPlayer);
 	
-	//	ÏÂ¹ÒÍæ¼Ò ×Ô¶¯¸üÐÂÓë»æÖÆ
+	//	ï¿½Â¹ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	InsertObject(m_pPlayer);
-	//	ÏÂ¹ÒµØÍ¼
+	//	ï¿½Â¹Òµï¿½Í¼
 	InsertObject(GameMapManager::GetInstance());
 
-	//	³õÊ¼»¯GameTextureManager
+	//	ï¿½ï¿½Ê¼ï¿½ï¿½GameTextureManager
 	HWND hWnd = _hge->System_GetState(HGE_HWND);
 
-	//	³õÊ¼»¯Ð¡µØÍ¼
+	//	ï¿½ï¿½Ê¼ï¿½ï¿½Ð¡ï¿½ï¿½Í¼
 	m_pMiniMap = new GameMiniMapDlg;
 	InsertObject(m_pMiniMap);
 
-	//	³õÊ¼»¯×´Ì¬À¸
+	//	ï¿½ï¿½Ê¼ï¿½ï¿½×´Ì¬ï¿½ï¿½
 	m_pStatusDlg = new GameStatusDlg;
 	InsertObject(m_pStatusDlg);
 
-	//	Ä§·¨
+	//	Ä§ï¿½ï¿½
 	//InsertObject(&GamePlayer::GetInstance()->m_mgcs);
 
-	//	³õÊ¼»¯²Ù×÷À¸
+	//	ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_pMainOpt = GameMainOptUI::GetInstance();
 	m_pMainOpt->Init();
 	InsertObject(m_pMainOpt);
 
-	//	³õÊ¼»¯Ðü¸¡ÏûÏ¢À¸
+	//	ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½
 	m_pFloatDlg = new GameFloatDlg;
 	InsertObject(m_pFloatDlg);
 
-	//	³õÊ¼»¯ÐÅÏ¢Êä³öÇø
+	//	ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_pMsgBoard = GameInfoBoardDlg::GetInstance();
 	InsertObject(m_pMsgBoard);
 
@@ -148,7 +148,7 @@ bool GameScene::Init(HGE* _hge)
 }
 
 /************************************************************************/
-/* ÇÐ»»µØÍ¼³¡¾° 
+/* ï¿½Ð»ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ 
 /************************************************************************/
 bool GameScene::SwitchScene(const char* lpszmapname)
 {
@@ -157,12 +157,12 @@ bool GameScene::SwitchScene(const char* lpszmapname)
 
 	if(!bSuc)
 	{
-		AfxGetHge()->System_Log("ÔØÈëµØÍ¼[%s]Ê§°Ü", lpszmapname);
+		AfxGetHge()->System_Log("ï¿½ï¿½ï¿½ï¿½ï¿½Í¼[%s]Ê§ï¿½ï¿½", lpszmapname);
 		return false;
 	}
 	else
 	{
-		AfxGetHge()->System_Log("ÔØÈëµØÍ¼[%s]³É¹¦", lpszmapname);
+		AfxGetHge()->System_Log("ï¿½ï¿½ï¿½ï¿½ï¿½Í¼[%s]ï¿½É¹ï¿½", lpszmapname);
 	}
 	
 	//m_pMiniMap->SetMap(lpszmapname);
@@ -212,30 +212,30 @@ bool GameScene::SwitchScene(const char* lpszmapname)
 }
 
 /************************************************************************/
-/* ÇÐ»»µØÍ¼³¡¾° 
+/* ï¿½Ð»ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ 
 /************************************************************************/
 bool GameScene::SwitchScene(DWORD _id)
 {
 	const LuaMapInfo* pMapInfo = GetMapConfigManager().GetLuaMapInfo(_id);
 	if(NULL == pMapInfo)
 	{
-		AfxGetHge()->System_Log("²»´æÔÚµÄµØÍ¼ID[%d]",
+		AfxGetHge()->System_Log("ï¿½ï¿½ï¿½ï¿½ï¿½ÚµÄµï¿½Í¼ID[%d]",
 			_id);
 		return false;
 	}
 	else
 	{
-		AfxGetHge()->System_Log("ÔØÈëµØÍ¼ID[%d]",
+		AfxGetHge()->System_Log("ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ID[%d]",
 			_id);
 		//return true;
 	}
 
-	//	Çå³ýºÚÒ¹±ê¼Ç
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½Ò¹ï¿½ï¿½ï¿½
 	pTheGame->SetDarkMode(0);
-	//	Çå³þµØÍ¼ÏÔÊ¾±ê¼Ç
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½
 	pTheGame->SetShowMapSnap(true);
 
-	//	´¥·¢³¡¾°¸ü»»ÊÂ¼þ
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
 	LuaEvent_SwitchScene evt = {0};
 	evt.nMapId = _id;
 	pTheGame->GetScriptEngine()->DispatchEvent(kLuaEvent_SwitchScene, &evt);
@@ -268,7 +268,7 @@ bool GameScene::LoadProperty(int _id)
 }
 
 /************************************************************************/
-/* ´¦Àí°´¼üÏûÏ¢
+/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 /************************************************************************/
 void GameScene::ProcKeyCmd()
 {
@@ -281,12 +281,12 @@ void GameScene::ProcKeyCmd()
 	bool bShiftState = AfxGetHge()->Input_GetKeyState(HGEK_SHIFT);
 
 	/*
-	*	²âÊÔ
+	*	ï¿½ï¿½ï¿½ï¿½
 	*/
 	if(m_pMainOpt->GetChatDlg()->GetEdit()->IsFocused())
 	{
-		//	ÊäÈë¿òÓÐ½¹µã ²»½ÓÊÜÊäÈë
-		//	´¦ÀíÉÏÏÂ·½Ïò¼ü ¿ì½ÝÊäÈëÀúÊ·¼ÇÂ¼
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê·ï¿½ï¿½Â¼
 		if(!m_xRecentChat.empty())
 		{
 			ProcKeyCmd_ChatRecord();
@@ -300,7 +300,7 @@ void GameScene::ProcKeyCmd()
 	{
 		if(pTheGame->LoadQuestScript())
 		{
-			GameInfoBoardDlg::GetInstance()->InsertBoardMsg(ARGB_WHITE, "ÖØÐÂÔØÈëÈÎÎñÌáÊ¾½Å±¾³É¹¦");
+			GameInfoBoardDlg::GetInstance()->InsertBoardMsg(ARGB_WHITE, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½Å±ï¿½ï¿½É¹ï¿½");
 		}
 	}
 	if(AfxGetHge()->Input_KeyUp(HGEK_W) &&
@@ -308,14 +308,14 @@ void GameScene::ProcKeyCmd()
 	{
 		if(pTheGame->LoadScript(GamePlayer::GetInstance()->GetMapID()))
 		{
-			GameInfoBoardDlg::GetInstance()->InsertBoardMsg(ARGB_WHITE, "ÖØÐÂÔØÈëÈÎÎñ¶Ô»°½Å±¾³É¹¦");
+			GameInfoBoardDlg::GetInstance()->InsertBoardMsg(ARGB_WHITE, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô»ï¿½ï¿½Å±ï¿½ï¿½É¹ï¿½");
 		}
 	}
 	if(AfxGetHge()->Input_KeyUp(HGEK_F) &&
 		bCtrlState)
 	{
 		char szMsg[MAX_PATH] = {0};
-		sprintf(szMsg, "ÄãºÃ£¬ÓÎÏ·¹«¸æ°¡£¡£¡123 XXX fe9s ÕâÊÇµÚXÌõ¹«¸æ¡£¡£Ðü¸¡");
+		sprintf(szMsg, "ï¿½ï¿½Ã£ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½æ°¡ï¿½ï¿½ï¿½ï¿½123 XXX fe9s ï¿½ï¿½ï¿½Çµï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½æ¡£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		m_pFloatDlg->AddFloatMessage(szMsg, ARGB_WHITE, 3);
 	}
 	if(AfxGetHge()->Input_KeyUp(HGEK_K) &&
@@ -581,7 +581,7 @@ void GameScene::ProcKeyCmd()
 			if(BmpTrans2Jpg(szBuf, szJpgFile))
 			{
 				DeleteFile(szBuf);
-				sprintf(szBuf, "ÒÑ±£´æ: snapshot\\%04d%02d%02d%02d%02d.jpg",
+				sprintf(szBuf, "ï¿½Ñ±ï¿½ï¿½ï¿½: snapshot\\%04d%02d%02d%02d%02d.jpg",
 					st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond);
 				//m_pMainOpt->GetChatDlg()->GetHistoryDlg()->InsertChatMessage(szBuf, ARGB_RED);
 				GameInfoBoardDlg::GetInstance()->InsertBoardMsg(ARGB_RED, szBuf);
@@ -589,7 +589,7 @@ void GameScene::ProcKeyCmd()
 		}
 		else
 		{
-			sprintf(szBuf, "ÒÑ±£´æ: snapshot\\%04d%02d%02d%02d%02d.bmp",
+			sprintf(szBuf, "ï¿½Ñ±ï¿½ï¿½ï¿½: snapshot\\%04d%02d%02d%02d%02d.bmp",
 				st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond);
 			//m_pMainOpt->GetChatDlg()->GetHistoryDlg()->InsertChatMessage(szBuf, ARGB_RED);
 			GameInfoBoardDlg::GetInstance()->InsertBoardMsg(ARGB_RED, szBuf);
@@ -597,7 +597,7 @@ void GameScene::ProcKeyCmd()
 		
 	}
 
-	//	Ä§·¨¿ì½Ý¼ü
+	//	Ä§ï¿½ï¿½ï¿½ï¿½Ý¼ï¿½
 	if(!bEditInFocus)
 	{
 		int nMagicCount = GamePlayer::GetInstance()->GetMagicCount();
@@ -661,7 +661,7 @@ void GameScene::ProcKeyCmd_ChatRecord()
 
 bool GameScene::ProcUserCmd(const POINT& _mp)
 {
-	//	¿Í»§ÇøÍâ²»½ÓÊÜÖ¸Áî
+	//	ï¿½Í»ï¿½ï¿½ï¿½ï¿½â²»ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
 	if(!IsInClient())
 	{
 		return false;
@@ -694,7 +694,7 @@ bool GameScene::ProcUserCmd(const POINT& _mp)
 	m_pMainOpt->GetDisplayDlg()->ProcUserCmd(_mp);
 	if(m_pMainOpt->GetDlgControl()->ProcUserCmd(_mp))
 	{
-		//	´°¿ÚÏûÏ¢´¦ÀíÁË ²»·¢ÍùÓÎÏ·²Ù×÷
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½
 		return true;
 	}
 	if(ProcChatClick(_mp))
@@ -714,17 +714,17 @@ bool GameScene::ProcUserCmd(const POINT& _mp)
 
 	if(m_pMainOpt->GetBagDlg2()->IsItemSel())
 	{
-		//	ÓÎÏ·ÇøÓò ÓÐÑ¡Ôñ
+		//	ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ñ¡ï¿½ï¿½
 		return ProcItemClick(ptMouse);
 	}
 
-	//	×´Ì¬´°¿Ú´¦ÀíÁË
+	//	×´Ì¬ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½ï¿½
 	if(m_pStatusDlg->ProcUserCmd(_mp))
 	{
 		return true;
 	}
 
-	//	Ã»ÓÐ´¦Àí Òþ²ØµôÍæ¼ÒÐÅÏ¢¶Ô»°¿ò
+	//	Ã»ï¿½Ð´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Ô»ï¿½ï¿½ï¿½
 	if(AfxGetHge()->Input_KeyUp(HGEK_LBUTTON) ||
 		AfxGetHge()->Input_KeyUp(HGEK_RBUTTON))
 	{
@@ -787,7 +787,7 @@ bool GameScene::ProcItemClick(const POINT& _ptMouse)
 
 bool GameScene::ProcChatClick(const POINT& _ptMouse)
 {
-	//	ÖØÖÃÁÄÌì´°¿Ú×´Ì¬
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì´°ï¿½ï¿½×´Ì¬
 	{
 		m_pMainOpt->GetChatDlg()->GetHistoryDlg()->SetDlgFocus(false);
 		m_pMainOpt->GetChatDlg()->GetEdit()->Update(AfxGetHge()->Timer_GetDelta());
@@ -982,11 +982,11 @@ bool GameScene::ProcChatClick(const POINT& _ptMouse)
 
 void GameScene::ProcGameCmd(const POINT& _mp)
 {
-	//	ÏÂÃæÎªÓÎÏ·ÇøÓòµÄ´¦Àí
-	//	È¡Ïû¸¨ÖúÀ¸µÄÑ¡Ôñ
+	//	ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½
+	//	È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½
 	m_pMainOpt->CancelSel();
 
-	//	ËÀÍö ²»´¦ÀíÏûÏ¢
+	//	ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	if(GamePlayer::GetInstance()->GetStatus() == PST_DEAD)
 	{
 		return;
@@ -1011,7 +1011,7 @@ void GameScene::ProcGameCmd(const POINT& _mp)
 		m_pPlayer->GetStatus() == PST_DEAD ||
 		m_pPlayer->GetStatus() == PST_SK_LEIDIANSHU)
 	{
-		//	¹¥»÷ÖÐ²»ÔÊÐíÒÆ¶¯
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
 		return;
 	}
 
@@ -1023,18 +1023,18 @@ void GameScene::ProcGameCmd(const POINT& _mp)
 	//POINT pt1 = {VIEW_WIDTH / 2, VIEW_HEIGHT / 2};
 	//PLAYER_DIRECTION pd = GetAngle(pt1, _mp);
 
-	//	´¦ÀíÓÃ»§ÊäÈë
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_pPlayer->ProcUserCmd(_mp);
 }
 
 /************************************************************************/
-/* Ñ°ÕÒÊó±êµã´¦µÄÎïÌå
+/* Ñ°ï¿½ï¿½ï¿½ï¿½ï¿½ã´¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 /************************************************************************/
 GameObject* GameScene::FindGameMonsterByArea(float _mx, float _my)
 {
-	//	¿´Ñ¡È¡µÄ¹ÖÎï
+	//	ï¿½ï¿½Ñ¡È¡ï¿½Ä¹ï¿½ï¿½ï¿½
 	//{
-		// ÓÃÓÚÌ½²âÊó±êµãµÄ¹ÖÎï
+		// ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ï¿½
 		GameObject* pObj = NULL;
 		const MemMapObject* pObjs = NULL;
 // 		int nMouseX = (VIEW_WIDTH - 1) / 2;
@@ -1128,7 +1128,7 @@ void GameScene::ProcMagicCmd(GameObject* _obj)
 }
 
 /************************************************************************/
-/* °Ñ´°¿ÚÌáµ½¶¥²ã
+/* ï¿½Ñ´ï¿½ï¿½ï¿½ï¿½áµ½ï¿½ï¿½ï¿½ï¿½
 /************************************************************************/
 void GameScene::BringDlgToTop(RenderObject* _obj)
 {
@@ -1136,7 +1136,7 @@ void GameScene::BringDlgToTop(RenderObject* _obj)
 }
 
 /************************************************************************/
-/* ÊÇ·ñÔÚÓÎÏ·´°ÌåÄÚ
+/* ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 /************************************************************************/
 bool GameScene::IsInClient()
 {
@@ -1148,11 +1148,11 @@ bool GameScene::IsInClient()
 }
 
 /************************************************************************/
-/* Êó±ê×ø±ê×ªÎªÆÁÄ»×ø±ê
+/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªÎªï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½
 /************************************************************************/
 void GameScene::MousePtToScreenPt(const POINT& _src, POINT& _dest)
 {
-	//	ÆÁÄ»ÖÐÐÄµãµÄ×ø±êÊÇÓëÍæ¼Ò×ø±ê¶ÔÓ¦µÄ
+	//	ï¿½ï¿½Ä»ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½
 	int nOffsetX = _src.x - CENTRAL_X;
 	int nOffsetY = _src.y - CENTRAL_Y;
 	nOffsetX += (int)m_pPlayer->GetObjx();
@@ -1182,14 +1182,14 @@ void GameScene::Render()
 
 				if((*iter) == GameMapManager::GetInstance())
 				{
-					//	µØÍ¼»­ºÃºó »­Ä§·¨
+					//	ï¿½ï¿½Í¼ï¿½ï¿½ï¿½Ãºï¿½ ï¿½ï¿½Ä§ï¿½ï¿½
 					//RenderMagic();
 				}
 			}
 		}
 	}
 
-	//	±³°üµÄÑ¡È¡
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡È¡
 	GameBagDlg2* pBagDlg = GameMainOptUI::GetInstance()->GetBagDlg2();
 	const ItemAttrib* pSelItem = pBagDlg->GetSelItem();
 	if(pBagDlg->IsVisible() &&
@@ -1216,7 +1216,7 @@ void GameScene::Render()
 		}
 	}
 
-	//	GM¹«¸æ
+	//	GMï¿½ï¿½ï¿½ï¿½
 	if(!m_xGmMsg.empty())
 	{
 		if(GetTickCount() - m_dwLastShowGmMsgTime > 8000)
@@ -1231,7 +1231,7 @@ void GameScene::Render()
 		}
 	}
 
-	//	Êó±ê
+	//	ï¿½ï¿½ï¿½
 	float fMx, fMy = 0;
 	AfxGetHge()->Input_GetMousePos(&fMx, &fMy);
 	if(GamePlayer::GetInstance()->GetStatus() != PST_DEAD &&
@@ -1313,7 +1313,7 @@ bool GameScene::InsertNewMagic(MagicElement* _pMgc)
 }
 
 /************************************************************************/
-/* ¸üÐÂÏÂ¹ÒµÄRenderObject                                                      
+/* ï¿½ï¿½ï¿½ï¿½ï¿½Â¹Òµï¿½RenderObject                                                      
 /************************************************************************/
 static bool s_bShowDonate = true;
 
@@ -1371,7 +1371,7 @@ void GameScene::OnReceiveNetDelayReply(const PkgPlayerNetDelayAck& ack)
 }
 
 /************************************************************************/
-/* ´¦ÀíµØÍ¼ÎïÌå£¨Íæ¼Ò ¹ÖÎï NPC¸üÐÂ£© ¸üÐÂÓ³Éä±í
+/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½å£¨ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ NPCï¿½ï¿½ï¿½Â£ï¿½ ï¿½ï¿½ï¿½ï¿½Ó³ï¿½ï¿½ï¿½
 /************************************************************************/
 void GameScene::UpdateMapData(float _dt)
 {
@@ -1389,7 +1389,7 @@ void GameScene::UpdateMapData(float _dt)
 	//int nPlayerNum = m_lstPlayers.size();
 	if(!m_lstPlayers.empty())
 	{
-		//	¸üÐÂÎïÌåÐÅÏ¢
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 		PLAYERLIST::const_iterator endIter = m_lstPlayers.end();
 
 		for(PLAYERLIST::const_iterator iter = m_lstPlayers.begin();
@@ -1403,7 +1403,7 @@ void GameScene::UpdateMapData(float _dt)
 				//pObj->UpdateNetPacket();
 				pObj->Update(_dt);
 
-				//	Í¬Ê±Ó³ÉäÈëµØÍ¼Êý¾Ý
+				//	Í¬Ê±Ó³ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½
 				const RECT& rcMap = pMap->GetRect();
 				if(pObj->GetCoordX() >= rcMap.left - MAPOFT_X &&
 					pObj->GetCoordX() <= rcMap.right + MAPOFT_X &&
@@ -1415,7 +1415,7 @@ void GameScene::UpdateMapData(float _dt)
 					{
 						if(m_stMapObjects[pObj->GetCoordX() - rcMap.left + MAPOFT_X][pObj->GetCoordY() - rcMap.top + MAPOFT_Y].pObjects[i] == NULL)
 						{
-							//	Îª¿Õ ¼ÓÈë
+							//	Îªï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 							m_stMapObjects[pObj->GetCoordX() - rcMap.left + MAPOFT_X][pObj->GetCoordY() - rcMap.top + MAPOFT_Y].pObjects[i] = pObj;
 							break;
 						}
@@ -1431,7 +1431,7 @@ void GameScene::UpdateMapData(float _dt)
 	int nItemNum = m_lstGroundItems.size();
 	if(nItemNum > 0)
 	{
-		//	¸üÐÂµØÃæÎïÌåÐÅÏ¢
+		//	ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 		for(GROUNDITEMS::const_iterator iter = m_lstGroundItems.begin();
 			iter != m_lstGroundItems.end();
 			++iter)
@@ -1439,7 +1439,7 @@ void GameScene::UpdateMapData(float _dt)
 			pItem = *iter;
 			if(pItem)
 			{
-				//	Ó³ÉäÈëµØÍ¼Êý¾Ý
+				//	Ó³ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½
 				const RECT& rcMap = pMap->GetRect();
 				wPosX = pItem->wPosX;
 				wPosY = pItem->wPosY;
@@ -1453,13 +1453,13 @@ void GameScene::UpdateMapData(float _dt)
 					{
 						if(m_stMapObjects[wPosX - rcMap.left][wPosY - rcMap.top].pItems[i] == NULL)
 						{
-							//	Îª¿Õ ¼ÓÈë
+							//	Îªï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 							m_stMapObjects[wPosX - rcMap.left][wPosY - rcMap.top].pItems[i] = pItem;
 							break;
 						}
 					}
 
-					//	¼ÓÈëÊó±êÓ³Éä
+					//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó³ï¿½ï¿½
 					if(GetMouseCoordX() == wPosX &&
 						GetMouseCoordY() == wPosY)
 					{
@@ -1528,7 +1528,7 @@ void GameScene::UpdateMapData(float _dt)
 					{
 						if(m_stMapObjects[wPosX - rcMap.left][wPosY - rcMap.top].pMagics[i] == NULL)
 						{
-							//	Îª¿Õ ¼ÓÈë
+							//	Îªï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 							m_stMapObjects[wPosX - rcMap.left][wPosY - rcMap.top].pMagics[i] = pMgc;
 							break;
 						}
@@ -1752,7 +1752,7 @@ bool GameScene::CleanMapDataCell(int _x, int _y, GameObject* _pObj)
 }
 
 /************************************************************************/
-/* ´´½¨¹ÖÎï
+/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 /************************************************************************/
 bool GameScene::CreateMonster(int _x, int _y, OBJECT_TYPE _type, int _id)
 {
@@ -1763,11 +1763,11 @@ bool GameScene::CreateMonster(int _x, int _y, OBJECT_TYPE _type, int _id)
 	{
 	case OBJ_PLAYER:
 		{
-			//	ÆäËüÓÎÏ·Íæ¼Ò
+			//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½
 		}break;
 	case OBJ_MONS:
 		{
-			//	¹ÖÎï
+			//	ï¿½ï¿½ï¿½ï¿½
 			if(_id == MONSTER_CHULONGSHEN)
 			{
 				pObj = new GroundMonster;
@@ -1782,7 +1782,7 @@ bool GameScene::CreateMonster(int _x, int _y, OBJECT_TYPE _type, int _id)
 			}
 			else if(_id == MONSTER_WOMAJIAOZHU)
 			{
-				//	ÎÖÂê½ÌÖ÷
+				//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				pObj = new WoMaJiaoZhuMonster;
 			}
 			else if(_id == MONSTER_KULOU)
@@ -1798,19 +1798,19 @@ bool GameScene::CreateMonster(int _x, int _y, OBJECT_TYPE _type, int _id)
 			pObj->GetAttrib()->id = _id;
 			if(!pObj->LoadProperty(_id))
 			{
-				AfxGetHge()->System_Log("¶ÁÈ¡¹ÖÎï[%d]ÅäÖÃÐÅÏ¢Ê§°Ü",
+				AfxGetHge()->System_Log("ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½[%d]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢Ê§ï¿½ï¿½",
 					_id);
 				bRet = false;
 				SAFE_DELETE(pObj);
 			}
 			else
 			{
-				//	¶ÁÈ¡×ÊÔ´
+				//	ï¿½ï¿½È¡ï¿½ï¿½Ô´
 				GameMonster* pMon = static_cast<GameMonster*>(pObj);
 				int nMonsWilIndex = pMon->GetRenderInfo()->wil + RES_MON1;
 				if(nMonsWilIndex <= RES_MON17)
 				{
-					//	Ìí¼Óµ½¹ÖÎïÁÐ±í
+					//	ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
 					pMon->InitOtherRes(GameResourceManager::GetInstance()->GetTexs(nMonsWilIndex));
 					pObj->SetReallyCoord(_x, _y);
 					pObj->SetStatus(PST_STAND);
@@ -1825,7 +1825,7 @@ bool GameScene::CreateMonster(int _x, int _y, OBJECT_TYPE _type, int _id)
 }
 
 /************************************************************************/
-/* »ñÈ¡Êó±ê×ø±ê´¦¹ÖÎï
+/* ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê´¦ï¿½ï¿½ï¿½ï¿½
 /************************************************************************/
 GameObject* GameScene::GetMonster(int _x, int _y)
 {
@@ -1870,7 +1870,7 @@ const MemMapObject* GameScene::GetMappedObjectsRelative(int _x, int _y)
 }
 
 /************************************************************************/
-/* ´¦Àí·þÎñÆ÷Êý¾Ý°ü                                                      
+/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý°ï¿½                                                      
 /************************************************************************/
 void GameScene::OnMessage(PacketBase* _pPacket)
 {
@@ -1941,7 +1941,7 @@ bool GameScene::SendChatMessage()
 				}
 				else
 				{
-					m_pMainOpt->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("Óï·¨:@move x,y", ARGB_RED);
+					m_pMainOpt->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("ï¿½ï·¨:@move x,y", ARGB_RED);
 				}
 			}
 			else if(0 == strcmp(szCmd, "fly"))
@@ -2446,12 +2446,12 @@ bool GameScene::SendChatMessage()
 			else if(0 == strcmp(szCmd, "rloadri"))
 			{
 				GameInfoManager::GetInstance()->ReloadRenderInfo();
-				m_pMainOpt->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("ÖØ¶Á¹ÖÎï»æÖÆÐÅÏ¢", ARGB_RED);
+				m_pMainOpt->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("ï¿½Ø¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢", ARGB_RED);
 			}
 			else if(0 == strcmp(szCmd, "rloadmri"))
 			{
 				GameInfoManager::GetInstance()->ReloadMagicRenderInfo();
-				m_pMainOpt->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("ÖØ¶ÁÄ§·¨»æÖÆÐÅÏ¢", ARGB_RED);
+				m_pMainOpt->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("ï¿½Ø¶ï¿½Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢", ARGB_RED);
 			}
 			else if(0 == strcmp(szCmd, "createteam"))
 			{
@@ -2554,7 +2554,7 @@ bool GameScene::SendChatMessage()
 				const LuaMapInfo* pInfo = GetMapConfigManager().GetLuaMapInfo(nPlayerMapID);
 
 				if (NULL == pInfo) {
-					strcpy(szMapInfo, "Î´ÕÒµ½µØÍ¼»ù´¡ÐÅÏ¢");
+					strcpy(szMapInfo, "Î´ï¿½Òµï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢");
 				} else {
 					sprintf(szMapInfo, "MapType[%d] ResID[%d] MapResFile[%s] MapChName[%s]",
 						pInfo->nMapType, pInfo->nResID, pInfo->szMapResFile, pInfo->szMapChName);
@@ -2595,7 +2595,7 @@ bool GameScene::SendChatMessage()
 			}
 			else
 			{
-				m_pMainOpt->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[´íÎó]ÎÞÐ§Ö¸Áî", ARGB_RED);
+				m_pMainOpt->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[ï¿½ï¿½ï¿½ï¿½]ï¿½ï¿½Ð§Ö¸ï¿½ï¿½", ARGB_RED);
 			}
 		}
 		else if(szText[0] == '!')
@@ -2631,7 +2631,7 @@ bool GameScene::SendChatMessage()
 		{
 			if(strlen(szText) > 56)
 			{
-				m_pMainOpt->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[´íÎó]·¢ÑÔÄÚÈÝ¹ý³¤", ARGB_RED);
+				m_pMainOpt->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[ï¿½ï¿½ï¿½ï¿½]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½", ARGB_RED);
 			}
 			else
 			{
@@ -2655,7 +2655,7 @@ bool GameScene::SendChatMessage()
 		{
 			if(strlen(szText) > 56)
 			{
-				m_pMainOpt->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[´íÎó]·¢ÑÔÄÚÈÝ¹ý³¤", ARGB_RED);
+				m_pMainOpt->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[ï¿½ï¿½ï¿½ï¿½]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½", ARGB_RED);
 			}
 			else
 			{
@@ -2670,11 +2670,11 @@ bool GameScene::SendChatMessage()
 					if(0 == nSendLen ||
 						nSendLen > 19)
 					{
-						m_pMainOpt->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[´íÎó]ÎÞÐ§µÄÍæ¼ÒÃû", ARGB_RED);
+						m_pMainOpt->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[ï¿½ï¿½ï¿½ï¿½]ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", ARGB_RED);
 					}
 					else if(0 == nMsgLen)
 					{
-						m_pMainOpt->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[´íÎó]ÇëÊäÈë·¢ËÍÐÅÏ¢", ARGB_RED);
+						m_pMainOpt->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[ï¿½ï¿½ï¿½ï¿½]ï¿½ï¿½ï¿½ï¿½ï¿½ë·¢ï¿½ï¿½ï¿½ï¿½Ï¢", ARGB_RED);
 					}
 					else
 					{
@@ -2697,7 +2697,7 @@ bool GameScene::SendChatMessage()
 #ifdef _NET_GAME_
 			if(strlen(szText) > 56)
 			{
-				m_pMainOpt->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[´íÎó]·¢ÑÔÄÚÈÝ¹ý³¤", ARGB_RED);
+				m_pMainOpt->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[ï¿½ï¿½ï¿½ï¿½]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½", ARGB_RED);
 			}
 			else
 			{
@@ -2833,7 +2833,7 @@ GameMonster* GameScene::NewMonsterByID(int _nID)
 	else if(uMonsID == 63 ||
 		uMonsID == 130)
 	{
-		//	ºçÄ¤½ÌÖ÷
+		//	ï¿½ï¿½Ä¤ï¿½ï¿½ï¿½ï¿½
 		pNewMonster = new WoMaJiaoZhuMonster;
 	}
 	else if(uMonsID == 66)
@@ -2842,153 +2842,153 @@ GameMonster* GameScene::NewMonsterByID(int _nID)
 	}
 	else if(uMonsID == 17)
 	{
-		//	ºçÄ§Ð«ÎÀ
+		//	ï¿½ï¿½Ä§Ð«ï¿½ï¿½
 		pNewMonster = new WoMaJiaoZhuMonster;
 	}
 	else if(uMonsID == 94)
 	{
-		//	ºüÀêÕ½Ê¿
+		//	ï¿½ï¿½ï¿½ï¿½Õ½Ê¿
 		pNewMonster = new WoMaJiaoZhuMonster;
 	}
 	else if(uMonsID == 95)
 	{
-		//	³àºü
+		//	ï¿½ï¿½ï¿½
 		pNewMonster = new ChiHuMonster;
 	}
 	else if(uMonsID == 96)
 	{
-		//	ËØºü
+		//	ï¿½Øºï¿½
 		pNewMonster = new SuHuMonster;
 	}
 	else if(uMonsID == 97)
 	{
-		//	±ù¹¬ÊÌÕß
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		pNewMonster = new IceServantMonster;
 	}
 	else if(uMonsID == 45)
 	{
-		//	µç½©Ê¬
+		//	ï¿½ç½©Ê¬
 		pNewMonster = new Self16DrtMonster;
 	}
 	else if(uMonsID == 72 ||
 		uMonsID == 155)
 	{
-		//	Å£Ä§·¨Ê¦
+		//	Å£Ä§ï¿½ï¿½Ê¦
 		pNewMonster = new Self16DrtMonster;
 	}
 	else if(uMonsID == 85)
 	{
-		//	Ä§ÁúÉäÊÖ
+		//	Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		pNewMonster = new Way16DrtMonster;
 	}
 	else if(uMonsID == 46)
 	{
-		//	×æÂê¹­¼ýÊÖ
+		//	ï¿½ï¿½ï¿½ê¹­ï¿½ï¿½ï¿½ï¿½
 		pNewMonster = new Way16DrtMonster;
 	}
 	else if(uMonsID == 47 ||
 		uMonsID == 150)
 	{
-		//	°µÖ®×æÂê¹­¼ýÊÖ
+		//	ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ê¹­ï¿½ï¿½ï¿½ï¿½
 		pNewMonster = new Way16DrtMonster;
 	}
 	else if(uMonsID == 51)
 	{
-		//	³àÔÂ¶ñÄ§
+		//	ï¿½ï¿½ï¿½Â¶ï¿½Ä§
 		pNewMonster = new ChiYueEMoMonster;
 	}
 	else if(uMonsID == 74)
 	{
-		//	·âÄ§Ê÷Ñý
+		//	ï¿½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½
 		pNewMonster = new ChiYueEMoMonster;
 	}
 	else if(uMonsID == 92 ||
 		uMonsID == 142)
 	{
-		//	Ä§ÁúÊ÷Ñý
+		//	Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		pNewMonster = new ChiYueEMoMonster;
 	}
 	else if(uMonsID == 90 ||
 		uMonsID == 91)
 	{
-		//	Ä§ÁúÑ×Öù ±ùÖù
+		//	Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		pNewMonster = new MoLongStone;
 	}
 	else if(uMonsID == 86 ||
 		uMonsID == 141)
 	{
-		//	Ä§Áú½ÌÖ÷
+		//	Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		pNewMonster = new MoLongBossMonster;
 	}
 	else if(uMonsID == 52)
 	{
-		//	»ÃÓ°Ö©Öë
+		//	ï¿½ï¿½Ó°Ö©ï¿½ï¿½
 		pNewMonster = new ShadowSpiderMonster;
 	}
 	else if(uMonsID == 98)
 	{
-		//	Ìì½çÊØ»¤Éñ
+		//	ï¿½ï¿½ï¿½ï¿½Ø»ï¿½ï¿½ï¿½
 		pNewMonster = new FlyStatue;
 	}
 	else if(uMonsID == 100)
 	{
-		//	ÈÛÑÒ¶ñÄ§
+		//	ï¿½ï¿½ï¿½Ò¶ï¿½Ä§
 		pNewMonster = new FlameSummonerMonster;
 	}
 	else if(uMonsID == 101)
 	{
-		//	ÈÛÑÒµØÓüDC
+		//	ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½DC
 		pNewMonster = new FlameDCMonster;
 	}
 	else if(uMonsID == 102)
 	{
-		//	ÈÛÑÒµØÓüMC
+		//	ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½MC
 		pNewMonster = new FlameMCMonster;
 	}
 	else if(uMonsID == 103)
 	{
-		//	º®±ù¶·Ê¿
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¿
 		pNewMonster = new IceSoldierMonster;
 	}
 	else if(uMonsID == 104)
 	{
-		//	º®±ù»¤ÎÀ
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		pNewMonster = new IceGuardMonster;
 	}
 	else if(uMonsID == 105)
 	{
-		//	º®±ùÕ½Éñ
+		//	ï¿½ï¿½ï¿½ï¿½Õ½ï¿½ï¿½
 		pNewMonster = new IceKingOfWarMonster;
 	}
 	else if(uMonsID == 106)
 	{
-		//	º®±ùÄ§Íõ
+		//	ï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½
 		pNewMonster = new IceKingMonster;
 	}
 	else if(uMonsID == 111)
 	{
-		//	º®±ùÒ°ÈË
+		//	ï¿½ï¿½ï¿½ï¿½Ò°ï¿½ï¿½
 		pNewMonster = new IceSavageMonster;
 	}
 	else if(uMonsID == 112)
 	{
-		//	º®±ùÊØ»¤
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½Ø»ï¿½
 		pNewMonster = new IceDefenderMonster;
 	}
 	else if(uMonsID == 114)
 	{
-		//	ÑÖÄ§½«¾ü
+		//	ï¿½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½
 		pNewMonster = new YamaWatcherMonster;
 	}
 	else if(uMonsID == 118)
 	{
-		//	À¶ÇèÊÈÑªÕß
+		//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½
 		pNewMonster = new BlueGhastMonster;
 	}
 	else if(uMonsID == 119 ||
 		uMonsID == 120)
 	{
-		//	µ¶·æÕ½Ê¿
+		//	ï¿½ï¿½ï¿½ï¿½Õ½Ê¿
 		pNewMonster = new ManWormMonster;
 	}
 	else if(uMonsID == 121)
@@ -3104,13 +3104,13 @@ bool GameScene::InsertNewObject(const PkgNewNPCNot& not)
 			}
 			else
 			{
-				AfxGetHge()->System_Log("¶ÁÈ¡¹ÖÎï[%d]ÊôÐÔÐÅÏ¢Ê§°Ü", not.uMonsID);
+				AfxGetHge()->System_Log("ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½[%d]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢Ê§ï¿½ï¿½", not.uMonsID);
 				delete pNewNPC;
 			}
 		}
 		else
 		{
-			AfxGetHge()->System_Log("HandleID³åÍ»£¬ÎÞ·¨×¢²á½øÐÐ´¦Àí");
+			AfxGetHge()->System_Log("HandleIDï¿½ï¿½Í»ï¿½ï¿½ï¿½Þ·ï¿½×¢ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½");
 			delete pNewNPC;
 		}
 	}
@@ -3163,13 +3163,13 @@ bool GameScene::InsertNewObject(const PkgNewNPCNot& not)
 			}
 			else
 			{
-				AfxGetHge()->System_Log("¶ÁÈ¡¹ÖÎï[%d]ÊôÐÔÐÅÏ¢Ê§°Ü", not.uMonsID);
+				AfxGetHge()->System_Log("ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½[%d]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢Ê§ï¿½ï¿½", not.uMonsID);
 				delete pNewMonster;
 			}
 		}
 		else
 		{
-			AfxGetHge()->System_Log("HandleID³åÍ»£¬ÎÞ·¨×¢²á½øÐÐ´¦Àí");
+			AfxGetHge()->System_Log("HandleIDï¿½ï¿½Í»ï¿½ï¿½ï¿½Þ·ï¿½×¢ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½");
 			delete pNewMonster;
 		}
 	}
@@ -3205,12 +3205,12 @@ bool GameScene::InsertNewObject(const PkgNewPlayerNot& not)
 
 			if(!not.xSkillInfo.empty())
 			{
-				//	²åÈë¼¼ÄÜÐÅÏ¢
+				//	ï¿½ï¿½ï¿½ë¼¼ï¿½ï¿½ï¿½ï¿½Ï¢
 				DWORD dwMgcID = 0;
 				DWORD dwLevel = 0;
 				int nIndex = 0;
 
-				for(list<unsigned int>::const_iterator begIter = not.xSkillInfo.begin();
+				for(std::vector<int>::const_iterator begIter = not.xSkillInfo.begin();
 					begIter != not.xSkillInfo.end();
 					++begIter)
 				{
@@ -3413,7 +3413,7 @@ void GameScene::PlayTransAnimation(int _nId, int _nX, int _nY)
 }
 
 void GameScene::OnAssistWndClose() {
-	GetMainOpt()->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[ÌáÊ¾]ÄúÒÑ¹Ø±Õ¸¨Öú´°¿Ú£¬ÇëÊäÈë @assist À´ÔÙ´Î´ò¿ª´°¿Ú", ARGB_RED);
+	GetMainOpt()->GetChatDlg()->GetHistoryDlg()->InsertChatMessage("[ï¿½ï¿½Ê¾]ï¿½ï¿½ï¿½Ñ¹Ø±Õ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ @assist ï¿½ï¿½ï¿½Ù´Î´ò¿ª´ï¿½ï¿½ï¿½", ARGB_RED);
 }
 
 
@@ -3427,7 +3427,7 @@ void GameScene::InsertBoardMsg()
 	
 	/*if(AfxGetHge()->Input_KeyUp(HGEK_ENTER))
 	{
-		m_pMsgBoard->InsertBoardMsg("²âÊÔµÚ%dÌõÐÅÏ¢", ++nLine);
+		m_pMsgBoard->InsertBoardMsg("ï¿½ï¿½ï¿½Ôµï¿½%dï¿½ï¿½ï¿½ï¿½Ï¢", ++nLine);
 	}*/
 }
 #endif
